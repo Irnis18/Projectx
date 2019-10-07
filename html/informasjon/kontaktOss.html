@@ -11,6 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../../assets/css/bootswatch/bootstrap.min.css" />
   <link rel="stylesheet" href="../../assets/css/informasjon/index.css" />
+  <link rel="stylesheet" href="../../assets/css/informasjon/kontaktOss.css" />
   <link rel="stylesheet" href="../../assets/css/index.css" />
 
   <title>Kontakt oss</title>
@@ -56,15 +57,36 @@
     </nav>
   </header>
   <main role="main" class="container">
-    <!-- Fjern dette når du begynner, altså <p> taggen, du skal jobbe inni denne main taggen-->
-    <p>kontakt oss siden</p>
+    <p>
+
+      <h1> Kontakt oss </h1>
+      <br>
+      <br>
+<div class="form-group">
+<form id="mailForm" method="post">
+    <label>E-Post adresse</label>
+    <input type="text" class="form-control" id="mailAdr" placeholder="Skriv inn E-Post adressen din">
+      <br><br>
+    <label>Navnet ditt</label>
+    <input type="text" class="form-control" id="mailNavn" placeholder="Navn">
+      <br><br>
+    <label>Emne</label>
+    <input type="text" class="form-control" id="mailEmne" placeholder="Hva gjelder henvendelsen?"></input>
+      <br><br>
+    <label>Melding</label>
+    <textarea type="text" class="form-control" id="mailMld" placeholder="Skriv inn din melding til oss"></textarea>
+      <br><br>
+    <input type="button" class="btn btn-primary" id="mailBtn"  value="Send"></input>
+</form>
+</div>
+
+    </p>
   </main>
   <footer class="py-1 fixed-bottom info-footer-color">
     <div class="container text-center">
       <small>Copyright &copy; Retro</small>
     </div>
   </footer>
-
+<script src="..\..\js\informasjon\kontaktOss.js"></script>
 </body>
-
 </html>
