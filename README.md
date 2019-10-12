@@ -7,10 +7,13 @@ MAC: [Her](https://treehouse.github.io/installation-guides/mac/node-mac.html) er
 # Start serveren
 
 For å starte serveren må en bruke commando linjen for å komme seg til riktig mappe. så den mappen en vil være i er **Projectx**
+
 Eksempel:
+
 ![Bilde av terminalen/consollen på mac der vi ser at vi er i riktig mappe](/assets/img/terminal.png)
 
-** Inn på consollen/terminalen gjør følgende for å starte serveren **
+**Inn på consollen/terminalen gjør følgende for å starte serveren**
+
 _altså inn på mappen projectx_
 
 - npm install
