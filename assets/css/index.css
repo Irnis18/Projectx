@@ -1,3 +1,7 @@
+body {
+  background: #f1f1f1
+}
+
 .main-navbar-custom {
   background-color: transparent !important;
 }
@@ -49,4 +53,8 @@ a:active {
 .info-footer-color {
   margin-top: 100px;
   background-color: rgb(238, 178, 27) !important;
+}
+
+.list-group-item {
+  background: #f1f1f1
 }
