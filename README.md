@@ -1,5 +1,15 @@
 # Velkommen til Retro
 
+Prosjektet er delt i to
+
+1. Nettside
+
+- under mappen nettsider finner du alle sidene som bygger på informasjons sidene. utenfor mappene er det en index.html fil, dette er startsiden for nettsiden med alle informasjons sidene og link til spill siden
+
+2. Spill
+
+- Under mappen spill finner du alt som har med selve spillet å gjøre.
+
 Hei. For å starte spillet er en nødt til å ha installert Nodejs og NPM, [Nodejs](https://nodejs.org/en/download/),
 WINDOWS: [Her](https://blog.teamtreehouse.com/install-node-js-npm-windows) er en toturial for hvordan du kan laste ned node og npm.
 MAC: [Her](https://treehouse.github.io/installation-guides/mac/node-mac.html) er en toturial for hvordan du kan laste ned node og npm.
