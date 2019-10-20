@@ -31,7 +31,7 @@ function preload() {
   this.load.image('forest', '../../assets/spill/img/maps/map4.png');
   this.load.image('ground', '../../assets/spill/img/platform/platform.png');
   this.load.image('consoll', '../../assets/spill/img/consolle-small.png');
-  this.load.image('bomb', '../../assets/spill//bomb.png');
+  this.load.image('bomb', '../../assets/spill/img/bomb.png');
   this.load.spritesheet('dude', '../../assets/spill/img/dude2.png', {
     frameWidth: 31,
     frameHeight: 48
