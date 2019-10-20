@@ -4,8 +4,11 @@
   margin-bottom: 23px
 }
 
-.main-content-allignment {
-  margin-top: 30%;
+.main-game-page {
+  position: absolute;
+  height: 85%;
+  width: 100%;
+
 }
 
 .button-rules-style {
@@ -24,4 +27,9 @@
 .button-rules-style a {
   margin-left: 10px;
   margin-right: 10px
+}
+
+.list-group li {
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
