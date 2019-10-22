@@ -1,0 +1,60 @@
+body {
+  background: #f1f1f1
+}
+
+.main-navbar-custom {
+  background-color: transparent !important;
+}
+
+.button-navbar-custom {
+  margin-top: 21px;
+
+  background: #28323792
+}
+
+.navbar-custom {
+  margin-top: 20.515px;
+  margin-right: 60px;
+  border-radius: 10%;
+  background: #28323792
+}
+
+.custom-logo-css {
+  margin-left: 60px
+}
+
+.custom-dropdown-css {
+  left: -46px !important;
+}
+
+.custom-dropdown-css a {
+  line-height: 30px;
+}
+
+.active {
+  background: rgb(242, 175, 0) !important;
+  color: #ffffff !important;
+}
+
+a:active {
+  background: rgb(238, 178, 27) !important;
+  color: #65656592 !important;
+}
+
+.custom-margin-for-titles {
+  margin-top: 60px;
+  margin-bottom: 50px
+}
+
+.navigation-bar-color {
+  background-color: rgb(241, 176, 27) !important
+}
+
+.info-footer-color {
+  margin-top: 100px;
+  background-color: rgb(238, 178, 27) !important;
+}
+
+.list-group-item {
+  background: #f1f1f1
+}
