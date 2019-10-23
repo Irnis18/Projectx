@@ -2,7 +2,7 @@
   "name": "spill",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "webpack --config ./webpack-prod.js ",
     "start": "webpack-dev-server --config ./webpack-base.js --open"
