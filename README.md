@@ -2,7 +2,7 @@
 
 Prosjektet er delt i to "del" prosjekt.
 
-DU må ha nodejs installert på pc'n din. Dette har blitt gjort i leksjon 9 i grunnleggende programmering. Dersom en ikkje har fått installert Node.js og pakkebehndleren npm. Så er det anbefalt å lese gjennom leksjon 9 i grunnleggende programmering der en får viktig informasjon om pakkebehandlere og Node.js. [LES LEKSJON 9 HER FØR DU FORTSETTER](https://ntnu.blackboard.com/webapps/blackboard/execute/content/blankPage?cmd=view&content_id=_808534_1&course_id=_19845_1)
+DU må ha nodejs installert på pc'n din. Dette har blitt gjort i leksjon 9 i grunnleggende programmering. Dersom en ikke har fått installert Node.js og pakkebehndleren npm. Så er det anbefalt å lese gjennom leksjon 9 i grunnleggende programmering der en får viktig informasjon om pakkebehandlere og Node.js. [LES LEKSJON 9 HER FØR DU FORTSETTER](https://ntnu.blackboard.com/webapps/blackboard/execute/content/blankPage?cmd=view&content_id=_808534_1&course_id=_19845_1)
 _eventuelt: 
   For å starte spillet og nettsiden er en nødt til å ha installert Nodejs og NPM, [Nodejs](https://nodejs.org/en/download/),
   WINDOWS: [Her](https://blog.teamtreehouse.com/install-node-js-npm-windows) er en toturial for hvordan du kan laste ned node   og npm.
@@ -10,7 +10,7 @@ _eventuelt:
   
 **1. Nettside**
 
-- under mappen nettsider finner du alle sidene som bygger på informasjons sidene. utenfor mappene er det en index.html fil, dette er startsiden for nettsiden med alle informasjons sidene og link til spill siden. For å starte opp prosjektet lokalt må en komme seg til mappen `projectx` i terminalen dette gjør en ved å opne terminalen eller bash og gjøre følgende kommando: 
+- under mappen nettsider finner du alle sidene som bygger på informasjons sidene. utenfor mappene er det en index.html fil, dette er startsiden for nettsiden med alle informasjons sidene og link til spill siden. For å starte opp prosjektet lokalt(_lokalt vil si på din pc_) må en komme seg til mappen `projectx` i terminalen dette gjør en ved å opne terminalen eller bash og gjøre følgende kommando: 
 `cd projectx` --> OBS! når du opner terminal vinduet så må du komme deg til mappen der du har lagt prosjektet ditt. La oss ta for oss et scenario: du har projectx mappen i webteknikker mappen din som ligger i dokument mappen din for å komme til denne mappen må du gjøre følgende: `cd dokument/webteknikker/projectx`, Det er viktig at du gjør dette basert på kor på pcn du har lagra projectx mappen. 
 
 når du er inn på mappen `Irniss-MacBook-Pro:projectx irnis$ ` så må du gjøre følgende i terminalen/bash:
@@ -26,7 +26,8 @@ Dette vil da opne opp nettsiden i en nettleser og du kan gjøre endringer i kode
   2. `npm install`
   3. `npm start`
   
-dette vil dermed opne en nettleser der spillet vil kjøre. Gjør dere litt mer kjent med koden også er det bare å stille spørsmål til ting og eventuelt google dersom det er noe som dere prøver å gjøre men ikke får til. Helst spørr dersom det er noe angående koden som allerede er der: Det som kan ignorerast følgende filer:
+dette vil dermed opne en nettleser der spillet vil kjøre. Gjør dere litt mer kjent med koden også er det bare å stille spørsmål til ting og eventuelt google dersom det er noe som dere prøver å gjøre men ikke får til. Helst spørr dersom det er noe angående koden som allerede er der: Det som kan ignorerest er følgende filer:
+
 ![bilde av filer](/nettside/assets/img/ignorer.png) (_dette er bare litt konfigurasjon for spillet_)
 
 Etter at en har sett litt mer på koden kan det være mulig å teste ut litt på gameScene.js: dette er under mappen `/spill/src/scenes/gameScene.js` --> dersom det er spørsmål angående dette er det bare å ta kontakt --> her er all logikken for sjølve spillet. 
