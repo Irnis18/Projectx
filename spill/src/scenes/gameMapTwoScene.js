@@ -9,13 +9,13 @@ var score = 0;
 var gameOver = false;
 var scoreText;
 
-export default class GameScene extends Phaser.Scene {
+export default class GameMapTwoScene extends Phaser.Scene {
   constructor() {
-    super('Game');
+    super('GameMapTwo');
   }
 
   preload() {
-    this.load.image('forest', 'assets/img/maps/map4.png');
+    this.load.image('forest', 'assets/img/maps/map2.png');
     this.load.image('ground', 'assets/img/platform/platform.png');
     this.load.image('consoll', 'assets/img/consolle-small.png');
     this.load.image('bomb', 'assets/img/bomb.png');

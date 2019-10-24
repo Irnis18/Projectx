@@ -2,54 +2,64 @@ import 'phaser';
 import config from '../config/config';
 import Button from '../objects/button';
 
-export default class TitleScene extends Phaser.Scene {
+export default class LevelSelectScene extends Phaser.Scene {
   constructor() {
-    super('Title');
+    super('LevelSelect');
   }
 
   create() {
     // Game
-    this.gameButton = new Button(
+    this.gameMapOneButton = new Button(
       this,
       config.width / 2,
       config.height / 2 - 110,
       'menuButtonOne',
       'menuButtonTwo',
-      'Play',
+      'Map 1',
       'GameMapOne'
     );
 
     //Levels
-    this.levelSelectButton = new Button(
+    this.gameMapTwoButton = new Button(
       this,
       config.width / 2,
       config.height / 2 - 40,
       'menuButtonOne',
       'menuButtonTwo',
-      'Levels',
-      'LevelSelect'
+      'Map 2',
+      'GameMapTwo'
     );
 
     // Options
-    this.optionsButton = new Button(
+    this.gameMapThreeButton = new Button(
       this,
       config.width / 2,
       config.height / 2 + 40,
       'menuButtonOne',
       'menuButtonTwo',
-      'Options',
-      'Options'
+      'Map 3',
+      'GameMapThree'
     );
 
     // Credits
-    this.creditsButton = new Button(
+    this.gameMapFourButton = new Button(
       this,
       config.width / 2,
       config.height / 2 + 110,
       'menuButtonOne',
       'menuButtonTwo',
-      'Credits',
-      'Credits'
+      'Map 4',
+      'GameMapFour'
+    );
+
+    this.gameMapFourButton = new Button(
+      this,
+      config.width / 5,
+      config.height - 550,
+      'menuButtonOne',
+      'menuButtonTwo',
+      'Menu',
+      'Title'
     );
 
     this.model = this.sys.game.globals.model;
