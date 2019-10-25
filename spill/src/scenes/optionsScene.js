@@ -1,5 +1,6 @@
 import 'phaser';
 import Button from '../objects/button';
+import AlignGrid from '../objects/alignGrid';
 
 export default class OptionsScene extends Phaser.Scene {
   constructor() {
@@ -7,6 +8,12 @@ export default class OptionsScene extends Phaser.Scene {
   }
 
   create() {
+    this.optionsScreneGrid = new AlignGrid({
+      scene: this,
+      cols: 9,
+      rows: 9
+    });
+
     this.model = this.sys.game.globals.model;
 
     this.text = this.add.text(300, 100, 'Options', { fontSize: 40 });
@@ -37,13 +44,12 @@ export default class OptionsScene extends Phaser.Scene {
 
     this.menuButton = new Button(
       this,
-      400,
-      500,
       'menuButtonOne',
       'menuButtonTwo',
       'Menu',
       'Title'
     );
+    this.optionsScreneGrid.placeAtIndex(67, this.menuButton);
 
     this.updateAudio();
   }

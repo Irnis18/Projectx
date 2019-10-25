@@ -2,9 +2,21 @@ import 'phaser';
 
 export default {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  parent: 'game-content',
+  scale: {
+    mode: Phaser.DOM.FIT,
+    autoCenter: Phaser.DOM.CENTER_BOTH,
+    width: 800,
+    height: 600,
+    min: {
+      widt: 300,
+      height: 400
+    },
+    max: {
+      width: 800,
+      height: 600
+    }
+  },
+  autoRound: false,
   physics: {
     default: 'arcade',
     arcade: {

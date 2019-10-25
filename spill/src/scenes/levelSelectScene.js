@@ -1,66 +1,67 @@
 import 'phaser';
 import config from '../config/config';
 import Button from '../objects/button';
-
+import AlignGrid from '../objects/alignGrid';
 export default class LevelSelectScene extends Phaser.Scene {
   constructor() {
     super('LevelSelect');
   }
 
   create() {
+    this.levelSelectSceneGrid = new AlignGrid({
+      scene: this,
+      cols: 9,
+      rows: 11
+    });
+
     // Game
     this.gameMapOneButton = new Button(
       this,
-      config.width / 2,
-      config.height / 2 - 110,
       'menuButtonOne',
       'menuButtonTwo',
       'Map 1',
       'GameMapOne'
     );
+    this.levelSelectSceneGrid.placeAtIndex(22, this.gameMapOneButton);
 
     //Levels
     this.gameMapTwoButton = new Button(
       this,
-      config.width / 2,
-      config.height / 2 - 40,
       'menuButtonOne',
       'menuButtonTwo',
       'Map 2',
       'GameMapTwo'
     );
+    this.levelSelectSceneGrid.placeAtIndex(40, this.gameMapTwoButton);
 
     // Options
     this.gameMapThreeButton = new Button(
       this,
-      config.width / 2,
-      config.height / 2 + 40,
       'menuButtonOne',
       'menuButtonTwo',
       'Map 3',
       'GameMapThree'
     );
+    this.levelSelectSceneGrid.placeAtIndex(58, this.gameMapThreeButton);
 
     // Credits
     this.gameMapFourButton = new Button(
       this,
-      config.width / 2,
-      config.height / 2 + 110,
       'menuButtonOne',
       'menuButtonTwo',
       'Map 4',
       'GameMapFour'
     );
+    this.levelSelectSceneGrid.placeAtIndex(76, this.gameMapFourButton);
 
-    this.gameMapFourButton = new Button(
+    this.returnHomeButton = new Button(
       this,
-      config.width / 5,
-      config.height - 550,
       'menuButtonOne',
       'menuButtonTwo',
       'Menu',
       'Title'
     );
+    this.levelSelectSceneGrid.placeAtIndex(1, this.returnHomeButton);
 
     this.model = this.sys.game.globals.model;
     if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {

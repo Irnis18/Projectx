@@ -20,7 +20,7 @@ export default class GameMapOneScene extends Phaser.Scene {
     this.load.image('consoll', 'assets/img/consolle-small.png');
     this.load.image('bomb', 'assets/img/bomb.png');
     this.load.spritesheet('dude', 'assets/img/dude2.png', {
-      frameWidth: 31,
+      frameWidth: 32,
       frameHeight: 48
     });
   }

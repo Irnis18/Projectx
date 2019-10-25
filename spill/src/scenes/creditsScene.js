@@ -21,10 +21,10 @@ export default class CreditsScene extends Phaser.Scene {
       }
     );
     this.zone = this.add.zone(
-      config.width / 2,
-      config.height / 2,
-      config.width,
-      config.height
+      config.scale.width / 2,
+      config.scale.height / 2,
+      config.scale.width,
+      config.scale.height
     );
 
     Phaser.Display.Align.In.Center(this.creditsText, this.zone);
