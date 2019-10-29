@@ -1,8 +1,8 @@
-import 'phaser';
+import "phaser";
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor() {
-    super('Preloader');
+    super("Preloader");
   }
 
   init() {
@@ -11,7 +11,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
   preload() {
     // add logo image
-    this.add.image(400, 200, 'logo');
+    this.add.image(400, 200, "logo");
 
     // display progress bar
     var progressBar = this.add.graphics();
@@ -24,10 +24,10 @@ export default class PreloaderScene extends Phaser.Scene {
     var loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
-      text: 'Loading...',
+      text: "Loading...",
       style: {
-        font: '20px monospace',
-        fill: '#ffffff'
+        font: "20px monospace",
+        fill: "#ffffff"
       }
     });
     loadingText.setOrigin(0.5, 0.5);
@@ -35,10 +35,10 @@ export default class PreloaderScene extends Phaser.Scene {
     var percentText = this.make.text({
       x: width / 2,
       y: height / 2 - 5,
-      text: '0%',
+      text: "0%",
       style: {
-        font: '18px monospace',
-        fill: '#ffffff'
+        font: "18px monospace",
+        fill: "#ffffff"
       }
     });
     percentText.setOrigin(0.5, 0.5);
@@ -46,30 +46,30 @@ export default class PreloaderScene extends Phaser.Scene {
     var assetText = this.make.text({
       x: width / 2,
       y: height / 2 + 50,
-      text: '',
+      text: "",
       style: {
-        font: '18px monospace',
-        fill: '#ffffff'
+        font: "18px monospace",
+        fill: "#ffffff"
       }
     });
     assetText.setOrigin(0.5, 0.5);
 
     // update progress bar
-    this.load.on('progress', function(value) {
-      percentText.setText(parseInt(value * 100) + '%');
+    this.load.on("progress", function(value) {
+      percentText.setText(parseInt(value * 100) + "%");
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
       progressBar.fillRect(250, 280, 300 * value, 30);
     });
 
     // update file progress text
-    this.load.on('fileprogress', function(file) {
-      assetText.setText('Loading asset: ' + file.key);
+    this.load.on("fileprogress", function(file) {
+      assetText.setText("Loading asset: " + file.key);
     });
 
     // remove progress bar when complete
     this.load.on(
-      'complete',
+      "complete",
       function() {
         progressBar.destroy();
         progressBox.destroy();
@@ -83,20 +83,20 @@ export default class PreloaderScene extends Phaser.Scene {
     this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
 
     // load assets needed in our game
-    this.load.image('menuButtonOne', 'assets/img/ui/buttons/1/3.png');
-    this.load.image('menuButtonTwo', 'assets/img/ui/buttons/1/5.png');
-    this.load.image('backButton', 'assets/img/back_button.png');
-    this.load.image('backButtonDark', 'assets/img/back_button_dark.png');
-    this.load.image('box', 'assets/img/grey_box.png');
-    this.load.image('checkedBox', 'assets/img/blue_boxCheckmark.png');
-    this.load.audio('bgMusic', ['assets/img/TownTheme.mp3']);
+    this.load.image("menuButtonOne", "assets/img/ui/buttons/1/3.png");
+    this.load.image("menuButtonTwo", "assets/img/ui/buttons/1/5.png");
+    this.load.image("backButton", "assets/img/back_button.png");
+    this.load.image("backButtonDark", "assets/img/back_button_dark.png");
+    this.load.image("box", "assets/img/grey_box.png");
+    this.load.image("checkedBox", "assets/img/blue_boxCheckmark.png");
+    this.load.audio("bgMusic", ["assets/img/TownTheme.mp3"]);
   }
 
   ready() {
-    this.scene.start('Title');
+    this.scene.start("Title");
     this.readyCount++;
     if (this.readyCount === 2) {
-      this.scene.start('Title');
+      this.scene.start("Title");
     }
   }
 }
