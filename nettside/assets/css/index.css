@@ -53,6 +53,10 @@ a:active {
 .info-footer-color {
   margin-top: 100px;
   background-color: rgb(238, 178, 27) !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
 }
 
 .list-group-item {

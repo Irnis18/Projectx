@@ -56,12 +56,14 @@ export default class LevelSelectScene extends Phaser.Scene {
 
     this.returnHomeButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
-      'Menu',
+      'backButton',
+      'backButtonDark',
+      'Back',
       'Title'
     );
-    this.levelSelectSceneGrid.placeAtIndex(1, this.returnHomeButton);
+
+    this.levelSelectSceneGrid.showNumbers();
+    this.levelSelectSceneGrid.placeAtIndex(10, this.returnHomeButton);
 
     this.model = this.sys.game.globals.model;
     if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {

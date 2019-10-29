@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "http-server -o ",
+    "start": "live-server --port=3030  --host=localhost --entry-file=index.html ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/Irnis18/Projectx#readme",
   "dependencies": {
-    "http-server": "^0.11.1"
+    "live-server": "^1.2.1"
   }
 }
