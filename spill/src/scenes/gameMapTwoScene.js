@@ -52,7 +52,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
         child.setBounce(1)
         child.setCollideWorldBounds(true);
         child.allowGravity = false;
-        child.setVelocity(Phaser.Math.Between(-200, 200), 20)
+        child.setVelocity(Phaser.Math.Between(-50, 50), 10)
       });
 
       var x =
