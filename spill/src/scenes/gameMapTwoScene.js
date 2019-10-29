@@ -15,12 +15,12 @@ export default class GameMapTwoScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('forest', 'assets/img/maps/mapSlem.png');
+    this.load.image('mountain', 'assets/img/maps/mapSlem.png');
     this.load.image('ground', 'assets/img/platform/slemPlatform.png');
     this.load.image('groundSmall1', 'assets/img/platform/slemPlatform_liten1.png');
     this.load.image('groundSmall2', 'assets/img/platform/slemPlatform_liten2.png');
     this.load.image('groundSmall3', 'assets/img/platform/slemPlatform_liten3.png');
-    this.load.image('consoll', 'assets/img/consolle-small.png');
+    this.load.image('consoll', 'assets/img/consolle-small-v2.png');
     this.load.image('bomb', 'assets/img/bomb.png');
     this.load.spritesheet('dude', 'assets/img/dude2.png', {
       frameWidth: 32,
@@ -69,7 +69,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, 'forest');
+    this.add.image(400, 300, 'mountain');
     console.log(this);
     platforms = this.physics.add.staticGroup();
 
