@@ -1,4 +1,6 @@
+//Function that waits untill all the html is loaded before excecuting
 $(document).ready(function() {
+  //Function that checks what version and browser the user is at
   $('#btnChk').click(function() {
     if (
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
