@@ -44,8 +44,8 @@ export default class OptionsScene extends Phaser.Scene {
 
     this.menuButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'menuButton',
+      'menuButtonHover',
       'Menu',
       'Title'
     );

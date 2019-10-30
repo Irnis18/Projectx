@@ -83,13 +83,19 @@ export default class PreloaderScene extends Phaser.Scene {
     this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
 
     // load assets needed in our game
-    this.load.image('menuButtonOne', 'assets/img/ui/buttons/1/3.png');
-    this.load.image('menuButtonTwo', 'assets/img/ui/buttons/1/5.png');
-    this.load.image('backButton', 'assets/img/back_button.png');
-    this.load.image('backButtonDark', 'assets/img/back_button_dark.png');
-    this.load.image('box', 'assets/img/grey_box.png');
-    this.load.image('checkedBox', 'assets/img/blue_boxCheckmark.png');
-    this.load.audio('bgMusic', ['assets/img/TownTheme.mp3']);
+    this.load.image('menuButton', 'assets/img/buttons/menuButton.png');
+    this.load.image(
+      'menuButtonHover',
+      'assets/img/buttons/menuButtonHover.png'
+    );
+    this.load.image('backButton', 'assets/img/buttons/backButton.png');
+    this.load.image(
+      'backButtonHover',
+      'assets/img/buttons/backButtonHover.png'
+    );
+    this.load.image('box', 'assets/img/buttons/boxNotChecked.png');
+    this.load.image('checkedBox', 'assets/img/buttons/boxChecked.png');
+    this.load.audio('bgMusic', ['assets/music/backgroundMusic.mp3']);
   }
 
   ready() {
