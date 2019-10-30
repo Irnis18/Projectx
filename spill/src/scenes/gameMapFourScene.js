@@ -38,6 +38,14 @@ export default class GameMapFourScene extends Phaser.Scene {
       'quitButtonHover',
       'assets/img/buttons/quitButtonHover.png'
     );
+    this.load.image(
+      'nextLevelButton',
+      'assets/img/buttons/nextLevelButton.png'
+    );
+    this.load.image(
+      'nextLevelButtonHover',
+      'assets/img/buttons/nextLevelButtonHover.png'
+    );
     this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
       frameWidth: 32,
       frameHeight: 48
@@ -76,10 +84,10 @@ export default class GameMapFourScene extends Phaser.Scene {
 
     this.goToNextLevelButton = new Button(
       this,
-      'backButton',
-      'backButtonHover',
+      'nextLevelButton',
+      'nextLevelButtonHover',
       'Next Level',
-      'GameMapFive'
+      'GameMapTwo'
     );
     this.goToNextLevelText = this.add.text(
       -1,

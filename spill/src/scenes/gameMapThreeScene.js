@@ -25,7 +25,7 @@ export default class GameMapThreeScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('backgroundThree', 'assets/img/maps/map6.png');
+    this.load.image('backgroundThree', 'assets/img/maps/map3.png');
     this.load.image(
       'platformThree',
       'assets/img/platform/mapThree/mainPlatform.png'
@@ -45,6 +45,14 @@ export default class GameMapThreeScene extends Phaser.Scene {
     this.load.image(
       'quitButtonHover',
       'assets/img/buttons/quitButtonHover.png'
+    );
+    this.load.image(
+      'nextLevelButton',
+      'assets/img/buttons/nextLevelButton.png'
+    );
+    this.load.image(
+      'nextLevelButtonHover',
+      'assets/img/buttons/nextLevelButtonHover.png'
     );
     this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
       frameWidth: 32,
@@ -84,8 +92,8 @@ export default class GameMapThreeScene extends Phaser.Scene {
 
     this.goToNextLevelButton = new Button(
       this,
-      'backButton',
-      'backButtonHover',
+      'nextLevelButton',
+      'nextLevelButtonHover',
       'Next Level',
       'GameMapFour'
     );
