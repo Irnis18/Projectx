@@ -1,4 +1,6 @@
+//Function that waits untill all the html is loaded before excecuting
 $(document).ready(function() {
+  //Function for what to happen when someone tries to contact us through contact us page
   $('#mailBtn').click(function() {
     $('#mailForm').attr(
       'action',
