@@ -1,5 +1,7 @@
+//Importing phaser module to use the phasert functions
 import 'phaser';
 
+//Simple configuration for setup of phaser
 export default {
   type: Phaser.AUTO,
   scale: {
