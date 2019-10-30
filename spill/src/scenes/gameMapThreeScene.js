@@ -25,10 +25,18 @@ export default class GameMapThreeScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('backgroundThree', 'assets/img/maps/map1.png');
+    this.load.image('backgroundThree', 'assets/img/maps/map6.png');
     this.load.image(
       'platformThree',
-      'assets/img/platform/mapOne/mainPlatform.png'
+      'assets/img/platform/mapThree/mainPlatform.png'
+    );
+    this.load.image(
+      'platformThreeSmall1',
+      'assets/img/platform/mapThree/mainPlatformOne.png'
+    );
+    this.load.image(
+      'platformThreeSmall2',
+      'assets/img/platform/mapThree/mainPlatformTwo.png'
     );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
     this.load.image('bomb', 'assets/img/gameItems/bomb.png');
@@ -141,10 +149,9 @@ export default class GameMapThreeScene extends Phaser.Scene {
       .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 400, 'platformThree');
-    platforms.create(50, 250, 'platformThree');
-    platforms.create(750, 220, 'platformThree');
-    platforms.create(60, 420, 'platformThree');
+    platforms.create(400, 150, 'platformThreeSmall1');
+    platforms.create(200, 320, 'platformThreeSmall2');
+    platforms.create(600, 320, 'platformThreeSmall1');
 
     player = this.physics.add.sprite(100, 450, 'player');
 
@@ -228,9 +235,9 @@ export default class GameMapThreeScene extends Phaser.Scene {
     }
 
     if (cursors.up.isDown && player.body.touching.down) {
-      player.setVelocityY(-330);
+      player.setVelocityY(-400);
     } else if (cursors.down.isDown) {
-      player.setVelocityY(200);
+      player.setVelocityY(400);
     }
   }
 }
