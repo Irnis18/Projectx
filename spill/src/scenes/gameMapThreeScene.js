@@ -1,46 +1,107 @@
 import 'phaser';
+import Button from '../objects/button';
+import AlignGrid from '../objects/alignGrid';
 
-var player;
-var consolls;
-var bombs;
-var platforms;
-var cursors;
-var score = 0;
-var gameOver = false;
-var scoreText;
+let player;
+let consolls;
+let bombs;
+let platforms;
+let cursors;
+let scoreText;
 
 export default class GameMapThreeScene extends Phaser.Scene {
   constructor() {
     super('GameMapThree');
+
+    this.score = 0;
+    this.gameOver = false;
+    this.gameOverText;
+    this.retryButton = null;
+    this.quitButton = null;
+    this.goal;
+    this.goToNextLevelButton;
+    this.goToNextLevelText;
+    this.goalSpawn;
   }
 
   preload() {
-    this.load.image('forest', 'assets/img/maps/map5.jpg');
-    this.load.image('ground', 'assets/img/platform/platform.png');
-    this.load.image('consoll', 'assets/img/consolle-small.png');
-    this.load.image('bomb', 'assets/img/bomb.png');
-    this.load.spritesheet('dude', 'assets/img/dude2.png', {
-      frameWidth: 31,
+    this.load.image('background', 'assets/img/maps/map1.png');
+    this.load.image('platform', 'assets/img/platform/mapOne/mainPlatform.png');
+    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
+    this.load.image('bomb', 'assets/img/gameItems/bomb.png');
+    this.load.image('goal', 'assets/img/gameItems/goal.png');
+    this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
+    this.load.image(
+      'quitButtonHover',
+      'assets/img/buttons/quitButtonHover.png'
+    );
+    this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
+      frameWidth: 32,
       frameHeight: 48
     });
   }
 
-  hitBomb(player, bomb) {
+  hitBomb(player) {
     this.physics.pause();
 
     player.setTint(0xff0000);
 
     player.anims.play('turn');
 
-    gameOver = true;
+    this.gameOver = true;
+    this.retryButton = new Button(
+      this,
+      'backButton',
+      'backButtonHover',
+      'Retry',
+      'GameMapThree'
+    );
+    this.gameOverText = this.add.text(-1, -1, 'Game Over', {
+      fontSize: '32px',
+      fill: '#000'
+    });
+
+    this.gameMapThreeSceneGrid.placeAtIndex(36.8, this.gameOverText);
+    this.gameMapThreeSceneGrid.placeAtIndex(60, this.retryButton);
+    this.score = 0;
+  }
+
+  goalReached(player) {
+    this.physics.pause();
+
+    player.anims.play('turn');
+
+    this.goToNextLevelButton = new Button(
+      this,
+      'backButton',
+      'backButtonHover',
+      'Next Level',
+      'GameMapFour'
+    );
+    this.goToNextLevelText = this.add.text(
+      -1,
+      -1,
+      'Congrats you managed the level',
+      {
+        fontSize: '28px',
+        fill: '#000'
+      }
+    );
+
+    this.gameMapThreeSceneGrid.placeAtIndex(34.5, this.goToNextLevelText);
+    this.gameMapThreeSceneGrid.placeAtIndex(60, this.goToNextLevelButton);
   }
 
   collectConsoll(player, consoll) {
     consoll.disableBody(true, true);
 
     //  Add and update the score
-    score += 10;
-    scoreText.setText('Score: ' + score);
+    this.score += 10;
+    scoreText.setText('Score: ' + this.score);
+
+    if (this.score >= 500) {
+      this.goal.create(100, 70, 'goal');
+    }
 
     if (consolls.countActive(true) === 0) {
       //  A new batch of stars to collect
@@ -62,21 +123,27 @@ export default class GameMapThreeScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, 'forest');
-    console.log(this);
+    this.gameMapThreeSceneGrid = new AlignGrid({
+      scene: this,
+      cols: 11,
+      rows: 11
+    });
+
+    this.add.image(400, 300, 'background');
+
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'ground')
+      .create(400, 568, 'platform')
       .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 400, 'ground');
-    platforms.create(50, 250, 'ground');
-    platforms.create(750, 220, 'ground');
-    platforms.create(60, 420, 'ground');
+    platforms.create(600, 400, 'platform');
+    platforms.create(50, 250, 'platform');
+    platforms.create(750, 220, 'platform');
+    platforms.create(60, 420, 'platform');
 
-    player = this.physics.add.sprite(100, 450, 'dude');
+    player = this.physics.add.sprite(100, 450, 'player');
 
     player.setBounce(0.5);
     player.setCollideWorldBounds(true);
@@ -86,20 +153,20 @@ export default class GameMapThreeScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'left',
-      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1
     });
 
     this.anims.create({
       key: 'turn',
-      frames: [{ key: 'dude', frame: 4 }],
+      frames: [{ key: 'player', frame: 4 }],
       frameRate: 20
     });
 
     this.anims.create({
       key: 'right',
-      frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+      frames: this.anims.generateFrameNumbers('player', { start: 5, end: 8 }),
       frameRate: 10,
       repeat: -1
     });
@@ -117,26 +184,32 @@ export default class GameMapThreeScene extends Phaser.Scene {
     });
 
     bombs = this.physics.add.group();
+    this.goal = this.physics.add.staticGroup();
 
     scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: '32px',
+      fontSize: '28px',
       fill: '#000'
     });
+
+    this.quitButton = new Button(
+      this,
+      'quitButton',
+      'quitButtonHover',
+      '',
+      'Title'
+    );
+
+    this.gameMapThreeSceneGrid.placeAtIndex(10, this.quitButton);
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(consolls, platforms);
     this.physics.add.collider(bombs, platforms);
-
     this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-
     this.physics.add.collider(player, bombs, this.hitBomb, null, this);
+    this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
   update() {
-    if (gameOver) {
-      return;
-    }
-
     if (cursors.left.isDown) {
       player.setVelocityX(-160);
 
@@ -153,7 +226,7 @@ export default class GameMapThreeScene extends Phaser.Scene {
 
     if (cursors.up.isDown && player.body.touching.down) {
       player.setVelocityY(-330);
-    }else if (cursors.down.isDown) {
+    } else if (cursors.down.isDown) {
       player.setVelocityY(200);
     }
   }

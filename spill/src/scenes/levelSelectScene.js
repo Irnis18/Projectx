@@ -11,53 +11,64 @@ export default class LevelSelectScene extends Phaser.Scene {
     this.levelSelectSceneGrid = new AlignGrid({
       scene: this,
       cols: 9,
-      rows: 11
+      rows: 13
     });
 
-    // Game
+    // Map one
     this.gameMapOneButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'menuButton',
+      'menuButtonHover',
       'Map 1',
       'GameMapOne'
     );
     this.levelSelectSceneGrid.placeAtIndex(22, this.gameMapOneButton);
 
-    //Levels
+    // Map Two
     this.gameMapTwoButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'menuButton',
+      'menuButtonHover',
       'Map 2',
       'GameMapTwo'
     );
     this.levelSelectSceneGrid.placeAtIndex(40, this.gameMapTwoButton);
 
-    // Options
+    // Map Three
     this.gameMapThreeButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'menuButton',
+      'menuButtonHover',
       'Map 3',
       'GameMapThree'
     );
     this.levelSelectSceneGrid.placeAtIndex(58, this.gameMapThreeButton);
 
-    // Credits
+    // Map Four
     this.gameMapFourButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'menuButton',
+      'menuButtonHover',
       'Map 4',
       'GameMapFour'
     );
     this.levelSelectSceneGrid.placeAtIndex(76, this.gameMapFourButton);
 
+    // Map Five
+    this.gameMapFiveButton = new Button(
+      this,
+      'menuButton',
+      'menuButtonHover',
+      'Map 5',
+      'GameMapFive'
+    );
+    this.levelSelectSceneGrid.placeAtIndex(94, this.gameMapFiveButton);
+
+    // Back to menu button
     this.returnHomeButton = new Button(
       this,
       'backButton',
-      'backButtonDark',
+      'backButtonHover',
       'Back',
       'Title'
     );

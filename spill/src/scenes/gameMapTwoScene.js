@@ -25,26 +25,29 @@ export default class GameMapTwoScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('mountain', 'assets/img/maps/mapSlem.png');
-    this.load.image('mainGround', 'assets/img/platform/slemPlatform.png');
+    this.load.image('background', 'assets/img/maps/map2.png');
+    this.load.image('platform', 'assets/img/platform/mapTwo/mainPlatform.png');
     this.load.image(
-      'groundSmall1',
-      'assets/img/platform/slemPlatform_liten1.png'
+      'platformGroundOne',
+      'assets/img/platform/mapTwo/platformOne.png'
     );
     this.load.image(
-      'groundSmall2',
-      'assets/img/platform/slemPlatform_liten2.png'
+      'platformGroundOne',
+      'assets/img/platform/mapTwo/platformTwo.png'
     );
     this.load.image(
-      'groundSmall3',
-      'assets/img/platform/slemPlatform_liten3.png'
+      'platformGroundOne',
+      'assets/img/platform/mapTwo/platformThree.png'
     );
-    this.load.image('consoll', 'assets/img/consolle-small-v2.png');
-    this.load.image('bomb', 'assets/img/bomb.png');
-    this.load.image('goal', 'assets/img/goal.png');
-    this.load.image('quitButton', 'assets/img/quitButton.png');
-    this.load.image('quitButtonHover', 'assets/img/quitButtonHover.png');
-    this.load.spritesheet('dude', 'assets/img/dude2.png', {
+    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
+    this.load.image('bomb', 'assets/img/gameItems/bomb.png');
+    this.load.image('goal', 'assets/img/gameItems/goal.png');
+    this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
+    this.load.image(
+      'quitButtonHover',
+      'assets/img/buttons/quitButtonHover.png'
+    );
+    this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
       frameWidth: 32,
       frameHeight: 48
     });
@@ -60,10 +63,10 @@ export default class GameMapTwoScene extends Phaser.Scene {
     this.gameOver = true;
     this.retryButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'backButton',
+      'backButtonHover',
       'Retry',
-      'GameMapTwo'
+      'GameMapOne'
     );
     this.gameOverText = this.add.text(-1, -1, 'Game Over', {
       fontSize: '32px',
@@ -73,7 +76,6 @@ export default class GameMapTwoScene extends Phaser.Scene {
     this.gameMapTwoSceneGrid.placeAtIndex(36.8, this.gameOverText);
     this.gameMapTwoSceneGrid.placeAtIndex(60, this.retryButton);
     this.score = 0;
-    // this.input.on('pointerdown', () => this.scene.start('GameMapOne'));
   }
 
   goalReached(player) {
@@ -83,8 +85,8 @@ export default class GameMapTwoScene extends Phaser.Scene {
 
     this.goToNextLevelButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'backButton',
+      'backButtonHover',
       'Next Level',
       'GameMapThree'
     );
@@ -143,44 +145,44 @@ export default class GameMapTwoScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, 'mountain');
+    this.add.image(400, 300, 'background');
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'mainGround')
+      .create(400, 568, 'platform')
       .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 440, 'groundSmall1');
-    platforms.create(50, 250, 'groundSmall1');
-    platforms.create(230, 170, 'groundSmall3');
-    platforms.create(750, 200, 'groundSmall2');
-    platforms.create(180, 460, 'groundSmall1');
-    platforms.create(330, 340, 'groundSmall3');
-    platforms.create(480, 200, 'groundSmall2');
+    platforms.create(600, 440, 'platformGroundOne');
+    platforms.create(50, 250, 'platformGroundOne');
+    platforms.create(230, 170, 'platformGroundThree');
+    platforms.create(750, 200, 'platformGroundTwo');
+    platforms.create(180, 460, 'platformGroundOne');
+    platforms.create(330, 340, 'platformGroundThree');
+    platforms.create(480, 200, 'platformGroundTwo');
 
-    player = this.physics.add.sprite(50, 100, 'dude');
+    player = this.physics.add.sprite(50, 100, 'player');
 
     player.setBounce(0.1);
     player.setCollideWorldBounds(true);
 
     this.anims.create({
       key: 'left',
-      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1
     });
 
     this.anims.create({
       key: 'turn',
-      frames: [{ key: 'dude', frame: 4 }],
+      frames: [{ key: 'player', frame: 4 }],
       frameRate: 20
     });
 
     this.anims.create({
       key: 'right',
-      frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+      frames: this.anims.generateFrameNumbers('player', { start: 5, end: 8 }),
       frameRate: 10,
       repeat: -1
     });

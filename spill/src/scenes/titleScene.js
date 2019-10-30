@@ -18,8 +18,8 @@ export default class TitleScene extends Phaser.Scene {
 
     this.gameButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'menuButton',
+      'menuButtonHover',
       'Play',
       'GameMapOne'
     );
@@ -29,8 +29,8 @@ export default class TitleScene extends Phaser.Scene {
     //Levels
     this.levelSelectButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'menuButton',
+      'menuButtonHover',
       'Levels',
       'LevelSelect'
     );
@@ -39,8 +39,8 @@ export default class TitleScene extends Phaser.Scene {
     // Options
     this.optionsButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'menuButton',
+      'menuButtonHover',
       'Options',
       'Options'
     );
@@ -49,8 +49,8 @@ export default class TitleScene extends Phaser.Scene {
     // Credits
     this.creditsButton = new Button(
       this,
-      'menuButtonOne',
-      'menuButtonTwo',
+      'menuButton',
+      'menuButtonHover',
       'Credits',
       'Credits'
     );
