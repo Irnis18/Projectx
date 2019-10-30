@@ -153,6 +153,8 @@ export default class GameMapFourScene extends Phaser.Scene {
 
     if (cursors.up.isDown && player.body.touching.down) {
       player.setVelocityY(-330);
+    }else if (cursors.down.isDown) {
+      player.setVelocityY(200);
     }
   }
 }

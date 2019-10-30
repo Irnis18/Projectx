@@ -15,12 +15,15 @@ export default class GameMapTwoScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('forest', 'assets/img/maps/map2.png');
-    this.load.image('ground', 'assets/img/platform/platform.png');
-    this.load.image('consoll', 'assets/img/consolle-small.png');
+    this.load.image('mountain', 'assets/img/maps/mapSlem.png');
+    this.load.image('ground', 'assets/img/platform/slemPlatform.png');
+    this.load.image('groundSmall1', 'assets/img/platform/slemPlatform_liten1.png');
+    this.load.image('groundSmall2', 'assets/img/platform/slemPlatform_liten2.png');
+    this.load.image('groundSmall3', 'assets/img/platform/slemPlatform_liten3.png');
+    this.load.image('consoll', 'assets/img/consolle-small-v2.png');
     this.load.image('bomb', 'assets/img/bomb.png');
     this.load.spritesheet('dude', 'assets/img/dude2.png', {
-      frameWidth: 31,
+      frameWidth: 32,
       frameHeight: 48
     });
   }
@@ -43,9 +46,13 @@ export default class GameMapTwoScene extends Phaser.Scene {
     scoreText.setText('Score: ' + score);
 
     if (consolls.countActive(true) === 0) {
-      //  A new batch of stars to collect
+      //  A new batch of consolls to collect
       consolls.children.iterate(function(child) {
         child.enableBody(true, child.x, 0, true, true);
+        child.setBounce(1)
+        child.setCollideWorldBounds(true);
+        child.allowGravity = false;
+        child.setVelocity(Phaser.Math.Between(-50, 50), 10)
       });
 
       var x =
@@ -62,7 +69,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, 'forest');
+    this.add.image(400, 300, 'mountain');
     console.log(this);
     platforms = this.physics.add.staticGroup();
 
@@ -71,17 +78,17 @@ export default class GameMapTwoScene extends Phaser.Scene {
       .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 400, 'ground');
-    platforms.create(50, 250, 'ground');
-    platforms.create(750, 220, 'ground');
-    platforms.create(60, 420, 'ground');
+    platforms.create(600, 440, 'groundSmall1');
+    platforms.create(50, 250, 'groundSmall1');
+    platforms.create(230, 170, 'groundSmall3');
+    platforms.create(750, 200, 'groundSmall2');
+    platforms.create(180, 460, 'groundSmall1');
+    platforms.create(330, 340, 'groundSmall3');
+    platforms.create(480, 200, 'groundSmall2');
 
-    player = this.physics.add.sprite(100, 450, 'dude');
+    player = this.physics.add.sprite(50, 100, 'dude');
 
-    player.setBounce(0.5);
-    player.setCollideWorldBounds(true);
-
-    player.setBounce(0.2);
+    player.setBounce(0.1);
     player.setCollideWorldBounds(true);
 
     this.anims.create({
@@ -103,6 +110,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     });
+
 
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -152,7 +160,9 @@ export default class GameMapTwoScene extends Phaser.Scene {
     }
 
     if (cursors.up.isDown && player.body.touching.down) {
-      player.setVelocityY(-330);
+      player.setVelocityY(-290);
+    } else if (cursors.down.isDown) {
+      player.setVelocityY(200);
     }
   }
 }
