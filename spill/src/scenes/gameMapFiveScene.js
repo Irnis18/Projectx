@@ -14,9 +14,9 @@ let retryButton;
 let gameOver = false;
 let scoreText;
 
-export default class GameMapOneScene extends Phaser.Scene {
+export default class GameMapFiveScene extends Phaser.Scene {
   constructor() {
-    super('GameMapOne');
+    super('GameMapFive');
   }
 
   preload() {
@@ -175,7 +175,7 @@ export default class GameMapOneScene extends Phaser.Scene {
 
     if (cursors.up.isDown && player.body.touching.down) {
       player.setVelocityY(-330);
-    }else if (cursors.down.isDown) {
+    } else if (cursors.down.isDown) {
       player.setVelocityY(200);
     }
   }

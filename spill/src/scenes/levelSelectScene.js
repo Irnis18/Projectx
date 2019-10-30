@@ -61,8 +61,6 @@ export default class LevelSelectScene extends Phaser.Scene {
       'Back',
       'Title'
     );
-
-    this.levelSelectSceneGrid.showNumbers();
     this.levelSelectSceneGrid.placeAtIndex(10, this.returnHomeButton);
 
     this.model = this.sys.game.globals.model;

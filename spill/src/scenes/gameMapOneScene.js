@@ -4,52 +4,102 @@ import AlignGrid from '../objects/alignGrid';
 
 let player;
 let consolls;
-let restartButton;
 let bombs;
-let goal;
 let platforms;
 let cursors;
-let score = 0;
-let retryButton;
-let gameOver = false;
 let scoreText;
 
 export default class GameMapOneScene extends Phaser.Scene {
   constructor() {
     super('GameMapOne');
+
+    this.score = 0;
+    this.gameOver = false;
+    this.gameOverText;
+    this.retryButton = null;
+    this.quitButton = null;
+    this.goal;
+    this.goToNextLevelButton;
+    this.goToNextLevelText;
+    this.goalSpawn;
   }
 
   preload() {
     this.load.image('forest', 'assets/img/maps/map4.png');
     this.load.image('ground', 'assets/img/platform/platform.png');
-    this.load.image('consoll', 'assets/img/consolle-small.png');
-
+    this.load.image('consoll', 'assets/img/consolle-small-v2.png');
     this.load.image('bomb', 'assets/img/bomb.png');
     this.load.image('goal', 'assets/img/goal.png');
+    this.load.image('quitButton', 'assets/img/quitButton.png');
+    this.load.image('quitButtonHover', 'assets/img/quitButtonHover.png');
     this.load.spritesheet('dude', 'assets/img/dude2.png', {
       frameWidth: 32,
       frameHeight: 48
     });
   }
 
-  hitBomb(player, bomb) {
+  hitBomb(player) {
     this.physics.pause();
 
     player.setTint(0xff0000);
 
     player.anims.play('turn');
 
-    gameOver = true;
+    this.gameOver = true;
+    this.retryButton = new Button(
+      this,
+      'menuButtonOne',
+      'menuButtonTwo',
+      'Retry',
+      'GameMapOne'
+    );
+    this.gameOverText = this.add.text(-1, -1, 'Game Over', {
+      fontSize: '32px',
+      fill: '#000'
+    });
+
+    this.gameMapOneSceneGrid.placeAtIndex(36.8, this.gameOverText);
+    this.gameMapOneSceneGrid.placeAtIndex(60, this.retryButton);
+    this.score = 0;
+    // this.input.on('pointerdown', () => this.scene.start('GameMapOne'));
   }
 
-  goalReached(player, goal) {}
+  goalReached(player) {
+    this.physics.pause();
+
+    player.anims.play('turn');
+
+    this.goToNextLevelButton = new Button(
+      this,
+      'menuButtonOne',
+      'menuButtonTwo',
+      'Next Level',
+      'GameMapTwo'
+    );
+    this.goToNextLevelText = this.add.text(
+      -1,
+      -1,
+      'Congrats you managed the level',
+      {
+        fontSize: '28px',
+        fill: '#000'
+      }
+    );
+
+    this.gameMapOneSceneGrid.placeAtIndex(34.5, this.goToNextLevelText);
+    this.gameMapOneSceneGrid.placeAtIndex(60, this.goToNextLevelButton);
+  }
 
   collectConsoll(player, consoll) {
     consoll.disableBody(true, true);
 
     //  Add and update the score
-    score += 10;
-    scoreText.setText('Score: ' + score);
+    this.score += 10;
+    scoreText.setText('Score: ' + this.score);
+
+    if (this.score >= 500) {
+      this.goal.create(100, 70, 'goal');
+    }
 
     if (consolls.countActive(true) === 0) {
       //  A new batch of stars to collect
@@ -73,8 +123,8 @@ export default class GameMapOneScene extends Phaser.Scene {
   create() {
     this.gameMapOneSceneGrid = new AlignGrid({
       scene: this,
-      cols: 9,
-      rows: 9
+      cols: 11,
+      rows: 11
     });
 
     this.add.image(400, 300, 'forest');
@@ -132,33 +182,32 @@ export default class GameMapOneScene extends Phaser.Scene {
     });
 
     bombs = this.physics.add.group();
+    this.goal = this.physics.add.staticGroup();
 
     scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: '32px',
+      fontSize: '28px',
       fill: '#000'
     });
+
+    this.quitButton = new Button(
+      this,
+      'quitButton',
+      'quitButtonHover',
+      '',
+      'Title'
+    );
+
+    this.gameMapOneSceneGrid.placeAtIndex(10, this.quitButton);
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(consolls, platforms);
     this.physics.add.collider(bombs, platforms);
-
     this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-
     this.physics.add.collider(player, bombs, this.hitBomb, null, this);
-
-    this.physics.add.overlap(player, goal, this.goalReached, null, this);
+    this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
   update() {
-    if (score >= 500) {
-    }
-    if (gameOver) {
-      retryButton;
-    }
-    if (!gameOver) {
-      retryButton = null;
-    }
-
     if (cursors.left.isDown) {
       player.setVelocityX(-160);
 
@@ -175,7 +224,7 @@ export default class GameMapOneScene extends Phaser.Scene {
 
     if (cursors.up.isDown && player.body.touching.down) {
       player.setVelocityY(-330);
-    }else if (cursors.down.isDown) {
+    } else if (cursors.down.isDown) {
       player.setVelocityY(200);
     }
   }
