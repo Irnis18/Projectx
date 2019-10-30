@@ -25,18 +25,21 @@ export default class GameMapTwoScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('background', 'assets/img/maps/map2.png');
-    this.load.image('platform', 'assets/img/platform/mapTwo/mainPlatform.png');
+    this.load.image('backgroundTwo', 'assets/img/maps/map2.png');
     this.load.image(
-      'platformGroundOne',
+      'platformTwo',
+      'assets/img/platform/mapTwo/mainPlatform.png'
+    );
+    this.load.image(
+      'platformTwoGroundOne',
       'assets/img/platform/mapTwo/platformOne.png'
     );
     this.load.image(
-      'platformGroundOne',
+      'platformTwoGroundTwo',
       'assets/img/platform/mapTwo/platformTwo.png'
     );
     this.load.image(
-      'platformGroundOne',
+      'platformTwoGroundThree',
       'assets/img/platform/mapTwo/platformThree.png'
     );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
@@ -66,7 +69,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
       'backButton',
       'backButtonHover',
       'Retry',
-      'GameMapOne'
+      'GameMapTwo'
     );
     this.gameOverText = this.add.text(-1, -1, 'Game Over', {
       fontSize: '32px',
@@ -145,22 +148,22 @@ export default class GameMapTwoScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, 'background');
+    this.add.image(400, 300, 'backgroundTwo');
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'platform')
+      .create(400, 568, 'platformTwo')
       .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 440, 'platformGroundOne');
-    platforms.create(50, 250, 'platformGroundOne');
-    platforms.create(230, 170, 'platformGroundThree');
-    platforms.create(750, 200, 'platformGroundTwo');
-    platforms.create(180, 460, 'platformGroundOne');
-    platforms.create(330, 340, 'platformGroundThree');
-    platforms.create(480, 200, 'platformGroundTwo');
+    platforms.create(600, 440, 'platformTwoGroundOne');
+    platforms.create(50, 250, 'platformTwoGroundOne');
+    platforms.create(230, 170, 'platformTwoGroundThree');
+    platforms.create(750, 200, 'platformTwoGroundTwo');
+    platforms.create(180, 460, 'platformTwoGroundOne');
+    platforms.create(330, 340, 'platformTwoGroundThree');
+    platforms.create(480, 200, 'platformTwoGroundTwo');
 
     player = this.physics.add.sprite(50, 100, 'player');
 
