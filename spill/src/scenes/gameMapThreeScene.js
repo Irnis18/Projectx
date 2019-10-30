@@ -25,8 +25,11 @@ export default class GameMapThreeScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('background', 'assets/img/maps/map1.png');
-    this.load.image('platform', 'assets/img/platform/mapOne/mainPlatform.png');
+    this.load.image('backgroundThree', 'assets/img/maps/map1.png');
+    this.load.image(
+      'platformThree',
+      'assets/img/platform/mapOne/mainPlatform.png'
+    );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
     this.load.image('bomb', 'assets/img/gameItems/bomb.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
@@ -129,19 +132,19 @@ export default class GameMapThreeScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, 'background');
+    this.add.image(400, 300, 'backgroundThree');
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'platform')
+      .create(400, 568, 'platformThree')
       .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 400, 'platform');
-    platforms.create(50, 250, 'platform');
-    platforms.create(750, 220, 'platform');
-    platforms.create(60, 420, 'platform');
+    platforms.create(600, 400, 'platformThree');
+    platforms.create(50, 250, 'platformThree');
+    platforms.create(750, 220, 'platformThree');
+    platforms.create(60, 420, 'platformThree');
 
     player = this.physics.add.sprite(100, 450, 'player');
 
