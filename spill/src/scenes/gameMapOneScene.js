@@ -27,7 +27,7 @@ export default class GameMapOneScene extends Phaser.Scene {
   preload() {
     this.load.image('forest', 'assets/img/maps/map4.png');
     this.load.image('ground', 'assets/img/platform/platform.png');
-    this.load.image('consoll', 'assets/img/consolle-small.png');
+    this.load.image('consoll', 'assets/img/consolle-small-v2.png');
     this.load.image('bomb', 'assets/img/bomb.png');
     this.load.image('goal', 'assets/img/goal.png');
     this.load.image('quitButton', 'assets/img/quitButton.png');
@@ -202,11 +202,8 @@ export default class GameMapOneScene extends Phaser.Scene {
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(consolls, platforms);
     this.physics.add.collider(bombs, platforms);
-
     this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-    this.physics.add.collider(this.goal, platforms);
     this.physics.add.collider(player, bombs, this.hitBomb, null, this);
-
     this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
@@ -227,7 +224,7 @@ export default class GameMapOneScene extends Phaser.Scene {
 
     if (cursors.up.isDown && player.body.touching.down) {
       player.setVelocityY(-330);
-    }else if (cursors.down.isDown) {
+    } else if (cursors.down.isDown) {
       player.setVelocityY(200);
     }
   }

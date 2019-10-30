@@ -1,58 +1,126 @@
 import 'phaser';
+import Button from '../objects/button';
+import AlignGrid from '../objects/alignGrid';
 
-var player;
-var consolls;
-var bombs;
-var platforms;
-var cursors;
-var score = 0;
-var gameOver = false;
-var scoreText;
+let player;
+let consolls;
+let bombs;
+let platforms;
+let cursors;
+let scoreText;
 
 export default class GameMapTwoScene extends Phaser.Scene {
   constructor() {
     super('GameMapTwo');
+
+    this.score = 0;
+    this.gameOver = false;
+    this.gameOverText;
+    this.retryButton = null;
+    this.quitButton = null;
+    this.goal;
+    this.goToNextLevelButton;
+    this.goToNextLevelText;
+    this.goalSpawn;
   }
 
   preload() {
     this.load.image('mountain', 'assets/img/maps/mapSlem.png');
-    this.load.image('ground', 'assets/img/platform/slemPlatform.png');
-    this.load.image('groundSmall1', 'assets/img/platform/slemPlatform_liten1.png');
-    this.load.image('groundSmall2', 'assets/img/platform/slemPlatform_liten2.png');
-    this.load.image('groundSmall3', 'assets/img/platform/slemPlatform_liten3.png');
+    this.load.image('mainGround', 'assets/img/platform/slemPlatform.png');
+    this.load.image(
+      'groundSmall1',
+      'assets/img/platform/slemPlatform_liten1.png'
+    );
+    this.load.image(
+      'groundSmall2',
+      'assets/img/platform/slemPlatform_liten2.png'
+    );
+    this.load.image(
+      'groundSmall3',
+      'assets/img/platform/slemPlatform_liten3.png'
+    );
     this.load.image('consoll', 'assets/img/consolle-small-v2.png');
     this.load.image('bomb', 'assets/img/bomb.png');
+    this.load.image('goal', 'assets/img/goal.png');
+    this.load.image('quitButton', 'assets/img/quitButton.png');
+    this.load.image('quitButtonHover', 'assets/img/quitButtonHover.png');
     this.load.spritesheet('dude', 'assets/img/dude2.png', {
       frameWidth: 32,
       frameHeight: 48
     });
   }
 
-  hitBomb(player, bomb) {
+  hitBomb(player) {
     this.physics.pause();
 
     player.setTint(0xff0000);
 
     player.anims.play('turn');
 
-    gameOver = true;
+    this.gameOver = true;
+    this.retryButton = new Button(
+      this,
+      'menuButtonOne',
+      'menuButtonTwo',
+      'Retry',
+      'GameMapTwo'
+    );
+    this.gameOverText = this.add.text(-1, -1, 'Game Over', {
+      fontSize: '32px',
+      fill: '#000'
+    });
+
+    this.gameMapTwoSceneGrid.placeAtIndex(36.8, this.gameOverText);
+    this.gameMapTwoSceneGrid.placeAtIndex(60, this.retryButton);
+    this.score = 0;
+    // this.input.on('pointerdown', () => this.scene.start('GameMapOne'));
+  }
+
+  goalReached(player) {
+    this.physics.pause();
+
+    player.anims.play('turn');
+
+    this.goToNextLevelButton = new Button(
+      this,
+      'menuButtonOne',
+      'menuButtonTwo',
+      'Next Level',
+      'GameMapThree'
+    );
+    this.goToNextLevelText = this.add.text(
+      -1,
+      -1,
+      'Congrats you managed the level',
+      {
+        fontSize: '28px',
+        fill: '#000'
+      }
+    );
+
+    this.gameMapTwoSceneGrid.placeAtIndex(34.5, this.goToNextLevelText);
+    this.gameMapTwoSceneGrid.placeAtIndex(60, this.goToNextLevelButton);
   }
 
   collectConsoll(player, consoll) {
     consoll.disableBody(true, true);
 
     //  Add and update the score
-    score += 10;
-    scoreText.setText('Score: ' + score);
+    this.score += 10;
+    scoreText.setText('Score: ' + this.score);
+
+    if (this.score >= 500) {
+      this.goal.create(100, 70, 'goal');
+    }
 
     if (consolls.countActive(true) === 0) {
       //  A new batch of consolls to collect
       consolls.children.iterate(function(child) {
         child.enableBody(true, child.x, 0, true, true);
-        child.setBounce(1)
+        child.setBounce(1);
         child.setCollideWorldBounds(true);
         child.allowGravity = false;
-        child.setVelocity(Phaser.Math.Between(-50, 50), 10)
+        child.setVelocity(Phaser.Math.Between(-50, 50), 10);
       });
 
       var x =
@@ -69,12 +137,18 @@ export default class GameMapTwoScene extends Phaser.Scene {
   }
 
   create() {
+    this.gameMapTwoSceneGrid = new AlignGrid({
+      scene: this,
+      cols: 11,
+      rows: 11
+    });
+
     this.add.image(400, 300, 'mountain');
-    console.log(this);
+
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'ground')
+      .create(400, 568, 'mainGround')
       .setScale(2)
       .refreshBody();
 
@@ -111,7 +185,6 @@ export default class GameMapTwoScene extends Phaser.Scene {
       repeat: -1
     });
 
-
     cursors = this.input.keyboard.createCursorKeys();
 
     consolls = this.physics.add.group({
@@ -125,26 +198,32 @@ export default class GameMapTwoScene extends Phaser.Scene {
     });
 
     bombs = this.physics.add.group();
+    this.goal = this.physics.add.staticGroup();
 
     scoreText = this.add.text(16, 16, 'score: 0', {
       fontSize: '32px',
       fill: '#000'
     });
 
+    this.quitButton = new Button(
+      this,
+      'quitButton',
+      'quitButtonHover',
+      '',
+      'Title'
+    );
+
+    this.gameMapTwoSceneGrid.placeAtIndex(10, this.quitButton);
+
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(consolls, platforms);
     this.physics.add.collider(bombs, platforms);
-
     this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-
     this.physics.add.collider(player, bombs, this.hitBomb, null, this);
+    this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
   update() {
-    if (gameOver) {
-      return;
-    }
-
     if (cursors.left.isDown) {
       player.setVelocityX(-160);
 
