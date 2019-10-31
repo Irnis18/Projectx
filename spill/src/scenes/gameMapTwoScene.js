@@ -43,7 +43,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
       'assets/img/platform/mapTwo/platformThree.png'
     );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('bomb', 'assets/img/gameItems/bomb.png');
+    this.load.image('bomb', 'assets/img/gameItems/meteorite.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
     this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
     this.load.image(

@@ -39,7 +39,7 @@ export default class GameMapThreeScene extends Phaser.Scene {
       'assets/img/platform/mapThree/mainPlatformTwo.png'
     );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('bomb', 'assets/img/gameItems/bomb.png');
+    this.load.image('bomb', 'assets/img/gameItems/fugl.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
     this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
     this.load.image(
@@ -132,12 +132,22 @@ export default class GameMapThreeScene extends Phaser.Scene {
         player.x < 400
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
+      var y =
+        player.x > 400
+          ? Phaser.Math.Between(0, 400)
+          : Phaser.Math.Between(400, 800);
 
       var bomb = bombs.create(x, 16, 'bomb');
       bomb.setBounce(1);
       bomb.setCollideWorldBounds(true);
       bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
       bomb.allowGravity = false;
+
+      var bomb2 = bombs.create(y, 16, 'bomb');
+      bomb2.setBounce(1);
+      bomb2.setCollideWorldBounds(true);
+      bomb2.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      bomb2.allowGravity = false;
     }
   }
 
@@ -229,11 +239,11 @@ export default class GameMapThreeScene extends Phaser.Scene {
 
   update() {
     if (cursors.left.isDown) {
-      player.setVelocityX(-160);
+      player.setVelocityX(-230);
 
       player.anims.play('left', true);
     } else if (cursors.right.isDown) {
-      player.setVelocityX(160);
+      player.setVelocityX(230);
 
       player.anims.play('right', true);
     } else {
