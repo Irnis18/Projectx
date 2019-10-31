@@ -222,7 +222,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
       this,
       'quitButton',
       'quitButtonHover',
-      '',
+      'Quit',
       'Title'
     );
 

@@ -180,7 +180,7 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
       this,
       'quitButton',
       'quitButtonHover',
-      '',
+      'Quit',
       'Title'
     );
 
