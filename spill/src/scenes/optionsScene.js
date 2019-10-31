@@ -13,6 +13,8 @@ export default class OptionsScene extends Phaser.Scene {
       cols: 9,
       rows: 9
     });
+    this.add.image(400, 300, 'backgroundMain');
+
 
     this.model = this.sys.game.globals.model;
 

@@ -6,6 +6,9 @@ export default class TitleScene extends Phaser.Scene {
   constructor() {
     super('Title');
   }
+  preload(){
+    this.load.image('backgroundMain', 'assets/img/maps/menyMap.png');
+  }
 
   create() {
     this.titleSceneGrid = new AlignGrid({
@@ -13,6 +16,8 @@ export default class TitleScene extends Phaser.Scene {
       cols: 9,
       rows: 11
     });
+    this.add.image(400, 300, 'backgroundMain');
+
 
     // Game
 
