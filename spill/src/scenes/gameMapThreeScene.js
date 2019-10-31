@@ -4,7 +4,7 @@ import AlignGrid from '../objects/alignGrid';
 
 let player;
 let consolls;
-let bombs;
+let birds;
 let platforms;
 let cursors;
 let scoreText;
@@ -39,7 +39,7 @@ export default class GameMapThreeScene extends Phaser.Scene {
       'assets/img/platform/mapThree/mainPlatformTwo.png'
     );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('bomb', 'assets/img/gameItems/fugl.png');
+    this.load.image('bird', 'assets/img/gameItems/fugl.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
     this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
     this.load.image(
@@ -60,7 +60,7 @@ export default class GameMapThreeScene extends Phaser.Scene {
     });
   }
 
-  hitBomb(player) {
+  hitBird(player) {
     this.physics.pause();
 
     player.setTint(0xff0000);
@@ -137,17 +137,17 @@ export default class GameMapThreeScene extends Phaser.Scene {
           ? Phaser.Math.Between(0, 400)
           : Phaser.Math.Between(400, 800);
 
-      var bomb = bombs.create(x, 16, 'bomb');
-      bomb.setBounce(1);
-      bomb.setCollideWorldBounds(true);
-      bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-      bomb.allowGravity = false;
+      var bird = birds.create(x, 16, 'bird');
+      bird.setBounce(1);
+      bird.setCollideWorldBounds(true);
+      bird.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      bird.allowGravity = false;
 
-      var bomb2 = bombs.create(y, 16, 'bomb');
-      bomb2.setBounce(1);
-      bomb2.setCollideWorldBounds(true);
-      bomb2.setVelocity(Phaser.Math.Between(-200, 200), 20);
-      bomb2.allowGravity = false;
+      var bird2 = birds.create(y, 16, 'bird');
+      bird2.setBounce(1);
+      bird2.setCollideWorldBounds(true);
+      bird2.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      bird2.allowGravity = false;
     }
   }
 
@@ -211,7 +211,7 @@ export default class GameMapThreeScene extends Phaser.Scene {
       child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
 
-    bombs = this.physics.add.group();
+    birds = this.physics.add.group();
     this.goal = this.physics.add.staticGroup();
 
     scoreText = this.add.text(16, 16, 'score: 0', {
@@ -231,9 +231,9 @@ export default class GameMapThreeScene extends Phaser.Scene {
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(consolls, platforms);
-    this.physics.add.collider(bombs, platforms);
+    this.physics.add.collider(birds, platforms);
     this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-    this.physics.add.collider(player, bombs, this.hitBomb, null, this);
+    this.physics.add.collider(player, birds, this.hitBird, null, this);
     this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
