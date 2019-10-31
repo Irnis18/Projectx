@@ -25,7 +25,7 @@ export default class GameMapFourScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("backgroundFour", "assets/img/maps/map5.png");
+    this.load.image("backgroundFour", "assets/img/maps/map1.png");
     this.load.image(
       "platformFour",
       "assets/img/platform/mapOne/mainPlatform.png"
@@ -38,19 +38,15 @@ export default class GameMapFourScene extends Phaser.Scene {
       "quitButtonHover",
       "assets/img/buttons/quitButtonHover.png"
     );
-<<<<<<< HEAD
     this.load.image(
-      'nextLevelButton',
-      'assets/img/buttons/nextLevelButton.png'
+      "nextLevelButton",
+      "assets/img/buttons/nextLevelButton.png"
     );
     this.load.image(
-      'nextLevelButtonHover',
-      'assets/img/buttons/nextLevelButtonHover.png'
+      "nextLevelButtonHover",
+      "assets/img/buttons/nextLevelButtonHover.png"
     );
-    this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
-=======
     this.load.spritesheet("player", "assets/img/gameItems/player.png", {
->>>>>>> andrea-spill-utvikling
       frameWidth: 32,
       frameHeight: 48
     });
@@ -88,17 +84,10 @@ export default class GameMapFourScene extends Phaser.Scene {
 
     this.goToNextLevelButton = new Button(
       this,
-<<<<<<< HEAD
-      'nextLevelButton',
-      'nextLevelButtonHover',
-      'Next Level',
-      'GameMapTwo'
-=======
-      "backButton",
-      "backButtonHover",
+      "nextLevelButton",
+      "nextLevelButtonHover",
       "Next Level",
-      "GameMapFive"
->>>>>>> andrea-spill-utvikling
+      "GameMapFour"
     );
     this.goToNextLevelText = this.add.text(
       -1,
