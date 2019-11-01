@@ -4,7 +4,7 @@ import AlignGrid from '../objects/alignGrid';
 
 let player;
 let consolls;
-let bombs;
+let meteorites;
 let platforms;
 let cursors;
 let scoreText;
@@ -43,7 +43,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
       'assets/img/platform/mapTwo/platformThree.png'
     );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('bomb', 'assets/img/gameItems/bomb.png');
+    this.load.image('meteorite', 'assets/img/gameItems/meteorite.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
     this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
     this.load.image(
@@ -64,7 +64,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
     });
   }
 
-  hitBomb(player) {
+  hitMeteorite(player) {
     this.physics.pause();
 
     player.setTint(0xff0000);
@@ -141,11 +141,11 @@ export default class GameMapTwoScene extends Phaser.Scene {
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
 
-      var bomb = bombs.create(x, 16, 'bomb');
-      bomb.setBounce(1);
-      bomb.setCollideWorldBounds(true);
-      bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-      bomb.allowGravity = false;
+      var meteorite = meteorites.create(x, 16, 'meteorite');
+      meteorite.setBounce(1);
+      meteorite.setCollideWorldBounds(true);
+      meteorite.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      meteorite.allowGravity = false;
     }
   }
 
@@ -210,7 +210,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
       child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
 
-    bombs = this.physics.add.group();
+    meteorites = this.physics.add.group();
     this.goal = this.physics.add.staticGroup();
 
     scoreText = this.add.text(16, 16, 'score: 0', {
@@ -230,9 +230,15 @@ export default class GameMapTwoScene extends Phaser.Scene {
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(consolls, platforms);
-    this.physics.add.collider(bombs, platforms);
+    this.physics.add.collider(meteorites, platforms);
     this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-    this.physics.add.collider(player, bombs, this.hitBomb, null, this);
+    this.physics.add.collider(
+      player,
+      meteorites,
+      this.hitMeteorite,
+      null,
+      this
+    );
     this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
