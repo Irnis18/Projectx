@@ -25,8 +25,11 @@ export default class GameMapFourScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('background', 'assets/img/maps/map1.png');
-    this.load.image('platform', 'assets/img/platform/mapOne/mainPlatform.png');
+    this.load.image('backgroundFour', 'assets/img/maps/map1.png');
+    this.load.image(
+      'platformFour',
+      'assets/img/platform/mapOne/mainPlatform.png'
+    );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
     this.load.image('bomb', 'assets/img/gameItems/bomb.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
@@ -34,6 +37,14 @@ export default class GameMapFourScene extends Phaser.Scene {
     this.load.image(
       'quitButtonHover',
       'assets/img/buttons/quitButtonHover.png'
+    );
+    this.load.image(
+      'nextLevelButton',
+      'assets/img/buttons/nextLevelButton.png'
+    );
+    this.load.image(
+      'nextLevelButtonHover',
+      'assets/img/buttons/nextLevelButtonHover.png'
     );
     this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
       frameWidth: 32,
@@ -73,10 +84,10 @@ export default class GameMapFourScene extends Phaser.Scene {
 
     this.goToNextLevelButton = new Button(
       this,
-      'backButton',
-      'backButtonHover',
+      'nextLevelButton',
+      'nextLevelButtonHover',
       'Next Level',
-      'GameMapFive'
+      'GameMapFour'
     );
     this.goToNextLevelText = this.add.text(
       -1,
@@ -129,19 +140,19 @@ export default class GameMapFourScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, 'background');
+    this.add.image(400, 300, 'backgroundFour');
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'platform')
+      .create(400, 568, 'platformFour')
       .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 400, 'platform');
-    platforms.create(50, 250, 'platform');
-    platforms.create(750, 220, 'platform');
-    platforms.create(60, 420, 'platform');
+    platforms.create(600, 400, 'platformFour');
+    platforms.create(50, 250, 'platformFour');
+    platforms.create(750, 220, 'platformFour');
+    platforms.create(60, 420, 'platformFour');
 
     player = this.physics.add.sprite(100, 450, 'player');
 
@@ -195,7 +206,7 @@ export default class GameMapFourScene extends Phaser.Scene {
       this,
       'quitButton',
       'quitButtonHover',
-      '',
+      'Quit',
       'Title'
     );
 

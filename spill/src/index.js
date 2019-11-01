@@ -5,6 +5,7 @@ import GameMapTwoScene from './scenes/gameMapTwoScene';
 import GameMapThreeScene from './scenes/gameMapThreeScene';
 import GameMapFourScene from './scenes/gameMapFourScene';
 import GameMapFiveScene from './scenes/gameMapFiveScene';
+import GameMapHighScoreScene from './scenes/gameMapHighScoreScene';
 import BootScene from './scenes/bootScene';
 import PreloaderScene from './scenes/preloaderScene';
 import LevelSelectScene from './scenes/levelSelectScene';
@@ -29,6 +30,7 @@ class Game extends Phaser.Game {
     this.scene.add('GameMapThree', GameMapThreeScene);
     this.scene.add('GameMapFour', GameMapFourScene);
     this.scene.add('GameMapFive', GameMapFiveScene);
+    this.scene.add('GameMapHighScore', GameMapHighScoreScene);
     this.scene.start('Boot');
   }
 }

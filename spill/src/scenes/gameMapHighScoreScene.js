@@ -8,40 +8,25 @@ let bombs;
 let platforms;
 let cursors;
 let scoreText;
+let highScoreText;
 
-export default class GameMapTwoScene extends Phaser.Scene {
+export default class GameMapHighScoreScene extends Phaser.Scene {
   constructor() {
-    super('GameMapTwo');
+    super('GameMapHighScore');
 
     this.score = 0;
+    this.highScore;
     this.gameOver = false;
     this.gameOverText;
     this.retryButton = null;
     this.quitButton = null;
     this.goal;
-    this.goToNextLevelButton;
-    this.goToNextLevelText;
     this.goalSpawn;
   }
 
   preload() {
-    this.load.image('backgroundTwo', 'assets/img/maps/map2.png');
-    this.load.image(
-      'platformTwo',
-      'assets/img/platform/mapTwo/mainPlatform.png'
-    );
-    this.load.image(
-      'platformTwoGroundOne',
-      'assets/img/platform/mapTwo/platformOne.png'
-    );
-    this.load.image(
-      'platformTwoGroundTwo',
-      'assets/img/platform/mapTwo/platformTwo.png'
-    );
-    this.load.image(
-      'platformTwoGroundThree',
-      'assets/img/platform/mapTwo/platformThree.png'
-    );
+    this.load.image('background', 'assets/img/maps/map1.png');
+    this.load.image('platform', 'assets/img/platform/mapOne/mainPlatform.png');
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
     this.load.image('bomb', 'assets/img/gameItems/bomb.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
@@ -50,21 +35,18 @@ export default class GameMapTwoScene extends Phaser.Scene {
       'quitButtonHover',
       'assets/img/buttons/quitButtonHover.png'
     );
-    this.load.image(
-      'nextLevelButton',
-      'assets/img/buttons/nextLevelButton.png'
-    );
-    this.load.image(
-      'nextLevelButtonHover',
-      'assets/img/buttons/nextLevelButtonHover.png'
-    );
     this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
       frameWidth: 32,
       frameHeight: 48
     });
+
+    this.highScore = localStorage.getItem('highScore');
   }
 
   hitBomb(player) {
+    if (this.score > parseInt(this.highScore)) {
+      localStorage.setItem('highScore', this.score);
+    }
     this.physics.pause();
 
     player.setTint(0xff0000);
@@ -72,68 +54,40 @@ export default class GameMapTwoScene extends Phaser.Scene {
     player.anims.play('turn');
 
     this.gameOver = true;
+
     this.retryButton = new Button(
       this,
       'backButton',
       'backButtonHover',
       'Retry',
-      'GameMapTwo'
+      'GameMapHighScore'
     );
+
     this.gameOverText = this.add.text(-1, -1, 'Game Over', {
       fontSize: '32px',
       fill: '#000'
     });
 
-    this.gameMapTwoSceneGrid.placeAtIndex(36.8, this.gameOverText);
-    this.gameMapTwoSceneGrid.placeAtIndex(60, this.retryButton);
+    this.gameMapOneSceneGrid.placeAtIndex(36.8, this.gameOverText);
+    this.gameMapOneSceneGrid.placeAtIndex(60, this.retryButton);
     this.score = 0;
-  }
-
-  goalReached(player) {
-    this.physics.pause();
-
-    player.anims.play('turn');
-
-    this.goToNextLevelButton = new Button(
-      this,
-      'nextLevelButton',
-      'nextLevelButtonHover',
-      'Next Level',
-      'GameMapThree'
-    );
-    this.goToNextLevelText = this.add.text(
-      -1,
-      -1,
-      'Congrats you managed the level',
-      {
-        fontSize: '28px',
-        fill: '#000'
-      }
-    );
-
-    this.gameMapTwoSceneGrid.placeAtIndex(34.5, this.goToNextLevelText);
-    this.gameMapTwoSceneGrid.placeAtIndex(60, this.goToNextLevelButton);
   }
 
   collectConsoll(player, consoll) {
     consoll.disableBody(true, true);
 
+    if (this.score > parseInt(this.highScore)) {
+      localStorage.setItem('highScore', this.score);
+    }
+
     //  Add and update the score
     this.score += 10;
     scoreText.setText('Score: ' + this.score);
 
-    if (this.score >= 500) {
-      this.goal.create(100, 70, 'goal');
-    }
-
     if (consolls.countActive(true) === 0) {
-      //  A new batch of consolls to collect
+      //  A new batch of stars to collect
       consolls.children.iterate(function(child) {
         child.enableBody(true, child.x, 0, true, true);
-        child.setBounce(1);
-        child.setCollideWorldBounds(true);
-        child.allowGravity = false;
-        child.setVelocity(Phaser.Math.Between(-50, 50), 10);
       });
 
       var x =
@@ -150,32 +104,31 @@ export default class GameMapTwoScene extends Phaser.Scene {
   }
 
   create() {
-    this.gameMapTwoSceneGrid = new AlignGrid({
+    this.gameMapOneSceneGrid = new AlignGrid({
       scene: this,
       cols: 11,
       rows: 11
     });
 
-    this.add.image(400, 300, 'backgroundTwo');
+    this.add.image(400, 300, 'background');
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'platformTwo')
+      .create(400, 568, 'platform')
       .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 440, 'platformTwoGroundOne');
-    platforms.create(50, 250, 'platformTwoGroundOne');
-    platforms.create(230, 170, 'platformTwoGroundThree');
-    platforms.create(750, 200, 'platformTwoGroundTwo');
-    platforms.create(180, 460, 'platformTwoGroundOne');
-    platforms.create(330, 340, 'platformTwoGroundThree');
-    platforms.create(480, 200, 'platformTwoGroundTwo');
+    platforms.create(600, 400, 'platform');
+    platforms.create(50, 250, 'platform');
+    platforms.create(750, 220, 'platform');
+    platforms.create(60, 420, 'platform');
 
-    player = this.physics.add.sprite(50, 100, 'player');
+    player = this.physics.add.sprite(100, 450, 'player');
+    player.setBounce(0.5);
+    player.setCollideWorldBounds(true);
 
-    player.setBounce(0.1);
+    player.setBounce(0.2);
     player.setCollideWorldBounds(true);
 
     this.anims.create({
@@ -213,8 +166,13 @@ export default class GameMapTwoScene extends Phaser.Scene {
     bombs = this.physics.add.group();
     this.goal = this.physics.add.staticGroup();
 
-    scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: '32px',
+    scoreText = this.add.text(10, 0, 'score: 0', {
+      fontSize: '24px',
+      fill: '#000'
+    });
+
+    highScoreText = this.add.text(10, 25, `High Score ${this.highScore}`, {
+      fontSize: '14px',
       fill: '#000'
     });
 
@@ -226,7 +184,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
       'Title'
     );
 
-    this.gameMapTwoSceneGrid.placeAtIndex(10, this.quitButton);
+    this.gameMapOneSceneGrid.placeAtIndex(10, this.quitButton);
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(consolls, platforms);
@@ -252,7 +210,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
     }
 
     if (cursors.up.isDown && player.body.touching.down) {
-      player.setVelocityY(-290);
+      player.setVelocityY(-330);
     } else if (cursors.down.isDown) {
       player.setVelocityY(200);
     }

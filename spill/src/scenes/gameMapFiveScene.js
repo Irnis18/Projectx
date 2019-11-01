@@ -24,7 +24,15 @@ export default class GameMapFiveScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("background", "assets/img/maps/map6.png");
+    this.load.image("backgroundFive", "assets/img/maps/map1.png");
+    this.load.image(
+      "platformFive",
+      "assets/img/platform/mapOne/mainPlatform.png"
+    );
+    this.load.image("consoll", "assets/img/gameItems/consollSmall.png");
+    this.load.image("bomb", "assets/img/gameItems/bomb.png");
+    this.load.image("goal", "assets/img/gameItems/goal.png");
+    this.load.image("quitButton", "assets/img/buttons/quitButton.png");
     this.load.image(
       "platformOne",
       "assets/img/platform/mapFive/platformOne.png"
@@ -129,19 +137,19 @@ export default class GameMapFiveScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, "background");
+    this.add.image(400, 300, "backgroundFive");
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 600, "platform")
-      .setScale(3)
+      .create(400, 568, "platformFive")
+      .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 400, "platformOne");
-    platforms.create(50, 250, "platformOne");
-    platforms.create(100, 500, "platformThree");
-    //platforms.create(60, 420, "platform");
+    platforms.create(600, 400, "platformFive");
+    platforms.create(50, 250, "platformFive");
+    platforms.create(750, 220, "platformFive");
+    platforms.create(60, 420, "platformFive");
 
     player = this.physics.add.sprite(100, 450, "player");
 
@@ -195,7 +203,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
       this,
       "quitButton",
       "quitButtonHover",
-      "",
+      "Quit",
       "Title"
     );
 

@@ -25,8 +25,19 @@ export default class GameMapThreeScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('background', 'assets/img/maps/map1.png');
-    this.load.image('platform', 'assets/img/platform/mapOne/mainPlatform.png');
+    this.load.image('backgroundThree', 'assets/img/maps/map3.png');
+    this.load.image(
+      'platformThree',
+      'assets/img/platform/mapThree/mainPlatform.png'
+    );
+    this.load.image(
+      'platformThreeSmall1',
+      'assets/img/platform/mapThree/mainPlatformOne.png'
+    );
+    this.load.image(
+      'platformThreeSmall2',
+      'assets/img/platform/mapThree/mainPlatformTwo.png'
+    );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
     this.load.image('bomb', 'assets/img/gameItems/bomb.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
@@ -34,6 +45,14 @@ export default class GameMapThreeScene extends Phaser.Scene {
     this.load.image(
       'quitButtonHover',
       'assets/img/buttons/quitButtonHover.png'
+    );
+    this.load.image(
+      'nextLevelButton',
+      'assets/img/buttons/nextLevelButton.png'
+    );
+    this.load.image(
+      'nextLevelButtonHover',
+      'assets/img/buttons/nextLevelButtonHover.png'
     );
     this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
       frameWidth: 32,
@@ -73,8 +92,8 @@ export default class GameMapThreeScene extends Phaser.Scene {
 
     this.goToNextLevelButton = new Button(
       this,
-      'backButton',
-      'backButtonHover',
+      'nextLevelButton',
+      'nextLevelButtonHover',
       'Next Level',
       'GameMapFour'
     );
@@ -129,19 +148,18 @@ export default class GameMapThreeScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, 'background');
+    this.add.image(400, 300, 'backgroundThree');
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'platform')
+      .create(400, 568, 'platformThree')
       .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 400, 'platform');
-    platforms.create(50, 250, 'platform');
-    platforms.create(750, 220, 'platform');
-    platforms.create(60, 420, 'platform');
+    platforms.create(400, 150, 'platformThreeSmall1');
+    platforms.create(200, 320, 'platformThreeSmall2');
+    platforms.create(600, 320, 'platformThreeSmall1');
 
     player = this.physics.add.sprite(100, 450, 'player');
 
@@ -195,7 +213,7 @@ export default class GameMapThreeScene extends Phaser.Scene {
       this,
       'quitButton',
       'quitButtonHover',
-      '',
+      'Quit',
       'Title'
     );
 
@@ -225,9 +243,9 @@ export default class GameMapThreeScene extends Phaser.Scene {
     }
 
     if (cursors.up.isDown && player.body.touching.down) {
-      player.setVelocityY(-330);
+      player.setVelocityY(-400);
     } else if (cursors.down.isDown) {
-      player.setVelocityY(200);
+      player.setVelocityY(400);
     }
   }
 }
