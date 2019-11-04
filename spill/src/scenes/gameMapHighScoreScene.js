@@ -39,7 +39,7 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 48
     });
-
+    this.score = 0;
     this.highScore = localStorage.getItem('highScore') || 0;
   }
 
