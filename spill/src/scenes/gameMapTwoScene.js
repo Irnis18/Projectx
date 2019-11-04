@@ -62,6 +62,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 48
     });
+    this.score = 0;
   }
 
   hitMeteorite(player) {

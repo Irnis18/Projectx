@@ -47,6 +47,7 @@ export default class GameMapOneScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 48
     });
+    this.score = 0;
   }
 
   hitBomb(player) {

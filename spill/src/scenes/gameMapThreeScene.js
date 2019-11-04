@@ -58,6 +58,7 @@ export default class GameMapThreeScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 48
     });
+    this.score = 0;
   }
 
   hitBird(player) {
