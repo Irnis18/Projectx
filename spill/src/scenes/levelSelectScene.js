@@ -14,6 +14,8 @@ export default class LevelSelectScene extends Phaser.Scene {
       rows: 15
     });
 
+    this.add.image(400, 300, 'menuBackground');
+
     // Map one
     this.gameMapOneButton = new Button(
       this,

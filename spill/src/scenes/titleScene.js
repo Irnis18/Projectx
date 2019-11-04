@@ -13,6 +13,7 @@ export default class TitleScene extends Phaser.Scene {
       cols: 9,
       rows: 11
     });
+    this.add.image(400, 300, 'menuBackground');
 
     // Game
 
