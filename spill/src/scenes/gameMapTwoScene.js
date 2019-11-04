@@ -18,10 +18,10 @@ export default class GameMapTwoScene extends Phaser.Scene {
     this.gameOverText;
     this.retryButton = null;
     this.quitButton = null;
-    this.goal;
+    this.flagg;
     this.goToNextLevelButton;
     this.goToNextLevelText;
-    this.goalSpawn;
+    this.flaggSpawn;
   }
 
   preload() {
@@ -44,7 +44,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
     );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
     this.load.image('meteorite', 'assets/img/gameItems/meteorite.png');
-    this.load.image('goal', 'assets/img/gameItems/goal.png');
+    this.load.image('flagg', 'assets/img/gameItems/flagg.png');
     this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
     this.load.image(
       'quitButtonHover',
@@ -89,7 +89,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
     this.score = 0;
   }
 
-  goalReached(player) {
+  flaggReached(player) {
     this.physics.pause();
 
     player.anims.play('turn');
@@ -123,7 +123,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
     scoreText.setText('Score: ' + this.score);
 
     if (this.score >= 500) {
-      this.goal.create(100, 70, 'goal');
+      this.flagg.create(100, 220, 'flagg');
     }
 
     if (consolls.countActive(true) === 0) {
@@ -211,7 +211,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
     });
 
     meteorites = this.physics.add.group();
-    this.goal = this.physics.add.staticGroup();
+    this.flagg = this.physics.add.staticGroup();
 
     scoreText = this.add.text(16, 16, 'score: 0', {
       fontSize: '32px',
@@ -239,7 +239,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
       null,
       this
     );
-    this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
+    this.physics.add.overlap(player, this.flagg, this.flaggReached, null, this);
   }
 
   update() {
