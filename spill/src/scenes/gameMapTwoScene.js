@@ -106,7 +106,7 @@ export default class GameMapTwoScene extends Phaser.Scene {
       -1,
       'Congrats you managed the level',
       {
-        fontSize: '28px',
+        fontSize: '24px',
         fill: '#000'
       }
     );

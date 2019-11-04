@@ -78,7 +78,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
       -1,
       'Congrats you finished all the levels',
       {
-        fontSize: '28px',
+        fontSize: '24px',
         fill: '#000'
       }
     );
@@ -182,7 +182,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
     this.goal = this.physics.add.staticGroup();
 
     scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: '28px',
+      fontSize: '26px',
       fill: '#000'
     });
 
