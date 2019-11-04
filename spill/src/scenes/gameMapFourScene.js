@@ -4,7 +4,7 @@ import AlignGrid from '../objects/alignGrid';
 
 let player;
 let consolls;
-let bombs;
+let gumballs;
 let platforms;
 let cursors;
 let scoreText;
@@ -42,7 +42,7 @@ export default class GameMapFourScene extends Phaser.Scene {
     this.load.image('fort', 'assets/img/platform/mapFour/fort.png');
 
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('bomb', 'assets/img/gameItems/gumball.png');
+    this.load.image('gumball', 'assets/img/gameItems/gumball.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
     this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
     this.load.image(
@@ -65,7 +65,7 @@ export default class GameMapFourScene extends Phaser.Scene {
     this.score = 0;
   }
 
-  hitBomb(player) {
+  hitGumball(player) {
     this.physics.pause();
 
     player.setTint(0xff0000);
@@ -138,11 +138,11 @@ export default class GameMapFourScene extends Phaser.Scene {
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
 
-      var bomb = bombs.create(x, 16, 'bomb');
-      bomb.setBounce(1);
-      bomb.setCollideWorldBounds(true);
-      bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-      bomb.allowGravity = false;
+      var gumball = gumballs.create(x, 16, 'gumball');
+      gumball.setBounce(1);
+      gumball.setCollideWorldBounds(true);
+      gumball.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      gumball.allowGravity = false;
     }
   }
 
@@ -212,7 +212,7 @@ export default class GameMapFourScene extends Phaser.Scene {
       child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
 
-    bombs = this.physics.add.group();
+    gumballs = this.physics.add.group();
     this.goal = this.physics.add.staticGroup();
 
     scoreText = this.add.text(16, 16, 'score: 0', {
@@ -232,9 +232,9 @@ export default class GameMapFourScene extends Phaser.Scene {
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(consolls, platforms);
-    this.physics.add.collider(bombs, platforms);
+    this.physics.add.collider(gumballs, platforms);
     this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-    this.physics.add.collider(player, bombs, this.hitBomb, null, this);
+    this.physics.add.collider(player, gumballs, this.hitGumball, null, this);
     this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
