@@ -1,5 +1,5 @@
 body {
-  background: #f1f1f1
+  background: #f1f1f1;
 }
 
 .main-navbar-custom {
@@ -9,18 +9,18 @@ body {
 .button-navbar-custom {
   margin-top: 21px;
 
-  background: #28323792
+  background: #28323792;
 }
 
 .navbar-custom {
   margin-top: 20.515px;
   margin-right: 60px;
   border-radius: 10%;
-  background: #28323792
+  background: #28323792;
 }
 
 .custom-logo-css {
-  margin-left: 60px
+  margin-left: 60px;
 }
 
 .custom-dropdown-css {
@@ -43,11 +43,11 @@ a:active {
 
 .custom-margin-for-titles {
   margin-top: 60px;
-  margin-bottom: 50px
+  margin-bottom: 50px;
 }
 
 .navigation-bar-color {
-  background-color: rgb(241, 176, 27) !important
+  background-color: rgb(241, 176, 27) !important;
 }
 
 .info-footer-color {
@@ -60,5 +60,9 @@ a:active {
 }
 
 .list-group-item {
-  background: #f1f1f1
+  background: #f1f1f1;
+}
+p {
+  font-size: 18px;
+  line-height: 2;
 }
