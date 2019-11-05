@@ -46,16 +46,20 @@ export default class GameMapFourScene extends Phaser.Scene {
     this.load.image('goal', 'assets/img/gameItems/goal.png');
     this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
     this.load.image(
+      'platformFourTwo',
+      'assets/img/platform/mapFour/seaPlatformTwo.png'
+    );
+    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
+    this.load.image('bomb', 'assets/img/gameItems/star.png');
+    this.load.image('goal', 'assets/img/gameItems/goal.png');
+    this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
+    this.load.image(
       'quitButtonHover',
       'assets/img/buttons/quitButtonHover.png'
     );
     this.load.image(
       'nextLevelButton',
       'assets/img/buttons/nextLevelButton.png'
-    );
-    this.load.image(
-      'nextLevelButtonHover',
-      'assets/img/buttons/nextLevelButtonHover.png'
     );
 
     this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
@@ -253,10 +257,10 @@ export default class GameMapFourScene extends Phaser.Scene {
       player.anims.play('turn');
     }
 
-    if (cursors.up.isDown && player.body.touching.down) {
-      player.setVelocityY(-330);
+    if (cursors.up.isDown) {
+      player.setVelocityY(-150);
     } else if (cursors.down.isDown) {
-      player.setVelocityY(200);
+      player.setVelocityY(100);
     }
   }
 }
