@@ -24,20 +24,20 @@ export default class GameMapFiveScene extends Phaser.Scene {
   }
   //Loading everything for map5 when window is opened:
   preload() {
-    this.load.image("background", "assets/img/maps/map5.png"); //Winterbackgound
+    this.load.image("background", "assets/img/maps/snowMap5.png"); //Winterbackgound
     this.load.image(
       "platform",
-      "assets/img/platform/mapFive/mainPlatform5.png"
+      "assets/img/platform/snowMapFive/snowGround.png"
     ); // Winterstyle platform
     this.load.image(
-      "platformOne",
-      "assets/img/platform/mapFive/platformOne.png"
+      "smallGround",
+      "assets/img/platform/snowMapFive/snowSmallGround.png"
     ); //Winterstyle platform
     this.load.image(
-      "platformTwo",
-      "assets/img/platform/mapFive/platformTwo.png"
+      "miniGround",
+      "assets/img/platform/snowMapFive/snowMiniGround.png"
     ); //Winterstyle platform
-    this.load.image("platformThree", "assets/img/maps/hytte.png"); //Cabin platform
+    this.load.image("winterCabin", "assets/img/maps/hytteMap5.png"); //Cabin platform
     this.load.image("consoll", "assets/img/gameItems/consollSmall.png"); //Controller of value
     this.load.image("bomb", "assets/img/gameItems/snoball.png"); // A snowball as obstical instead of a bomb
     this.load.image("goal", "assets/img/gameItems/goal.png"); // Goal that appears when you have collectet enough points
@@ -142,10 +142,11 @@ export default class GameMapFiveScene extends Phaser.Scene {
       .setScale(3)
       .refreshBody();
 
-    platforms.create(600, 400, "platformOne");
-    platforms.create(50, 250, "platformOne");
-    platforms.create(170, 70, "platformTwo");
-    platforms.create(100, 500, "platformThree");
+    platforms.create(600, 400, "smallGround");
+    platforms.create(50, 250, "smallGround");
+    platforms.create(170, 70, "miniGround");
+    platforms.create(100, 500, "winterCabin");
+    platforms.create(450, 270, "miniGround");
 
     player = this.physics.add.sprite(100, 450, "player");
 
