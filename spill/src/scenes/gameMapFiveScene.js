@@ -24,9 +24,9 @@ export default class GameMapFiveScene extends Phaser.Scene {
   }
   //Loading everything for map5 when window is opened:
   preload() {
-    this.load.image("background", "assets/img/maps/snowMap5.png"); //Winterbackgound
+    this.load.image("snowBackground", "assets/img/maps/snowMap5.png"); //Winterbackgound
     this.load.image(
-      "platform",
+      "snowPlatform",
       "assets/img/platform/snowMapFive/snowGround.png"
     ); // Winterstyle platform
     this.load.image(
@@ -133,12 +133,12 @@ export default class GameMapFiveScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, "background");
+    this.add.image(400, 300, "snowBackground");
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 600, "platform")
+      .create(400, 600, "snowPlatform")
       .setScale(3)
       .refreshBody();
 
@@ -200,7 +200,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
       this,
       "quitButton",
       "quitButtonHover",
-      "",
+      "Quit",
       "Title"
     );
 
