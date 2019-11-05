@@ -4,7 +4,7 @@ import AlignGrid from "../objects/alignGrid";
 
 let player;
 let consolls;
-let bombs;
+let snowballs;
 let platforms;
 let cursors;
 let scoreText;
@@ -37,9 +37,9 @@ export default class GameMapFiveScene extends Phaser.Scene {
       "miniGround",
       "assets/img/platform/snowMapFive/snowMiniGround.png"
     ); //Winterstyle platform
-    this.load.image("winterCabin", "assets/img/maps/hytteMap5test.png"); //Cabin platform
+    this.load.image("winterCabin", "assets/img/maps/hytteMap5.png"); //Cabin platform
     this.load.image("consoll", "assets/img/gameItems/consollSmall.png"); //Controller of value
-    this.load.image("bomb", "assets/img/gameItems/snoball.png"); // A snowball as obstical instead of a bomb
+    this.load.image("snowBall", "assets/img/gameItems/snoball.png"); // A snowball as obstical instead of a bomb
     this.load.image("goal", "assets/img/gameItems/goal.png"); // Goal that appears when you have collectet enough points
     this.load.image("quitButton", "assets/img/buttons/quitButton.png");
     this.load.image(
@@ -52,7 +52,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
     }); // The player we use on our levels
   }
 
-  hitBomb(player) {
+  hitSnowball(player) {
     this.physics.pause();
 
     player.setTint(0xff0000);
@@ -118,11 +118,11 @@ export default class GameMapFiveScene extends Phaser.Scene {
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
 
-      var bomb = bombs.create(x, 16, "bomb");
-      bomb.setBounce(1);
-      bomb.setCollideWorldBounds(true);
-      bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-      bomb.allowGravity = false;
+      var snowball = snowballs.create(x, 16, "snowball");
+      snowball.setBounce(1);
+      snowball.setCollideWorldBounds(true);
+      snowball.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      snowball.allowGravity = false;
     }
   }
 
@@ -188,7 +188,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
       child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
 
-    bombs = this.physics.add.group();
+    snowballs = this.physics.add.group();
     this.goal = this.physics.add.staticGroup();
 
     scoreText = this.add.text(16, 16, "score: 0", {
@@ -208,9 +208,9 @@ export default class GameMapFiveScene extends Phaser.Scene {
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(consolls, platforms);
-    this.physics.add.collider(bombs, platforms);
+    this.physics.add.collider(snowballs, platforms);
     this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-    this.physics.add.collider(player, bombs, this.hitBomb, null, this);
+    this.physics.add.collider(player, snowballs, this.hitSnowball, null, this);
     this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
