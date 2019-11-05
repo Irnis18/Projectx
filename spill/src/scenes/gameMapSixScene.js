@@ -1,6 +1,6 @@
-import 'phaser';
-import Button from '../objects/button';
-import AlignGrid from '../objects/alignGrid';
+import "phaser";
+import Button from "../objects/button";
+import AlignGrid from "../objects/alignGrid";
 
 let playerSwimming;
 let consolls;
@@ -11,7 +11,7 @@ let scoreText;
 
 export default class GameMapSixScene extends Phaser.Scene {
   constructor() {
-    super('GameMapSix');
+    super("GameMapSix");
 
     this.score = 0;
     this.gameOver = false;
@@ -25,34 +25,34 @@ export default class GameMapSixScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('backgroundSix', 'assets/img/maps/map6.png');
+    this.load.image("backgroundSix", "assets/img/maps/map6.png");
     this.load.image(
-      'platformSix',
-      'assets/img/platform/mapSix/seaPlatform.png'
+      "platformSix",
+      "assets/img/platform/mapSix/seaPlatform.png"
     );
     this.load.image(
-      'platformSixTwo',
-      'assets/img/platform/mapSix/seaPlatformTwo.png'
+      "platformSixTwo",
+      "assets/img/platform/mapSix/seaPlatformTwo.png"
     );
-    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('star', 'assets/img/gameItems/star.png');
-    this.load.image('goal', 'assets/img/gameItems/goal.png');
-    this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
+    this.load.image("consoll", "assets/img/gameItems/consollSmall.png");
+    this.load.image("star", "assets/img/gameItems/star.png");
+    this.load.image("goal", "assets/img/gameItems/goal.png");
+    this.load.image("quitButton", "assets/img/buttons/quitButton.png");
     this.load.image(
-      'quitButtonHover',
-      'assets/img/buttons/quitButtonHover.png'
-    );
-    this.load.image(
-      'nextLevelButton',
-      'assets/img/buttons/nextLevelButton.png'
+      "quitButtonHover",
+      "assets/img/buttons/quitButtonHover.png"
     );
     this.load.image(
-      'nextLevelButtonHover',
-      'assets/img/buttons/nextLevelButtonHover.png'
+      "nextLevelButton",
+      "assets/img/buttons/nextLevelButton.png"
+    );
+    this.load.image(
+      "nextLevelButtonHover",
+      "assets/img/buttons/nextLevelButtonHover.png"
     );
     this.load.spritesheet(
-      'playerSwimming',
-      'assets/img/gameItems/playerSwimming.png',
+      "playerSwimming",
+      "assets/img/gameItems/playerSwimming.png",
       {
         frameWidth: 48,
         frameHeight: 32
@@ -66,20 +66,20 @@ export default class GameMapSixScene extends Phaser.Scene {
 
     playerSwimming.setTint(0xff0000);
 
-    playerSwimming.anims.play('swimTurn');
+    playerSwimming.anims.play("swimTurn");
 
     this.gameOver = true;
 
     this.retryButton = new Button(
       this,
-      'backButton',
-      'backButtonHover',
-      'Retry',
-      'GameMapSix'
+      "backButton",
+      "backButtonHover",
+      "Retry",
+      "GameMapSix"
     );
-    this.gameOverText = this.add.text(-1, -1, 'Game Over', {
-      fontSize: '32px',
-      fill: '#000'
+    this.gameOverText = this.add.text(-1, -1, "Game Over", {
+      fontSize: "32px",
+      fill: "#000"
     });
 
     this.gameMapSixSceneGrid.placeAtIndex(36.8, this.gameOverText);
@@ -90,20 +90,28 @@ export default class GameMapSixScene extends Phaser.Scene {
   goalReached(playerSwimming) {
     this.physics.pause();
 
-    playerSwimming.anims.play('swimTurn');
+    playerSwimming.anims.play("swimTurn");
 
-    this.goToNextLevelText = this.add.text(
+    this.finishGameText = this.add.text(
       -1,
       -1,
-      'Congrats you managed the level Last level',
+      "Congrats you managed the last level",
       {
-        fontSize: '28px',
-        fill: '#000'
+        fontSize: "28px",
+        fill: "#000"
       }
     );
 
-    this.gameMapSixSceneGrid.placeAtIndex(34.5, this.goToNextLevelText);
-    this.gameMapSixSceneGrid.placeAtIndex(60, this.quitButton);
+    this.finishGameButton = new Button(
+      this,
+      "menuButton",
+      "menuButtonHover",
+      "Quit Game",
+      "Title"
+    );
+
+    this.gameMapSixSceneGrid.placeAtIndex(33.5, this.finishGameText);
+    this.gameMapSixSceneGrid.placeAtIndex(60, this.finishGameButton);
   }
 
   collectConsoll(playerSwimming, consoll) {
@@ -111,10 +119,10 @@ export default class GameMapSixScene extends Phaser.Scene {
 
     //  Add and update the score
     this.score += 10;
-    scoreText.setText('Score: ' + this.score);
+    scoreText.setText("Score: " + this.score);
 
     if (this.score == 500) {
-      this.goal.create(100, 70, 'goal');
+      this.goal.create(100, 70, "goal");
     }
 
     if (consolls.countActive(true) === 0) {
@@ -130,7 +138,7 @@ export default class GameMapSixScene extends Phaser.Scene {
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
 
-      var star = stars.create(x, 16, 'star');
+      var star = stars.create(x, 16, "star");
       star.setBounce(1);
       star.setCollideWorldBounds(true);
       star.setVelocity(Phaser.Math.Between(-200, 200), 20);
@@ -145,24 +153,24 @@ export default class GameMapSixScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, 'backgroundSix');
+    this.add.image(400, 300, "backgroundSix");
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'platformSix')
+      .create(400, 568, "platformSix")
       .setScale(2)
       .refreshBody();
 
-    platforms.create(600, 400, 'platformSixTwo');
-    platforms.create(50, 250, 'platformSixTwo');
-    platforms.create(750, 220, 'platformSixTwo');
-    platforms.create(60, 420, 'platformSixTwo');
-    platforms.create(100, 420, 'platformSixTwo');
-    platforms.create(60, 420, 'platformSixTwo');
-    platforms.create(300, 120, 'platformSixTwo');
+    platforms.create(600, 400, "platformSixTwo");
+    platforms.create(50, 250, "platformSixTwo");
+    platforms.create(750, 220, "platformSixTwo");
+    platforms.create(60, 420, "platformSixTwo");
+    platforms.create(100, 420, "platformSixTwo");
+    platforms.create(60, 420, "platformSixTwo");
+    platforms.create(300, 120, "platformSixTwo");
 
-    playerSwimming = this.physics.add.sprite(100, 450, 'playerSwimming');
+    playerSwimming = this.physics.add.sprite(100, 450, "playerSwimming");
 
     playerSwimming.setBounce(0.5);
     playerSwimming.setCollideWorldBounds(true);
@@ -171,8 +179,8 @@ export default class GameMapSixScene extends Phaser.Scene {
     playerSwimming.setCollideWorldBounds(true);
 
     this.anims.create({
-      key: 'swimLeft',
-      frames: this.anims.generateFrameNumbers('playerSwimming', {
+      key: "swimLeft",
+      frames: this.anims.generateFrameNumbers("playerSwimming", {
         start: 0,
         end: 3
       }),
@@ -181,14 +189,14 @@ export default class GameMapSixScene extends Phaser.Scene {
     });
 
     this.anims.create({
-      key: 'swimTurn',
-      frames: [{ key: 'playerSwimming', frame: 4 }],
+      key: "swimTurn",
+      frames: [{ key: "playerSwimming", frame: 4 }],
       frameRate: 20
     });
 
     this.anims.create({
-      key: 'swimRight',
-      frames: this.anims.generateFrameNumbers('playerSwimming', {
+      key: "swimRight",
+      frames: this.anims.generateFrameNumbers("playerSwimming", {
         start: 5,
         end: 8
       }),
@@ -199,7 +207,7 @@ export default class GameMapSixScene extends Phaser.Scene {
     cursors = this.input.keyboard.createCursorKeys();
 
     consolls = this.physics.add.group({
-      key: 'consoll',
+      key: "consoll",
       repeat: 9,
       setXY: { x: 12, y: 0, stepX: 86 }
     });
@@ -211,17 +219,17 @@ export default class GameMapSixScene extends Phaser.Scene {
     stars = this.physics.add.group();
     this.goal = this.physics.add.staticGroup();
 
-    scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: '28px',
-      fill: '#000'
+    scoreText = this.add.text(16, 16, "score: 0", {
+      fontSize: "28px",
+      fill: "#000"
     });
 
     this.quitButton = new Button(
       this,
-      'quitButton',
-      'quitButtonHover',
-      'Quit',
-      'Title'
+      "quitButton",
+      "quitButtonHover",
+      "Quit",
+      "Title"
     );
 
     this.gameMapSixSceneGrid.placeAtIndex(10, this.quitButton);
@@ -250,15 +258,15 @@ export default class GameMapSixScene extends Phaser.Scene {
     if (cursors.left.isDown) {
       playerSwimming.setVelocityX(-160);
 
-      playerSwimming.anims.play('swimLeft', true);
+      playerSwimming.anims.play("swimLeft", true);
     } else if (cursors.right.isDown) {
       playerSwimming.setVelocityX(160);
 
-      playerSwimming.anims.play('swimRight', true);
+      playerSwimming.anims.play("swimRight", true);
     } else {
       playerSwimming.setVelocityX(0);
 
-      playerSwimming.anims.play('swimTurn');
+      playerSwimming.anims.play("swimTurn");
     }
 
     if (cursors.up.isDown) {
