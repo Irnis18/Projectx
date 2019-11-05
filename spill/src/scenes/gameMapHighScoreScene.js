@@ -155,8 +155,8 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
 
     consolls = this.physics.add.group({
       key: 'consoll',
-      repeat: 11,
-      setXY: { x: 12, y: 0, stepX: 70 }
+      repeat: 9,
+      setXY: { x: 12, y: 0, stepX: 86 }
     });
 
     consolls.children.iterate(function(child) {

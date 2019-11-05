@@ -1,6 +1,6 @@
-import "phaser";
-import Button from "../objects/button";
-import AlignGrid from "../objects/alignGrid";
+import 'phaser';
+import Button from '../objects/button';
+import AlignGrid from '../objects/alignGrid';
 
 let player;
 let consolls;
@@ -11,7 +11,7 @@ let scoreText;
 
 export default class GameMapFiveScene extends Phaser.Scene {
   constructor() {
-    super("GameMapFive");
+    super('GameMapFive');
     this.score = 0;
     this.gameOver = false;
     this.gameOverText;
@@ -24,29 +24,29 @@ export default class GameMapFiveScene extends Phaser.Scene {
   }
   //Loading everything for map5 when window is opened:
   preload() {
-    this.load.image("snowBackground", "assets/img/maps/snowMap5test.png"); //Winterbackgound
+    this.load.image('snowBackground', 'assets/img/maps/snowMap5test.png'); //Winterbackgound
     this.load.image(
-      "snowPlatform",
-      "assets/img/platform/snowMapFive/snowGround.png"
+      'snowPlatform',
+      'assets/img/platform/snowMapFive/snowGround.png'
     ); // Winterstyle platform
     this.load.image(
-      "smallGround",
-      "assets/img/platform/snowMapFive/snowSmallGround.png"
+      'smallGround',
+      'assets/img/platform/snowMapFive/snowSmallGround.png'
     ); //Winterstyle platform
     this.load.image(
-      "miniGround",
-      "assets/img/platform/snowMapFive/snowMiniGround.png"
+      'miniGround',
+      'assets/img/platform/snowMapFive/snowMiniGround.png'
     ); //Winterstyle platform
-    this.load.image("winterCabin", "assets/img/maps/hytteMap5test.png"); //Cabin platform
-    this.load.image("consoll", "assets/img/gameItems/consollSmall.png"); //Controller of value
-    this.load.image("snowBall", "assets/img/gameItems/snoball.png"); // A snowball as obstical instead of a bomb
-    this.load.image("goal", "assets/img/gameItems/goal.png"); // Goal that appears when you have collectet enough points
-    this.load.image("quitButton", "assets/img/buttons/quitButton.png");
+    this.load.image('winterCabin', 'assets/img/maps/hytteMap5test.png'); //Cabin platform
+    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png'); //Controller of value
+    this.load.image('snowBall', 'assets/img/gameItems/snoball.png'); // A snowball as obstical instead of a bomb
+    this.load.image('goal', 'assets/img/gameItems/goal.png'); // Goal that appears when you have collectet enough points
+    this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
     this.load.image(
-      "quitButtonHover",
-      "assets/img/buttons/quitButtonHover.png"
+      'quitButtonHover',
+      'assets/img/buttons/quitButtonHover.png'
     ); // Quitbutton when you want to quit
-    this.load.spritesheet("player", "assets/img/gameItems/player.png", {
+    this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
       frameWidth: 32,
       frameHeight: 48
     }); // The player we use on our levels
@@ -57,19 +57,19 @@ export default class GameMapFiveScene extends Phaser.Scene {
 
     player.setTint(0xff0000);
 
-    player.anims.play("turn");
+    player.anims.play('turn');
 
     this.gameOver = true;
     this.retryButton = new Button(
       this,
-      "backButton",
-      "backButtonHover",
-      "Retry",
-      "GameMapFive"
+      'backButton',
+      'backButtonHover',
+      'Retry',
+      'GameMapFive'
     );
-    this.gameOverText = this.add.text(-1, -1, "Game Over", {
-      fontSize: "32px",
-      fill: "#000"
+    this.gameOverText = this.add.text(-1, -1, 'Game Over', {
+      fontSize: '32px',
+      fill: '#000'
     });
 
     this.gameMapFiveSceneGrid.placeAtIndex(36.8, this.gameOverText);
@@ -80,15 +80,15 @@ export default class GameMapFiveScene extends Phaser.Scene {
   goalReached(player) {
     this.physics.pause();
 
-    player.anims.play("turn");
+    player.anims.play('turn');
 
     this.goToNextLevelText = this.add.text(
       -1,
       -1,
-      "Congrats you finished all the levels",
+      'Congrats you finished all the levels',
       {
-        fontSize: "24px",
-        fill: "#000"
+        fontSize: '24px',
+        fill: '#000'
       }
     );
 
@@ -101,24 +101,30 @@ export default class GameMapFiveScene extends Phaser.Scene {
 
     //  Add and update the score
     this.score += 10;
-    scoreText.setText("Score: " + this.score);
+    scoreText.setText('Score: ' + this.score);
+
+    if (this.score == 500) {
+      this.goal.create(100, 70, 'goal');
+    }
 
     if (this.score >= 500) {
-      this.goal.create(500, 150, "goal");
+      this.goal.create(500, 150, 'goal');
     }
 
     if (consolls.countActive(true) === 0) {
-      //  A new batch of stars to collect
-      consolls.children.iterate(function(child) {
-        child.enableBody(true, child.x, 0, true, true);
-      });
+      //  A new batch of consolls to collect
+      if (this.score < 500) {
+        consolls.children.iterate(function(child) {
+          child.enableBody(true, child.x, 0, true, true);
+        });
+      }
 
       var x =
         player.x < 400
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
 
-      var snowball = snowballs.create(x, 16, "snowball");
+      var snowball = snowballs.create(x, 16, 'snowball');
       snowball.setBounce(1);
       snowball.setCollideWorldBounds(true);
       snowball.setVelocity(Phaser.Math.Between(-200, 200), 20);
@@ -133,22 +139,22 @@ export default class GameMapFiveScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, "snowBackground");
+    this.add.image(400, 300, 'snowBackground');
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 600, "snowPlatform")
+      .create(400, 600, 'snowPlatform')
       .setScale(3)
       .refreshBody();
 
-    platforms.create(600, 400, "smallGround");
-    platforms.create(50, 250, "smallGround");
-    platforms.create(170, 70, "miniGround");
-    platforms.create(450, 270, "miniGround");
-    platforms.create(95, 447.5, "winterCabin");
+    platforms.create(600, 400, 'smallGround');
+    platforms.create(50, 250, 'smallGround');
+    platforms.create(170, 70, 'miniGround');
+    platforms.create(450, 270, 'miniGround');
+    platforms.create(95, 447.5, 'winterCabin');
 
-    player = this.physics.add.sprite(100, 450, "player");
+    player = this.physics.add.sprite(100, 450, 'player');
 
     player.setBounce(0.5);
     player.setCollideWorldBounds(true);
@@ -157,21 +163,21 @@ export default class GameMapFiveScene extends Phaser.Scene {
     player.setCollideWorldBounds(true);
 
     this.anims.create({
-      key: "left",
-      frames: this.anims.generateFrameNumbers("player", { start: 0, end: 3 }),
+      key: 'left',
+      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1
     });
 
     this.anims.create({
-      key: "turn",
-      frames: [{ key: "player", frame: 4 }],
+      key: 'turn',
+      frames: [{ key: 'player', frame: 4 }],
       frameRate: 20
     });
 
     this.anims.create({
-      key: "right",
-      frames: this.anims.generateFrameNumbers("player", { start: 5, end: 8 }),
+      key: 'right',
+      frames: this.anims.generateFrameNumbers('player', { start: 5, end: 8 }),
       frameRate: 10,
       repeat: -1
     });
@@ -179,9 +185,9 @@ export default class GameMapFiveScene extends Phaser.Scene {
     cursors = this.input.keyboard.createCursorKeys();
 
     consolls = this.physics.add.group({
-      key: "consoll",
-      repeat: 11,
-      setXY: { x: 12, y: 0, stepX: 70 }
+      key: 'consoll',
+      repeat: 9,
+      setXY: { x: 12, y: 0, stepX: 86 }
     });
 
     consolls.children.iterate(function(child) {
@@ -191,17 +197,17 @@ export default class GameMapFiveScene extends Phaser.Scene {
     snowballs = this.physics.add.group();
     this.goal = this.physics.add.staticGroup();
 
-    scoreText = this.add.text(16, 16, "score: 0", {
-      fontSize: "26px",
-      fill: "#000"
+    scoreText = this.add.text(16, 16, 'score: 0', {
+      fontSize: '26px',
+      fill: '#000'
     });
 
     this.quitButton = new Button(
       this,
-      "quitButton",
-      "quitButtonHover",
-      "Quit",
-      "Title"
+      'quitButton',
+      'quitButtonHover',
+      'Quit',
+      'Title'
     );
 
     this.gameMapFiveSceneGrid.placeAtIndex(10, this.quitButton);
@@ -218,15 +224,15 @@ export default class GameMapFiveScene extends Phaser.Scene {
     if (cursors.left.isDown) {
       player.setVelocityX(-160);
 
-      player.anims.play("left", true);
+      player.anims.play('left', true);
     } else if (cursors.right.isDown) {
       player.setVelocityX(160);
 
-      player.anims.play("right", true);
+      player.anims.play('right', true);
     } else {
       player.setVelocityX(0);
 
-      player.anims.play("turn");
+      player.anims.play('turn');
     }
 
     if (cursors.up.isDown && player.body.touching.down) {
