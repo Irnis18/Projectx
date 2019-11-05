@@ -46,6 +46,14 @@ export default class GameMapFiveScene extends Phaser.Scene {
       "quitButtonHover",
       "assets/img/buttons/quitButtonHover.png"
     ); // Quitbutton when you want to quit
+    this.load.image(
+      "nextLevelButton",
+      "assets/img/buttons/nextLevelButton.png"
+    );
+    this.load.image(
+      "nextLevelButtonHover",
+      "assets/img/buttons/nextLevelButtonHover.png"
+    );
     this.load.spritesheet("player", "assets/img/gameItems/player.png", {
       frameWidth: 32,
       frameHeight: 48
@@ -91,6 +99,13 @@ export default class GameMapFiveScene extends Phaser.Scene {
         fill: "#000"
       }
     );
+    this.goToNextLevelButton = new Button(
+      this,
+      "nextLevelButton",
+      "nextLevelButtonHover",
+      "Next Level",
+      "GameMapSix"
+    );
 
     this.gameMapFiveSceneGrid.placeAtIndex(34.5, this.goToNextLevelText);
     this.gameMapFiveSceneGrid.placeAtIndex(60, this.goToNextLevelButton);
@@ -102,10 +117,6 @@ export default class GameMapFiveScene extends Phaser.Scene {
     //  Add and update the score
     this.score += 10;
     scoreText.setText("Score: " + this.score);
-
-    if (this.score == 500) {
-      this.goal.create(100, 70, "goal");
-    }
 
     if (this.score >= 500) {
       this.goal.create(500, 150, "goal");
