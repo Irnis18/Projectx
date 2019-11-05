@@ -34,6 +34,7 @@ export default class GameMapFourScene extends Phaser.Scene {
       'platformAutumnOne',
       'assets/img/platform/mapFour/platformAutumnOne.png'
     );
+
     this.load.image(
       'platformAutumnTwo',
       'assets/img/platform/mapFour/platformAutumnTwo.png'
@@ -45,10 +46,6 @@ export default class GameMapFourScene extends Phaser.Scene {
     this.load.image('gumball', 'assets/img/gameItems/gumball.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
     this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
-    this.load.image(
-      'platformFourTwo',
-      'assets/img/platform/mapFour/seaPlatformTwo.png'
-    );
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
     this.load.image('bomb', 'assets/img/gameItems/star.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
@@ -61,11 +58,16 @@ export default class GameMapFourScene extends Phaser.Scene {
       'nextLevelButton',
       'assets/img/buttons/nextLevelButton.png'
     );
+    this.load.image(
+      'nextLevelButtonHover',
+      'assets/img/buttons/nextLevelButtonHover.png'
+    );
 
     this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
       frameWidth: 32,
       frameHeight: 48
     });
+
     this.score = 0;
   }
 
@@ -111,7 +113,7 @@ export default class GameMapFourScene extends Phaser.Scene {
       -1,
       'Congrats you managed the level',
       {
-        fontSize: '24px',
+        fontSize: '28px',
         fill: '#000'
       }
     );
@@ -220,7 +222,7 @@ export default class GameMapFourScene extends Phaser.Scene {
     this.goal = this.physics.add.staticGroup();
 
     scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: '24px',
+      fontSize: '28px',
       fill: '#000'
     });
 
@@ -257,10 +259,10 @@ export default class GameMapFourScene extends Phaser.Scene {
       player.anims.play('turn');
     }
 
-    if (cursors.up.isDown) {
-      player.setVelocityY(-150);
+    if (cursors.up.isDown && player.body.touching.down) {
+      player.setVelocityY(-330);
     } else if (cursors.down.isDown) {
-      player.setVelocityY(100);
+      player.setVelocityY(200);
     }
   }
 }
