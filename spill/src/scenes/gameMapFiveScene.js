@@ -22,25 +22,34 @@ export default class GameMapFiveScene extends Phaser.Scene {
     this.goToNextLevelText;
     this.goalSpawn;
   }
-
+  //Loading everything for map5 when window is opened:
   preload() {
-    this.load.image('backgroundFive', 'assets/img/maps/map1.png');
+    this.load.image('snowBackground', 'assets/img/maps/snowMap5.png'); //Winterbackgound
     this.load.image(
-      'platformFive',
-      'assets/img/platform/mapOne/mainPlatform.png'
-    );
-    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('bomb', 'assets/img/gameItems/bomb.png');
-    this.load.image('goal', 'assets/img/gameItems/goal.png');
+      'snowPlatform',
+      'assets/img/platform/snowMapFive/snowGround.png'
+    ); // Winterstyle platform
+    this.load.image(
+      'smallGround',
+      'assets/img/platform/snowMapFive/snowSmallGround.png'
+    ); //Winterstyle platform
+    this.load.image(
+      'miniGround',
+      'assets/img/platform/snowMapFive/snowMiniGround.png'
+    ); //Winterstyle platform
+    this.load.image('winterCabin', 'assets/img/maps/hytteMap5.png'); //Cabin platform
+    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png'); //Controller of value
+    this.load.image('bomb', 'assets/img/gameItems/snoball.png'); // A snowball as obstical instead of a bomb
+    this.load.image('goal', 'assets/img/gameItems/goal.png'); // Goal that appears when you have collectet enough points
     this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
     this.load.image(
       'quitButtonHover',
       'assets/img/buttons/quitButtonHover.png'
-    );
+    ); // Quitbutton when you want to quit
     this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
       frameWidth: 32,
       frameHeight: 48
-    });
+    }); // The player we use on our levels
   }
 
   hitBomb(player) {
@@ -56,7 +65,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
       'backButton',
       'backButtonHover',
       'Retry',
-      'GameMapFour'
+      'GameMapFive'
     );
     this.gameOverText = this.add.text(-1, -1, 'Game Over', {
       fontSize: '32px',
@@ -95,7 +104,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
     scoreText.setText('Score: ' + this.score);
 
     if (this.score >= 500) {
-      this.goal.create(100, 70, 'goal');
+      this.goal.create(500, 150, 'goal');
     }
 
     if (consolls.countActive(true) === 0) {
@@ -124,19 +133,20 @@ export default class GameMapFiveScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, 'backgroundFive');
+    this.add.image(400, 300, 'snowBackground');
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'platformFive')
-      .setScale(2)
+      .create(400, 600, 'snowPlatform')
+      .setScale(3)
       .refreshBody();
 
-    platforms.create(600, 400, 'platformFive');
-    platforms.create(50, 250, 'platformFive');
-    platforms.create(750, 220, 'platformFive');
-    platforms.create(60, 420, 'platformFive');
+    platforms.create(600, 400, 'smallGround');
+    platforms.create(50, 250, 'smallGround');
+    platforms.create(170, 70, 'miniGround');
+    platforms.create(100, 500, 'winterCabin');
+    platforms.create(450, 270, 'miniGround');
 
     player = this.physics.add.sprite(100, 450, 'player');
 
