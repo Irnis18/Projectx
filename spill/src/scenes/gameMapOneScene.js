@@ -108,16 +108,17 @@ export default class GameMapOneScene extends Phaser.Scene {
     this.score += 10;
     scoreText.setText('Score: ' + this.score);
 
-    if (this.score >= 500) {
+    if (this.score == 500) {
       this.goal.create(100, 70, 'goal');
     }
 
     if (consolls.countActive(true) === 0) {
-      //  A new batch of stars to collect
-      consolls.children.iterate(function(child) {
-        child.enableBody(true, child.x, 0, true, true);
-      });
-
+      //  A new batch of consolls to collect
+      if (this.score < 500) {
+        consolls.children.iterate(function(child) {
+          child.enableBody(true, child.x, 0, true, true);
+        });
+      }
       var x =
         player.x < 400
           ? Phaser.Math.Between(400, 800)
@@ -184,8 +185,8 @@ export default class GameMapOneScene extends Phaser.Scene {
 
     consolls = this.physics.add.group({
       key: 'consoll',
-      repeat: 11,
-      setXY: { x: 12, y: 0, stepX: 70 }
+      repeat: 9,
+      setXY: { x: 12, y: 0, stepX: 86 }
     });
 
     consolls.children.iterate(function(child) {
