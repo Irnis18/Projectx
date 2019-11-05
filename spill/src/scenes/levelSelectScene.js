@@ -11,7 +11,7 @@ export default class LevelSelectScene extends Phaser.Scene {
     this.levelSelectSceneGrid = new AlignGrid({
       scene: this,
       cols: 9,
-      rows: 15
+      rows: 17
     });
 
     this.add.image(400, 300, 'menuBackground');
@@ -66,6 +66,16 @@ export default class LevelSelectScene extends Phaser.Scene {
     );
     this.levelSelectSceneGrid.placeAtIndex(94, this.gameMapFiveButton);
 
+    // Map Five
+    this.gameMapSixButton = new Button(
+      this,
+      'menuButton',
+      'menuButtonHover',
+      'Map 6',
+      'GameMapSix'
+    );
+    this.levelSelectSceneGrid.placeAtIndex(112, this.gameMapSixButton);
+
     this.gameMapHighScoreButton = new Button(
       this,
       'menuButton',
@@ -73,16 +83,8 @@ export default class LevelSelectScene extends Phaser.Scene {
       'High Score Map',
       'GameMapHighScore'
     );
-    this.levelSelectSceneGrid.placeAtIndex(112, this.gameMapHighScoreButton);
+    this.levelSelectSceneGrid.placeAtIndex(130, this.gameMapHighScoreButton);
 
-    // this.gameMapHighScoreButton = new Button(
-    //   'menuButton',
-    //   'menuButtonHover',
-    //   'Map High Score',
-    //   'GameMapHighScore'
-    // );
-    // this.levelSelectSceneGrid.placeAtIndex(94, this.gameMapHighScoreButton);
-    // Back to menu button
     this.returnHomeButton = new Button(
       this,
       'backButton',
