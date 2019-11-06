@@ -2,6 +2,7 @@ import 'phaser';
 import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
+//Variables for different elements in the game:
 let player;
 let consolls;
 let snowballs;
@@ -9,6 +10,7 @@ let platforms;
 let cursors;
 let scoreText;
 
+//Phaser game standards:
 export default class GameMapFiveScene extends Phaser.Scene {
   constructor() {
     super('GameMapFive');
@@ -48,21 +50,25 @@ export default class GameMapFiveScene extends Phaser.Scene {
     this.load.image(
       'quitButtonHover',
       'assets/img/buttons/quitButtonHover.png'
-    ); // Quitbutton when you want to quit
+    );
+    //Button when clearing level and move to the next:
     this.load.image(
       'nextLevelButton',
       'assets/img/buttons/nextLevelButton.png'
     );
+
     this.load.image(
       'nextLevelButtonHover',
       'assets/img/buttons/nextLevelButtonHover.png'
     );
+    //The player (Cassi), we use on our levels:
     this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
       frameWidth: 32,
       frameHeight: 48
-    }); // The player we use on our levels
+    });
   }
 
+  //Function that loads stops game when you get hit by a snowball:
   hitSnowball(player) {
     this.physics.pause();
 
@@ -88,6 +94,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
     this.score = 0;
   }
 
+  //Function runs when you reach 500 points and can go to next level:
   goalReached(player) {
     this.physics.pause();
 
@@ -114,6 +121,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
     this.gameMapFiveSceneGrid.placeAtIndex(60, this.goToNextLevelButton);
   }
 
+  //Score update for each controller you collect (10pt. each), goal = 500 points:
   collectConsoll(player, consoll) {
     consoll.disableBody(true, true);
 
@@ -146,6 +154,8 @@ export default class GameMapFiveScene extends Phaser.Scene {
     }
   }
 
+  //Grids for placing different elements in the game (x,y-scale)
+  //The grid reference to the middle of the figure you are placing
   create() {
     this.gameMapFiveSceneGrid = new AlignGrid({
       scene: this,
@@ -168,6 +178,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
     platforms.create(450, 270, 'miniGround');
     platforms.create(95, 447.5, 'winterCabin');
 
+    //The players movement:
     player = this.physics.add.sprite(100, 450, 'player');
 
     player.setBounce(0.5);
@@ -196,6 +207,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
       repeat: -1
     });
 
+    //How the goals (the controller) load:
     cursors = this.input.keyboard.createCursorKeys();
 
     consolls = this.physics.add.group({
@@ -204,6 +216,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
       setXY: { x: 12, y: 0, stepX: 86 }
     });
 
+    //The obsticals (snowball) movement:
     consolls.children.iterate(function(child) {
       child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
@@ -234,6 +247,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
     this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
+  //More for player (Cassi) movement:
   update() {
     if (cursors.left.isDown) {
       player.setVelocityX(-160);
