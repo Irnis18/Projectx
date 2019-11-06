@@ -4,7 +4,7 @@ import AlignGrid from '../objects/alignGrid';
 
 let player;
 let consolls;
-let bombs;
+let gumballs;
 let platforms;
 let cursors;
 let scoreText;
@@ -25,11 +25,25 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('background', 'assets/img/maps/map1.png');
-    this.load.image('platform', 'assets/img/platform/mapOne/mainPlatform.png');
+    this.load.image('backgroundOne', 'assets/img/maps/map1.png');
+    this.load.image(
+      'mainPlatformAutumn',
+      'assets/img/platform/mapOne/mainPlatformAutumn.png'
+    );
+    this.load.image(
+      'platformAutumnOne',
+      'assets/img/platform/mapOne/platformAutumnOne.png'
+    );
+
+    this.load.image(
+      'platformAutumnTwo',
+      'assets/img/platform/mapOne/platformAutumnTwo.png'
+    );
+    this.load.image('fort', 'assets/img/platform/mapOne/fort.png');
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('bomb', 'assets/img/gameItems/bomb.png');
+    this.load.image('gumball', 'assets/img/gameItems/gumball.png');
     this.load.image('goal', 'assets/img/gameItems/goal.png');
+    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
     this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
     this.load.image(
       'quitButtonHover',
@@ -39,14 +53,16 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 48
     });
+
     this.score = 0;
     this.highScore = localStorage.getItem('highScore') || 0;
   }
 
-  hitBomb(player) {
+  hitGumball(player) {
     if (this.score > parseInt(this.highScore)) {
       localStorage.setItem('highScore', this.score);
     }
+
     this.physics.pause();
 
     player.setTint(0xff0000);
@@ -60,7 +76,7 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
       'backButton',
       'backButtonHover',
       'Retry',
-      'GameMapHighScore'
+      'GameMapOne'
     );
 
     this.gameOverText = this.add.text(-1, -1, 'Game Over', {
@@ -68,8 +84,8 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
       fill: '#000'
     });
 
-    this.gameMapOneSceneGrid.placeAtIndex(36.8, this.gameOverText);
-    this.gameMapOneSceneGrid.placeAtIndex(60, this.retryButton);
+    this.gameMapHighScoreSceneGrid.placeAtIndex(36.8, this.gameOverText);
+    this.gameMapHighScoreSceneGrid.placeAtIndex(60, this.retryButton);
     this.score = 0;
   }
 
@@ -84,47 +100,59 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
     this.score += 10;
     scoreText.setText('Score: ' + this.score);
 
+    if (this.score == 500) {
+      this.goal.create(100, 70, 'goal');
+    }
+
     if (consolls.countActive(true) === 0) {
-      //  A new batch of stars to collect
-      consolls.children.iterate(function(child) {
-        child.enableBody(true, child.x, 0, true, true);
-      });
+      //  A new batch of consolls to collect
+      if (this.score < 500) {
+        consolls.children.iterate(function(child) {
+          child.enableBody(true, child.x, 0, true, true);
+        });
+      }
 
       var x =
         player.x < 400
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
 
-      var bomb = bombs.create(x, 16, 'bomb');
-      bomb.setBounce(1);
-      bomb.setCollideWorldBounds(true);
-      bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-      bomb.allowGravity = false;
+      var gumball = gumballs.create(x, 16, 'gumball');
+      gumball.setBounce(1);
+      gumball.setCollideWorldBounds(true);
+      gumball.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      gumball.allowGravity = false;
     }
   }
 
   create() {
-    this.gameMapOneSceneGrid = new AlignGrid({
+    this.gameMapHighScoreSceneGrid = new AlignGrid({
       scene: this,
       cols: 11,
       rows: 11
     });
 
-    this.add.image(400, 300, 'background');
+    this.add.image(400, 300, 'backgroundOne');
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 568, 'platform')
-      .setScale(2)
+      .create(400, 568, 'mainPlatformAutumn')
+      .setScale(1)
       .refreshBody();
 
-    platforms.create(600, 400, 'platform');
-    platforms.create(50, 250, 'platform');
-    platforms.create(750, 220, 'platform');
-    platforms.create(60, 420, 'platform');
+    platforms.create(200, 205, 'platformAutumnOne');
+    platforms.create(50, 250, 'platformAutumnOne');
+    platforms.create(670, 220, 'platformAutumnTwo');
+    platforms.create(610, 525, 'platformAutumnTwo');
+    platforms.create(630, 500, 'platformAutumnOne');
+    platforms.create(600, 500, 'platformAutumnOne');
+    platforms.create(630, 490, 'platformAutumnOne');
+    platforms.create(330, 310, 'platformAutumnOne');
+    platforms.create(800, 430, 'fort');
 
     player = this.physics.add.sprite(100, 450, 'player');
+
     player.setBounce(0.5);
     player.setCollideWorldBounds(true);
 
@@ -163,7 +191,7 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
       child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
 
-    bombs = this.physics.add.group();
+    gumballs = this.physics.add.group();
     this.goal = this.physics.add.staticGroup();
 
     scoreText = this.add.text(10, 0, 'score: 0', {
@@ -184,13 +212,13 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
       'Title'
     );
 
-    this.gameMapOneSceneGrid.placeAtIndex(10, this.quitButton);
+    this.gameMapHighScoreSceneGrid.placeAtIndex(10, this.quitButton);
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(consolls, platforms);
-    this.physics.add.collider(bombs, platforms);
+    this.physics.add.collider(gumballs, platforms);
     this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-    this.physics.add.collider(player, bombs, this.hitBomb, null, this);
+    this.physics.add.collider(player, gumballs, this.hitGumball, null, this);
     this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
