@@ -24,7 +24,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
   }
   //Loading everything for map5 when window is opened:
   preload() {
-    this.load.image('snowBackground', 'assets/img/maps/snowMap5test.png'); //Winterbackgound
+    this.load.image('snowBackground', 'assets/img/maps/snowMap5.png'); //Winterbackgound
     this.load.image(
       'snowPlatform',
       'assets/img/platform/snowMapFive/snowGround.png'
@@ -37,7 +37,10 @@ export default class GameMapFiveScene extends Phaser.Scene {
       'miniGround',
       'assets/img/platform/snowMapFive/snowMiniGround.png'
     ); //Winterstyle platform
-    this.load.image('winterCabin', 'assets/img/maps/hytteMap5test.png'); //Cabin platform
+    this.load.image(
+      'winterCabin',
+      'assets/img/platform/snowMapFive/hytteMap5.png'
+    ); //Cabin platform
     this.load.image('consoll', 'assets/img/gameItems/consollSmall.png'); //Controller of value
     this.load.image('snoball', 'assets/img/gameItems/snoball.png'); // A snowball as obstical instead of a bomb
     this.load.image('goal', 'assets/img/gameItems/goal.png'); // Goal that appears when you have collectet enough points

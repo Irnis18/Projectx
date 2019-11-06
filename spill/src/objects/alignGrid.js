@@ -17,7 +17,7 @@ export default class AlignGrid {
       config.width = game.config.width;
     }
     if (!config.height) {
-      config.height = game.config.height;
+      config.height = game.config.height
     }
     this.h = config.height;
     this.w = config.width;

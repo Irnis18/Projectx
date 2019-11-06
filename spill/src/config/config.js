@@ -1,4 +1,4 @@
-//Importing phaser module to use the phasert functions
+//Importing phaser module to use the phaser functions
 import 'phaser';
 
 //Simple configuration for setup of phaser
