@@ -1,7 +1,8 @@
-import 'phaser';
-import Button from '../objects/button';
-import AlignGrid from '../objects/alignGrid';
+import "phaser";
+import Button from "../objects/button";
+import AlignGrid from "../objects/alignGrid";
 
+//Variables for different elements in the game:
 let player;
 let consolls;
 let snowballs;
@@ -9,9 +10,10 @@ let platforms;
 let cursors;
 let scoreText;
 
+//Phaser game standards:
 export default class GameMapFiveScene extends Phaser.Scene {
   constructor() {
-    super('GameMapFive');
+    super("GameMapFive");
     this.score = 0;
     this.gameOver = false;
     this.gameOverText;
@@ -24,60 +26,69 @@ export default class GameMapFiveScene extends Phaser.Scene {
   }
   //Loading everything for map5 when window is opened:
   preload() {
-    this.load.image('snowBackground', 'assets/img/maps/snowMap5test.png'); //Winterbackgound
+    this.load.image("snowBackground", "assets/img/maps/snowMap5test.png"); //Winterbackgound
     this.load.image(
-      'snowPlatform',
-      'assets/img/platform/snowMapFive/snowGround.png'
+      "snowPlatform",
+      "assets/img/platform/snowMapFive/snowGround.png"
     ); // Winterstyle platform
     this.load.image(
-      'smallGround',
-      'assets/img/platform/snowMapFive/snowSmallGround.png'
+      "smallGround",
+      "assets/img/platform/snowMapFive/snowSmallGround.png"
     ); //Winterstyle platform
     this.load.image(
-      'miniGround',
-      'assets/img/platform/snowMapFive/snowMiniGround.png'
+      "miniGround",
+      "assets/img/platform/snowMapFive/snowMiniGround.png"
     ); //Winterstyle platform
-    this.load.image('winterCabin', 'assets/img/maps/hytteMap5test.png'); //Cabin platform
-    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png'); //Controller of value
-    this.load.image('snoball', 'assets/img/gameItems/snoball.png'); // A snowball as obstical instead of a bomb
-    this.load.image('goal', 'assets/img/gameItems/goal.png'); // Goal that appears when you have collectet enough points
-    this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
+    //Cabin platform:
+    this.load.image("winterCabin", "assets/img/maps/hytteMap5test.png");
+    //Controller of value:
+    this.load.image("consoll", "assets/img/gameItems/consollSmall.png");
+    //A snowball as obstical instead of a bomb:
+    this.load.image("snoball", "assets/img/gameItems/snoball.png");
+    //Goal that appears when you have collectet enough points:
+    this.load.image("goal", "assets/img/gameItems/goal.png");
+    //Quitbutton when you want to quit:
+    this.load.image("quitButton", "assets/img/buttons/quitButton.png");
     this.load.image(
-      'quitButtonHover',
-      'assets/img/buttons/quitButtonHover.png'
-    ); // Quitbutton when you want to quit
-    this.load.image(
-      'nextLevelButton',
-      'assets/img/buttons/nextLevelButton.png'
+      "quitButtonHover",
+      "assets/img/buttons/quitButtonHover.png"
     );
+    //Button when clearing level and move to the next:
     this.load.image(
-      'nextLevelButtonHover',
-      'assets/img/buttons/nextLevelButtonHover.png'
+      "nextLevelButton",
+      "assets/img/buttons/nextLevelButton.png"
     );
-    this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
+
+    this.load.image(
+      "nextLevelButtonHover",
+      "assets/img/buttons/nextLevelButtonHover.png"
+    );
+    //The player (Cassi), we use on our levels:
+    this.load.spritesheet("player", "assets/img/gameItems/player.png", {
       frameWidth: 32,
       frameHeight: 48
-    }); // The player we use on our levels
+    });
   }
 
+  //Function that loads stops game when you get hit by a snowball:
   hitSnowball(player) {
     this.physics.pause();
 
     player.setTint(0xff0000);
 
-    player.anims.play('turn');
+    player.anims.play("turn");
 
     this.gameOver = true;
     this.retryButton = new Button(
       this,
-      'backButton',
-      'backButtonHover',
-      'Retry',
-      'GameMapFive'
+      "backButton",
+      "backButtonHover",
+      "Retry",
+      "GameMapFive"
     );
-    this.gameOverText = this.add.text(-1, -1, 'Game Over', {
-      fontSize: '32px',
-      fill: '#000'
+    this.gameOverText = this.add.text(-1, -1, "Game Over", {
+      fontSize: "32px",
+      fill: "#000"
     });
 
     this.gameMapFiveSceneGrid.placeAtIndex(36.8, this.gameOverText);
@@ -85,41 +96,43 @@ export default class GameMapFiveScene extends Phaser.Scene {
     this.score = 0;
   }
 
+  //Function runs when you reach 500 points and can go to next level:
   goalReached(player) {
     this.physics.pause();
 
-    player.anims.play('turn');
+    player.anims.play("turn");
 
     this.goToNextLevelText = this.add.text(
       -1,
       -1,
-      'Congrats you finished the level',
+      "Congrats you finished the level",
       {
-        fontSize: '24px',
-        fill: '#000'
+        fontSize: "24px",
+        fill: "#000"
       }
     );
     this.goToNextLevelButton = new Button(
       this,
-      'nextLevelButton',
-      'nextLevelButtonHover',
-      'Next Level',
-      'GameMapSix'
+      "nextLevelButton",
+      "nextLevelButtonHover",
+      "Next Level",
+      "GameMapSix"
     );
 
     this.gameMapFiveSceneGrid.placeAtIndex(34.5, this.goToNextLevelText);
     this.gameMapFiveSceneGrid.placeAtIndex(60, this.goToNextLevelButton);
   }
 
+  //Score update for each controller you collect (10pt. each), goal = 500 points:
   collectConsoll(player, consoll) {
     consoll.disableBody(true, true);
 
     //  Add and update the score
     this.score += 10;
-    scoreText.setText('Score: ' + this.score);
+    scoreText.setText("Score: " + this.score);
 
     if (this.score >= 500) {
-      this.goal.create(500, 150, 'goal');
+      this.goal.create(500, 150, "goal");
     }
 
     if (consolls.countActive(true) === 0) {
@@ -135,7 +148,7 @@ export default class GameMapFiveScene extends Phaser.Scene {
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
 
-      var snowball = snowballs.create(x, 16, 'snoball');
+      var snowball = snowballs.create(x, 16, "snoball");
       snowball.setBounce(1);
       snowball.setCollideWorldBounds(true);
       snowball.setVelocity(Phaser.Math.Between(-200, 200), 20);
@@ -143,6 +156,8 @@ export default class GameMapFiveScene extends Phaser.Scene {
     }
   }
 
+  //Grids for placing different elements in the game (x,y-scale)
+  //The grid reference to the middle of the figure you are placing
   create() {
     this.gameMapFiveSceneGrid = new AlignGrid({
       scene: this,
@@ -150,22 +165,23 @@ export default class GameMapFiveScene extends Phaser.Scene {
       rows: 11
     });
 
-    this.add.image(400, 300, 'snowBackground');
+    this.add.image(400, 300, "snowBackground");
 
     platforms = this.physics.add.staticGroup();
 
     platforms
-      .create(400, 600, 'snowPlatform')
+      .create(400, 600, "snowPlatform")
       .setScale(3)
       .refreshBody();
 
-    platforms.create(600, 400, 'smallGround');
-    platforms.create(50, 250, 'smallGround');
-    platforms.create(170, 70, 'miniGround');
-    platforms.create(450, 270, 'miniGround');
-    platforms.create(95, 447.5, 'winterCabin');
+    platforms.create(600, 400, "smallGround");
+    platforms.create(50, 250, "smallGround");
+    platforms.create(170, 70, "miniGround");
+    platforms.create(450, 270, "miniGround");
+    platforms.create(95, 447.5, "winterCabin");
 
-    player = this.physics.add.sprite(100, 450, 'player');
+    //The players movement:
+    player = this.physics.add.sprite(100, 450, "player");
 
     player.setBounce(0.5);
     player.setCollideWorldBounds(true);
@@ -174,33 +190,35 @@ export default class GameMapFiveScene extends Phaser.Scene {
     player.setCollideWorldBounds(true);
 
     this.anims.create({
-      key: 'left',
-      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+      key: "left",
+      frames: this.anims.generateFrameNumbers("player", { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1
     });
 
     this.anims.create({
-      key: 'turn',
-      frames: [{ key: 'player', frame: 4 }],
+      key: "turn",
+      frames: [{ key: "player", frame: 4 }],
       frameRate: 20
     });
 
     this.anims.create({
-      key: 'right',
-      frames: this.anims.generateFrameNumbers('player', { start: 5, end: 8 }),
+      key: "right",
+      frames: this.anims.generateFrameNumbers("player", { start: 5, end: 8 }),
       frameRate: 10,
       repeat: -1
     });
 
+    //How the goals (the controller) load:
     cursors = this.input.keyboard.createCursorKeys();
 
     consolls = this.physics.add.group({
-      key: 'consoll',
+      key: "consoll",
       repeat: 9,
       setXY: { x: 12, y: 0, stepX: 86 }
     });
 
+    //The obsticals (snowball) movement:
     consolls.children.iterate(function(child) {
       child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
@@ -208,17 +226,17 @@ export default class GameMapFiveScene extends Phaser.Scene {
     snowballs = this.physics.add.group();
     this.goal = this.physics.add.staticGroup();
 
-    scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: '26px',
-      fill: '#000'
+    scoreText = this.add.text(16, 16, "score: 0", {
+      fontSize: "26px",
+      fill: "#000"
     });
 
     this.quitButton = new Button(
       this,
-      'quitButton',
-      'quitButtonHover',
-      'Quit',
-      'Title'
+      "quitButton",
+      "quitButtonHover",
+      "Quit",
+      "Title"
     );
 
     this.gameMapFiveSceneGrid.placeAtIndex(10, this.quitButton);
@@ -231,19 +249,20 @@ export default class GameMapFiveScene extends Phaser.Scene {
     this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
   }
 
+  //More for player (Cassi) movement:
   update() {
     if (cursors.left.isDown) {
       player.setVelocityX(-160);
 
-      player.anims.play('left', true);
+      player.anims.play("left", true);
     } else if (cursors.right.isDown) {
       player.setVelocityX(160);
 
-      player.anims.play('right', true);
+      player.anims.play("right", true);
     } else {
       player.setVelocityX(0);
 
-      player.anims.play('turn');
+      player.anims.play("turn");
     }
 
     if (cursors.up.isDown && player.body.touching.down) {
