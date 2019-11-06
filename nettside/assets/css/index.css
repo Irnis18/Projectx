@@ -1,3 +1,4 @@
+/*Custom css that is used by all the pages/ most of the pages */
 html,
 body {
   height: 100%;
@@ -7,20 +8,24 @@ body {
   background: #f1f1f1;
 }
 
-.main-navbar-custom {
-  background-color: transparent !important;
+p {
+  font-size: 18px;
+  line-height: 2;
+}
+
+.active {
+  background: rgb(242, 175, 0) !important;
+  color: #ffffff !important;
+}
+
+a:active {
+  background: rgb(238, 178, 27) !important;
+  color: #65656592 !important;
 }
 
 .button-navbar-custom {
   margin-top: 21px;
 
-  background: #28323792;
-}
-
-.navbar-custom {
-  margin-top: 20.515px;
-  margin-right: 60px;
-  border-radius: 10%;
   background: #28323792;
 }
 
@@ -36,19 +41,35 @@ body {
   line-height: 30px;
 }
 
-.active {
-  background: rgb(242, 175, 0) !important;
-  color: #ffffff !important;
-}
-
-a:active {
-  background: rgb(238, 178, 27) !important;
-  color: #65656592 !important;
+.content-wrap {
+  padding-bottom: 2.5rem;
 }
 
 .custom-margin-for-titles {
   margin-top: 60px;
   margin-bottom: 50px;
+}
+
+.info-footer-color {
+  background-color: rgb(238, 178, 27) !important;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.list-group-item {
+  background: #f1f1f1;
+}
+
+.main-navbar-custom {
+  background-color: transparent !important;
+}
+
+.navbar-custom {
+  margin-top: 20.515px;
+  margin-right: 60px;
+  border-radius: 10%;
+  background: #28323792;
 }
 
 .navigation-bar-color {
@@ -60,24 +81,53 @@ a:active {
   min-height: 100vh;
 }
 
-.content-wrap {
-  padding-bottom: 2.5rem;
-}
-
-.info-footer-color {
-  background-color: rgb(238, 178, 27) !important;
+/*Main page custom css*/
+.main-page-background {
   position: absolute;
-  bottom: 0;
+  background: url('../img/gameboy.jpg') no-repeat center center;
+  background-size: cover;
+  height: 94%;
   width: 100%;
-
-
 }
 
-.list-group-item {
-  background: #f1f1f1;
+
+/*Medlemmer page custom css*/
+.medlemmer-cards-color {
+  background: #f1f1f1
 }
 
-p {
-  font-size: 18px;
-  line-height: 2;
+/*Spill info page custom css*/
+
+.icon-height-width {
+  width: 80px;
+  margin-top: 23px;
+  margin-bottom: 23px
+}
+
+.main-game-page {
+  position: absolute;
+  height: 85%;
+  width: 100%;
+}
+
+.button-rules-style {
+  margin-top: 3%
+}
+
+.tittel-div {
+  margin-bottom: 3%;
+}
+
+.text-div {
+  margin-bottom: 5%;
+}
+
+.button-rules-style a {
+  margin-left: 10px;
+  margin-right: 10px
+}
+
+.list-group li {
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
