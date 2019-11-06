@@ -21,73 +21,77 @@
 </head>
 
 <body>
-  <header>
-    <nav class="navbar-light bg-dark navigation-bar-color">
-      <div class="container">
-        <a class="navbar-brand custom-logo-css" href="./startsideSpill.html">
-          <i class="far fa-arrow-alt-circle-left icon-height-width"></i>
-        </a>
-        <div class=" dropdown float-right navbar-custom">
-          <a class="nav-link " href="#" id=" dropdown07" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
-            <span class="navbar-toggler-icon"></span>
-          </a>
-          <div class="dropdown-menu text-center custom-dropdown-css" aria-labelledby="dropdown07">
-            <a class="dropdown-item" href="../../index.html">Startside</a>
-            <a class="dropdown-item " href="./omOss.html">Om oss</a>
-            <a class="dropdown-item " href="./medlemmer.html">Medlemmer</a>
-            <a class="dropdown-item " href="./kontaktOss.html">Kontakt oss</a>
-            <a class="dropdown-item active" href="./startsideSpill.html"><b>SPILL</b></a>
+  <div class="page-container">
+    <div class="content-wrap">
+      <header>
+        <nav class="navbar-light bg-dark navigation-bar-color">
+          <div class="container">
+            <a class="navbar-brand custom-logo-css" href="./startsideSpill.html">
+              <i class="far fa-arrow-alt-circle-left icon-height-width"></i>
+            </a>
+            <div class=" dropdown float-right navbar-custom">
+              <a class="nav-link " href="#" id=" dropdown07" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+              </a>
+              <div class="dropdown-menu text-center custom-dropdown-css" aria-labelledby="dropdown07">
+                <a class="dropdown-item" href="../../index.html">Startside</a>
+                <a class="dropdown-item " href="./omOss.html">Om oss</a>
+                <a class="dropdown-item " href="./medlemmer.html">Medlemmer</a>
+                <a class="dropdown-item " href="./kontaktOss.html">Kontakt oss</a>
+                <a class="dropdown-item active" href="./startsideSpill.html"><b>SPILL</b></a>
+              </div>
+            </div>
           </div>
+        </nav>
+      </header>
+
+      <main role="main" class="container-fluid">
+
+        <div class="custom-margin-for-titles">
+          <h1><b>Krav for å spille</b> </h1>
+          <h5>For å kunne spille dette spillet så krever det at du har en nettleser nyere enn de som står listet under:
+          </h5>
         </div>
+
+        <table class="table text-center">
+          <thead>
+            <tr>
+              <th>Google Chrome</th>
+              <th>Microsoft Edge</th>
+              <th>Mozilla Firefox</th>
+              <th>Safari</th>
+              <th>Opera</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td> 4.0 </td>
+              <td> 9.0 </td>
+              <td> 2.0 </td>
+              <td> 3.1 </td>
+              <td> 9.0 </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="text-center">
+          <h5>Usikker på hvilken versjon du har?</h5>
+          <br>
+          <button id="btnChk" class="btn btn-lg btn-outline-warning">Klikk meg</button>
+        </div>
+        <br />
+        <div class="jumbotron text-center">
+          <h5 id="txtUt"></h5>
+        </div>
+      </main>
+    </div>
+    <footer class="py-1 info-footer-color">
+      <div class="container text-center">
+        <small>Copyright &copy; Retro</small>
       </div>
-    </nav>
-  </header>
-
-  <main role="main" class="container-fluid">
-
-    <div class="custom-margin-for-titles">
-      <h1><b>Krav for å spille</b> </h1>
-      <h5>For å kunne spille dette spillet så krever det at du har en nettleser nyere enn de som står listet under:
-      </h5>
-    </div>
-
-    <table class="table text-center">
-      <thead>
-        <tr>
-          <th>Google Chrome</th>
-          <th>Microsoft Edge</th>
-          <th>Mozilla Firefox</th>
-          <th>Safari</th>
-          <th>Opera</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td> 4.0 </td>
-          <td> 9.0 </td>
-          <td> 2.0 </td>
-          <td> 3.1 </td>
-          <td> 9.0 </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="text-center">
-      <h5>Usikker på hvilken versjon du har?</h5>
-      <br>
-      <button id="btnChk" class="btn btn-lg btn-outline-warning">Klikk meg</button>
-    </div>
-    <br />
-    <div class="jumbotron text-center">
-      <h5 id="txtUt"></h5>
-    </div>
-  </main>
-  <footer class="py-1 fixed-bottom info-footer-color">
-    <div class="container text-center">
-      <small>Copyright &copy; Retro</small>
-    </div>
-  </footer>
+    </footer>
+  </div>
 </body>
 
 </html>

@@ -1,3 +1,8 @@
+html,
+body {
+  height: 100%;
+}
+
 body {
   background: #f1f1f1;
 }
@@ -50,18 +55,28 @@ a:active {
   background-color: rgb(241, 176, 27) !important;
 }
 
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  padding-bottom: 2.5rem;
+}
+
 .info-footer-color {
-  margin-top: 100px;
   background-color: rgb(238, 178, 27) !important;
+  position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1030;
+  width: 100%;
+
+
 }
 
 .list-group-item {
   background: #f1f1f1;
 }
+
 p {
   font-size: 18px;
   line-height: 2;
