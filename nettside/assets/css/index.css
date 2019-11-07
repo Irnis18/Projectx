@@ -93,7 +93,8 @@ a:active {
 
 /*Medlemmer page custom css*/
 .medlemmer-cards-color {
-  background: #f1f1f1
+  background: #f1f1f1;
+  width: 100vw !important;
 }
 
 /*Spill info page custom css*/
