@@ -3,7 +3,6 @@ import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
 //This is the assets used on this specific map and not reused any other place
-import BackgroundOneImg from '../../assets/img/maps/map1.png';
 import MainPlatformAutumnImg from '../../assets/img/platform/mapOne/mainPlatformAutumn.png';
 import PlatformAutumnOneImg from '../../assets/img/platform/mapOne/platformAutumnOne.png';
 import PlatformAutumnTwoImg from '../../assets/img/platform/mapOne/platformAutumnTwo.png';
@@ -38,7 +37,6 @@ export default class GameMapOneScene extends Phaser.Scene {
 
   preload() {
     //We load different assets that are used on this specific map
-    this.load.image('backgroundOne', BackgroundOneImg);
     this.load.image('mainPlatformAutumn', MainPlatformAutumnImg);
     this.load.image('platformAutumnOne', PlatformAutumnOneImg);
     this.load.image('platformAutumnTwo', PlatformAutumnTwoImg);

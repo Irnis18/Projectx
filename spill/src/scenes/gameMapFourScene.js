@@ -3,7 +3,6 @@ import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
 //This is the assets used on this specific map and not reused any other place
-import BackgroundFourImg from '../../assets/img/maps/map4.png';
 import MainPlatformFourImg from '../../assets/img/platform/mapFour/mainPlatform.png';
 import bombObsticalImg from '../../assets/img/gameItems/bomb.png';
 
@@ -35,7 +34,6 @@ export default class GameMapFourScene extends Phaser.Scene {
 
   preload() {
     //We load different assets that are used on this specific map
-    this.load.image('backgroundFour', BackgroundFourImg);
     this.load.image('mainPlatformFour', MainPlatformFourImg);
     this.load.image('bomb', bombObsticalImg);
 

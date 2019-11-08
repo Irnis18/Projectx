@@ -3,7 +3,6 @@ import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
 //This is the assets used on this specific map and not reused any other place
-import SnowBackgroundImg from '../../assets/img/maps/snowMap5.png';
 import SnowPlatformImg from '../../assets/img/platform/snowMapFive/snowGround.png';
 import SmallGroundImg from '../../assets/img/platform/snowMapFive/snowSmallGround.png';
 import MiniGroundImg from '../../assets/img/platform/snowMapFive/snowMiniGround.png';
@@ -38,7 +37,6 @@ export default class GameMapFiveScene extends Phaser.Scene {
 
   preload() {
     //We load different assets that are used on this specific map
-    this.load.image('snowBackground', SnowBackgroundImg);
     this.load.image('snowPlatform', SnowPlatformImg);
     this.load.image('smallGround', SmallGroundImg);
     this.load.image('miniGround', MiniGroundImg);

@@ -3,7 +3,6 @@ import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
 //This is the assets used on this specific map and not reused any other place
-import BackgroundThreeImg from '../../assets/img/maps/map3.png';
 import PlatformThreeImg from '../../assets/img/platform/mapThree/mainPlatform.png';
 import PlatformThreeSmallOneImg from '../../assets/img/platform/mapThree/mainPlatformOne.png';
 import PlatformThreeSmallTwoImg from '../../assets/img/platform/mapThree/mainPlatformTwo.png';
@@ -37,7 +36,6 @@ export default class GameMapThreeScene extends Phaser.Scene {
 
   preload() {
     //We load different assets that are used on this specific map
-    this.load.image('backgroundThree', BackgroundThreeImg);
     this.load.image('platformThree', PlatformThreeImg);
     this.load.image('platformThreeSmallOne', PlatformThreeSmallOneImg);
     this.load.image('platformThreeSmallTwo', PlatformThreeSmallTwoImg);

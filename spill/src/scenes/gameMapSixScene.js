@@ -3,7 +3,6 @@ import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
 //This is the assets used on this specific map and not reused any other place
-import BackgroundSixImg from '../../assets/img/maps/map6.png';
 import PlatformSixImg from '../../assets/img/platform/mapSix/seaPlatform.png';
 import PlatformSixTwoImg from '../../assets/img/platform/mapSix/seaPlatformTwo.png';
 import StarObsticalImg from '../../assets/img/gameItems/star.png';
@@ -28,14 +27,15 @@ export default class GameMapSixScene extends Phaser.Scene {
 
     this.scoreText;
     this.gameOverText;
+    this.finishGameText;
 
     this.retryButton;
     this.quitButton;
+    this.finishGameButton;
   }
 
   preload() {
     //We load different assets that are used on this specific map
-    this.load.image('backgroundSix', BackgroundSixImg);
     this.load.image('platformSix', PlatformSixImg);
     this.load.image('platformSixTwo', PlatformSixTwoImg);
     this.load.image('star', StarObsticalImg);
@@ -115,14 +115,14 @@ export default class GameMapSixScene extends Phaser.Scene {
     if (this.consolls.countActive(true) === 0) {
       //  A new batch of consolls to collect
       if (this.score < 500) {
-        consolls.children.iterate(function(child) {
+        this.consolls.children.iterate(function(child) {
           child.enableBody(true, child.x, 0, true, true);
         });
       }
 
       //Having the position of the player so the obstical don't spawn right at him
       let positionX =
-        player.x < 400
+        playerSwimming.x < 400
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
 
@@ -176,7 +176,7 @@ export default class GameMapSixScene extends Phaser.Scene {
     });
 
     //adding obsiticals and the goal, but not showing them
-    this.starts = this.physics.add.group();
+    this.stars = this.physics.add.group();
     this.goal = this.physics.add.staticGroup();
 
     //Adding the score text

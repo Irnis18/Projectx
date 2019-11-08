@@ -3,7 +3,6 @@ import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
 //This is the assets used on this specific map and not reused any other place
-import BackgroundTwoImg from '../../assets/img/maps/map2.png';
 import PlatformTwoImg from '../../assets/img/platform/mapTwo/mainPlatform.png';
 import PlatfromTwoGroundOne from '../../assets/img/platform/mapTwo/platformOne.png';
 import PlatformTwoGroundTwo from '../../assets/img/platform/mapTwo/platformTwo.png';
@@ -38,7 +37,6 @@ export default class GameMapTwoScene extends Phaser.Scene {
 
   preload() {
     //We load different assets that are used on this specific map
-    this.load.image('backgroundTwo', BackgroundTwoImg);
     this.load.image('platformTwo', PlatformTwoImg);
     this.load.image('platformTwoGroundOne', PlatfromTwoGroundOne);
     this.load.image('platformTwoGroundTwo', PlatformTwoGroundTwo);

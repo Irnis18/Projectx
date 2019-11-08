@@ -4,6 +4,13 @@ import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
 //Importing assets --> this also helps the bundler and also is a nice way to see what's imported on the different scenes
+import BackgroundOneImg from '../../assets/img/maps/map1.png';
+import BackgroundTwoImg from '../../assets/img/maps/map2.png';
+import BackgroundThreeImg from '../../assets/img/maps/map3.png';
+import BackgroundFourImg from '../../assets/img/maps/map4.png';
+import SnowBackgroundImg from '../../assets/img/maps/snowMap5.png';
+import BackgroundSixImg from '../../assets/img/maps/map6.png';
+
 import ConsollImg from '../../assets/img/gameItems/consollSmall.png';
 import GoalImg from '../../assets/img/gameItems/goal.png';
 import QuitButtonImg from '../../assets/img/buttons/quitButton.png';
@@ -18,6 +25,13 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   preload() {
+    //we load all the backgrounds that are used in the game just for smootly transition
+    this.load.image('backgroundOne', BackgroundOneImg);
+    this.load.image('backgroundTwo', BackgroundTwoImg);
+    this.load.image('backgroundThree', BackgroundThreeImg);
+    this.load.image('backgroundFour', BackgroundFourImg);
+    this.load.image('snowBackground', SnowBackgroundImg);
+    this.load.image('backgroundSix', BackgroundSixImg);
     //We preload commonly used images when we come to the title/options screen
     //in this case we do not need to load the items on the different maps. Simply load it once and never again.
     this.load.image('consoll', ConsollImg);
