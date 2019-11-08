@@ -2,81 +2,59 @@ import 'phaser';
 import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
-//Variables for different elements in the game:
-let player;
-let consolls;
-let snowballs;
-let platforms;
-let cursors;
-let scoreText;
+//This is the assets used on this specific map and not reused any other place
+import SnowBackgroundImg from '../../assets/img/maps/snowMap5.png';
+import SnowPlatformImg from '../../assets/img/platform/snowMapFive/snowGround.png';
+import SmallGroundImg from '../../assets/img/platform/snowMapFive/snowSmallGround.png';
+import MiniGroundImg from '../../assets/img/platform/snowMapFive/snowMiniGround.png';
+import WinterCabinImg from '../../assets/img/platform/snowMapFive/hytteMap5.png';
+import SnoballObsticalImg from '../../assets/img/gameItems/snoball.png';
 
-//Phaser game standards:
 export default class GameMapFiveScene extends Phaser.Scene {
   constructor() {
     super('GameMapFive');
-    this.score = 0;
-    this.gameOver = false;
-    this.gameOverText;
-    this.retryButton = null;
-    this.quitButton = null;
+    //Creating an overview over all the elements we are going to create, we could use varaibles, but in this case we are just using this.{element}
+    // This is done just to know what elements are custom made. It might have been a better solution to just use variables as phaser uses "this" to add functions ect
+    this.player;
+
+    this.score;
+
+    this.consolls;
+    this.snowballs;
     this.goal;
-    this.goToNextLevelButton;
-    this.goToNextLevelText;
     this.goalSpawn;
+
+    this.platforms;
+    this.cursors;
+
+    this.scoreText;
+    this.gameOverText;
+    this.goToNextLevelText;
+
+    this.retryButton;
+    this.quitButton;
+    this.goToNextLevelButton;
   }
-  //Loading everything for map5 when window is opened:
+
   preload() {
-    this.load.image('snowBackground', 'assets/img/maps/snowMap5.png'); //Winterbackgound
-    this.load.image(
-      'snowPlatform',
-      'assets/img/platform/snowMapFive/snowGround.png'
-    ); // Winterstyle platform
-    this.load.image(
-      'smallGround',
-      'assets/img/platform/snowMapFive/snowSmallGround.png'
-    ); //Winterstyle platform
-    this.load.image(
-      'miniGround',
-      'assets/img/platform/snowMapFive/snowMiniGround.png'
-    ); //Winterstyle platform
-    this.load.image(
-      'winterCabin',
-      'assets/img/platform/snowMapFive/hytteMap5.png'
-    ); //Cabin platform
-    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png'); //Controller of value
-    this.load.image('snoball', 'assets/img/gameItems/snoball.png'); // A snowball as obstical instead of a bomb
-    this.load.image('goal', 'assets/img/gameItems/goal.png'); // Goal that appears when you have collectet enough points
-    this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
-    this.load.image(
-      'quitButtonHover',
-      'assets/img/buttons/quitButtonHover.png'
-    );
-    //Button when clearing level and move to the next:
-    this.load.image(
-      'nextLevelButton',
-      'assets/img/buttons/nextLevelButton.png'
-    );
+    //We load different assets that are used on this specific map
+    this.load.image('snowBackground', SnowBackgroundImg);
+    this.load.image('snowPlatform', SnowPlatformImg);
+    this.load.image('smallGround', SmallGroundImg);
+    this.load.image('miniGround', MiniGroundImg);
+    this.load.image('winterCabin', WinterCabinImg);
+    this.load.image('snoball', SnoballObsticalImg);
 
-    this.load.image(
-      'nextLevelButtonHover',
-      'assets/img/buttons/nextLevelButtonHover.png'
-    );
-    //The player (Cassi), we use on our levels:
-    this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
-      frameWidth: 32,
-      frameHeight: 48
-    });
+    //In case the score has not been resetted we do it here
+    this.score = 0;
   }
 
-  //Function that loads stops game when you get hit by a snowball:
+  //This is a function for what is going to happen if player collide with the obsitacl
   hitSnowball(player) {
     this.physics.pause();
 
     player.setTint(0xff0000);
 
-    player.anims.play('turn');
-
-    this.gameOver = true;
     this.retryButton = new Button(
       this,
       'backButton',
@@ -91,14 +69,21 @@ export default class GameMapFiveScene extends Phaser.Scene {
 
     this.gameMapFiveSceneGrid.placeAtIndex(36.8, this.gameOverText);
     this.gameMapFiveSceneGrid.placeAtIndex(60, this.retryButton);
+
     this.score = 0;
   }
 
-  //Function runs when you reach 500 points and can go to next level:
+  //This is a function for what is going to happen when the user reaches the portal after getting 500 in score
   goalReached(player) {
     this.physics.pause();
 
-    player.anims.play('turn');
+    this.goToNextLevelButton = new Button(
+      this,
+      'nextLevelButton',
+      'nextLevelButtonHover',
+      'Next Level',
+      'GameMapSix'
+    );
 
     this.goToNextLevelText = this.add.text(
       -1,
@@ -109,44 +94,39 @@ export default class GameMapFiveScene extends Phaser.Scene {
         fill: '#000'
       }
     );
-    this.goToNextLevelButton = new Button(
-      this,
-      'nextLevelButton',
-      'nextLevelButtonHover',
-      'Next Level',
-      'GameMapSix'
-    );
 
     this.gameMapFiveSceneGrid.placeAtIndex(34.5, this.goToNextLevelText);
     this.gameMapFiveSceneGrid.placeAtIndex(60, this.goToNextLevelButton);
   }
 
-  //Score update for each controller you collect (10pt. each), goal = 500 points:
+  //Logic for collecting the consoles
   collectConsoll(player, consoll) {
     consoll.disableBody(true, true);
 
     //  Add and update the score
     this.score += 10;
-    scoreText.setText('Score: ' + this.score);
+    this.scoreText.setText('Score: ' + this.score);
 
+    //The portal appears when the score is 500
     if (this.score >= 500) {
       this.goal.create(500, 150, 'goal');
     }
 
-    if (consolls.countActive(true) === 0) {
+    if (this.consolls.countActive(true) === 0) {
       //  A new batch of consolls to collect
       if (this.score < 500) {
-        consolls.children.iterate(function(child) {
+        this.consolls.children.iterate(function(child) {
           child.enableBody(true, child.x, 0, true, true);
         });
       }
-
-      var x =
+      //Having the position of the player so the obstical don't spawn right at him
+      let positionX =
         player.x < 400
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
 
-      var snowball = snowballs.create(x, 16, 'snoball');
+      //Creating the obsticals and adding some features for them
+      let snowball = this.snowballs.create(positionX, 16, 'snoball');
       snowball.setBounce(1);
       snowball.setCollideWorldBounds(true);
       snowball.setVelocity(Phaser.Math.Between(-200, 200), 20);
@@ -154,8 +134,6 @@ export default class GameMapFiveScene extends Phaser.Scene {
     }
   }
 
-  //Grids for placing different elements in the game (x,y-scale)
-  //The grid reference to the middle of the figure you are placing
   create() {
     this.gameMapFiveSceneGrid = new AlignGrid({
       scene: this,
@@ -165,28 +143,58 @@ export default class GameMapFiveScene extends Phaser.Scene {
 
     this.add.image(400, 300, 'snowBackground');
 
-    platforms = this.physics.add.staticGroup();
+    //creating a group of platform that are static
+    this.platforms = this.physics.add.staticGroup();
 
-    platforms
+    this.platforms
       .create(400, 600, 'snowPlatform')
       .setScale(3)
       .refreshBody();
 
-    platforms.create(600, 400, 'smallGround');
-    platforms.create(50, 250, 'smallGround');
-    platforms.create(170, 70, 'miniGround');
-    platforms.create(450, 270, 'miniGround');
-    platforms.create(95, 447.5, 'winterCabin');
+    this.platforms.create(600, 400, 'smallGround');
+    this.platforms.create(50, 250, 'smallGround');
+    this.platforms.create(170, 70, 'miniGround');
+    this.platforms.create(450, 270, 'miniGround');
+    this.platforms.create(95, 447.5, 'winterCabin');
 
-    //The players movement:
-    player = this.physics.add.sprite(100, 450, 'player');
+    //Adding the player and adding some feature to him
+    this.player = this.physics.add.sprite(100, 450, 'player');
 
-    player.setBounce(0.5);
-    player.setCollideWorldBounds(true);
+    this.player.setBounce(0.2);
+    this.player.setCollideWorldBounds(true);
 
-    player.setBounce(0.2);
-    player.setCollideWorldBounds(true);
+    //Adding the consolls
+    this.consolls = this.physics.add.group({
+      key: 'consoll',
+      repeat: 9,
+      setXY: { x: 12, y: 0, stepX: 86 }
+    });
 
+    this.consolls.children.iterate(function(child) {
+      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    });
+
+    //adding obsiticals and the goal, but not showing them
+    this.snowballs = this.physics.add.group();
+    this.goal = this.physics.add.staticGroup();
+
+    //Adding the score text
+    this.scoreText = this.add.text(16, 16, 'score: 0', {
+      fontSize: '24px',
+      fill: '#000'
+    });
+
+    //Adding a button wich quits the game
+    this.quitButton = new Button(
+      this,
+      'quitButton',
+      'quitButtonHover',
+      'Quit',
+      'Title'
+    );
+    this.gameMapFiveSceneGrid.placeAtIndex(10, this.quitButton);
+
+    //Adding animations when moving the user
     this.anims.create({
       key: 'left',
       frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
@@ -207,66 +215,56 @@ export default class GameMapFiveScene extends Phaser.Scene {
       repeat: -1
     });
 
-    //How the goals (the controller) load:
-    cursors = this.input.keyboard.createCursorKeys();
+    //adding the keyboard cursors
+    this.cursors = this.input.keyboard.createCursorKeys();
 
-    consolls = this.physics.add.group({
-      key: 'consoll',
-      repeat: 9,
-      setXY: { x: 12, y: 0, stepX: 86 }
-    });
-
-    //The obsticals (snowball) movement:
-    consolls.children.iterate(function(child) {
-      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    });
-
-    snowballs = this.physics.add.group();
-    this.goal = this.physics.add.staticGroup();
-
-    scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: '26px',
-      fill: '#000'
-    });
-
-    this.quitButton = new Button(
-      this,
-      'quitButton',
-      'quitButtonHover',
-      'Quit',
-      'Title'
+    //adding the logic for coliding between items and wich items are going to overlap each other
+    this.physics.add.collider(this.player, this.platforms);
+    this.physics.add.collider(this.consolls, this.platforms);
+    this.physics.add.collider(this.snowballs, this.platforms);
+    this.physics.add.collider(
+      this.player,
+      this.snowballs,
+      this.hitSnowball,
+      null,
+      this
     );
-
-    this.gameMapFiveSceneGrid.placeAtIndex(10, this.quitButton);
-
-    this.physics.add.collider(player, platforms);
-    this.physics.add.collider(consolls, platforms);
-    this.physics.add.collider(snowballs, platforms);
-    this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-    this.physics.add.collider(player, snowballs, this.hitSnowball, null, this);
-    this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
+    this.physics.add.overlap(
+      this.player,
+      this.consolls,
+      this.collectConsoll,
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.player,
+      this.goal,
+      this.goalReached,
+      null,
+      this
+    );
   }
 
-  //More for player (Cassi) movement:
   update() {
-    if (cursors.left.isDown) {
-      player.setVelocityX(-160);
+    //logic for the keyboard cursors
+    if (this.cursors.left.isDown) {
+      this.player.setVelocityX(-160);
 
-      player.anims.play('left', true);
-    } else if (cursors.right.isDown) {
-      player.setVelocityX(160);
+      this.player.anims.play('left', true);
+    } else if (this.cursors.right.isDown) {
+      this.player.setVelocityX(160);
 
-      player.anims.play('right', true);
+      this.player.anims.play('right', true);
     } else {
-      player.setVelocityX(0);
+      this.player.setVelocityX(0);
 
-      player.anims.play('turn');
+      this.player.anims.play('turn');
     }
 
-    if (cursors.up.isDown && player.body.touching.down) {
-      player.setVelocityY(-330);
-    } else if (cursors.down.isDown) {
-      player.setVelocityY(200);
+    if (this.cursors.up.isDown && this.player.body.touching.down) {
+      this.player.setVelocityY(-330);
+    } else if (this.cursors.down.isDown) {
+      this.player.setVelocityY(200);
     }
   }
 }

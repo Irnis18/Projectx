@@ -14,7 +14,9 @@ import TitleScene from './scenes/titleScene';
 import OptionsScene from './scenes/optionsScene';
 import CreditsScene from './scenes/creditsScene';
 import Model from './model';
+import '../assets/css/spill.css';
 
+//This is where we add all thogheter so they know of each other
 class Game extends Phaser.Game {
   constructor() {
     super(config);

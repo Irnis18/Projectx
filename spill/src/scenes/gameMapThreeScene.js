@@ -2,73 +2,57 @@ import 'phaser';
 import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
-let player;
-let consolls;
-let birds;
-let platforms;
-let cursors;
-let scoreText;
+//This is the assets used on this specific map and not reused any other place
+import BackgroundThreeImg from '../../assets/img/maps/map3.png';
+import PlatformThreeImg from '../../assets/img/platform/mapThree/mainPlatform.png';
+import PlatformThreeSmallOneImg from '../../assets/img/platform/mapThree/mainPlatformOne.png';
+import PlatformThreeSmallTwoImg from '../../assets/img/platform/mapThree/mainPlatformTwo.png';
+import birdObstical from '../../assets/img/gameItems/fugl.png';
 
 export default class GameMapThreeScene extends Phaser.Scene {
   constructor() {
     super('GameMapThree');
+    //Creating an overview over all the elements we are going to create, we could use varaibles, but in this case we are just using this.{element}
+    // This is done just to know what elements are custom made. It might have been a better solution to just use variables as phaser uses "this" to add functions ect
+    this.player;
 
-    this.score = 0;
-    this.gameOver = false;
-    this.gameOverText;
-    this.retryButton = null;
-    this.quitButton = null;
+    this.score;
+
+    this.consolls;
+    this.birds;
     this.goal;
-    this.goToNextLevelButton;
-    this.goToNextLevelText;
     this.goalSpawn;
+
+    this.platforms;
+    this.cursors;
+
+    this.scoreText;
+    this.gameOverText;
+    this.goToNextLevelText;
+
+    this.retryButton;
+    this.quitButton;
+    this.goToNextLevelButton;
   }
 
   preload() {
-    this.load.image('backgroundThree', 'assets/img/maps/map3.png');
-    this.load.image(
-      'platformThree',
-      'assets/img/platform/mapThree/mainPlatform.png'
-    );
-    this.load.image(
-      'platformThreeSmall1',
-      'assets/img/platform/mapThree/mainPlatformOne.png'
-    );
-    this.load.image(
-      'platformThreeSmall2',
-      'assets/img/platform/mapThree/mainPlatformTwo.png'
-    );
-    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('bird', 'assets/img/gameItems/fugl.png');
-    this.load.image('goal', 'assets/img/gameItems/goal.png');
-    this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
-    this.load.image(
-      'quitButtonHover',
-      'assets/img/buttons/quitButtonHover.png'
-    );
-    this.load.image(
-      'nextLevelButton',
-      'assets/img/buttons/nextLevelButton.png'
-    );
-    this.load.image(
-      'nextLevelButtonHover',
-      'assets/img/buttons/nextLevelButtonHover.png'
-    );
-    this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
-      frameWidth: 32,
-      frameHeight: 48
-    });
+    //We load different assets that are used on this specific map
+    this.load.image('backgroundThree', BackgroundThreeImg);
+    this.load.image('platformThree', PlatformThreeImg);
+    this.load.image('platformThreeSmallOne', PlatformThreeSmallOneImg);
+    this.load.image('platformThreeSmallTwo', PlatformThreeSmallTwoImg);
+    this.load.image('bird', birdObstical);
+
+    //In case the score has not been resetted we do it here
     this.score = 0;
   }
 
+  //This is a function for what is going to happen if player collide with the obsitacl
   hitBird(player) {
     this.physics.pause();
 
     player.setTint(0xff0000);
 
-    player.anims.play('turn');
-
-    this.gameOver = true;
     this.retryButton = new Button(
       this,
       'backButton',
@@ -76,6 +60,7 @@ export default class GameMapThreeScene extends Phaser.Scene {
       'Retry',
       'GameMapThree'
     );
+
     this.gameOverText = this.add.text(-1, -1, 'Game Over', {
       fontSize: '32px',
       fill: '#000'
@@ -83,13 +68,13 @@ export default class GameMapThreeScene extends Phaser.Scene {
 
     this.gameMapThreeSceneGrid.placeAtIndex(36.8, this.gameOverText);
     this.gameMapThreeSceneGrid.placeAtIndex(60, this.retryButton);
+
     this.score = 0;
   }
 
+  //This is a function for what is going to happen when the user reaches the portal after getting 500 in score
   goalReached(player) {
     this.physics.pause();
-
-    player.anims.play('turn');
 
     this.goToNextLevelButton = new Button(
       this,
@@ -98,6 +83,7 @@ export default class GameMapThreeScene extends Phaser.Scene {
       'Next Level',
       'GameMapFour'
     );
+
     this.goToNextLevelText = this.add.text(
       -1,
       -1,
@@ -112,45 +98,44 @@ export default class GameMapThreeScene extends Phaser.Scene {
     this.gameMapThreeSceneGrid.placeAtIndex(60, this.goToNextLevelButton);
   }
 
+  //Logic for collecting the consoles
   collectConsoll(player, consoll) {
     consoll.disableBody(true, true);
 
     //  Add and update the score
     this.score += 10;
-    scoreText.setText('Score: ' + this.score);
+    this.scoreText.setText('Score: ' + this.score);
 
+    //The portal appears when the score is 500
     if (this.score == 500) {
       this.goal.create(100, 70, 'goal');
     }
 
-    if (consolls.countActive(true) === 0) {
-      //  A new batch of stars to collect
+    if (this.consolls.countActive(true) === 0) {
+      //  A new batch of consolls to collect
       if (this.score < 500) {
-        consolls.children.iterate(function(child) {
+        this.consolls.children.iterate(function(child) {
           child.enableBody(true, child.x, 0, true, true);
         });
       }
-
-      var x =
+      //Having the position of the player so the obstical don't spawn right at him
+      let positionX =
         player.x < 400
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
-      var y =
-        player.x > 400
-          ? Phaser.Math.Between(0, 400)
-          : Phaser.Math.Between(400, 800);
 
-      var bird = birds.create(x, 16, 'bird');
+      //Creating two obsticals and adding some features for them everytime you collect a batch of the consolls wich = 100 points
+      let bird = this.birds.create(positionX, 16, 'bird');
       bird.setBounce(1);
       bird.setCollideWorldBounds(true);
       bird.setVelocity(Phaser.Math.Between(-200, 200), 20);
       bird.allowGravity = false;
 
-      var bird2 = birds.create(y, 16, 'bird');
-      bird2.setBounce(1);
-      bird2.setCollideWorldBounds(true);
-      bird2.setVelocity(Phaser.Math.Between(-200, 200), 20);
-      bird2.allowGravity = false;
+      let birdTwo = this.birds.create(positionX + 25, 10, 'bird');
+      birdTwo.setBounce(1);
+      birdTwo.setCollideWorldBounds(true);
+      birdTwo.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      birdTwo.allowGravity = false;
     }
   }
 
@@ -163,25 +148,56 @@ export default class GameMapThreeScene extends Phaser.Scene {
 
     this.add.image(400, 300, 'backgroundThree');
 
-    platforms = this.physics.add.staticGroup();
+    //creating a group of platform that are static
+    this.platforms = this.physics.add.staticGroup();
 
-    platforms
+    this.platforms
       .create(400, 568, 'platformThree')
       .setScale(2)
       .refreshBody();
 
-    platforms.create(400, 150, 'platformThreeSmall1');
-    platforms.create(200, 320, 'platformThreeSmall2');
-    platforms.create(600, 320, 'platformThreeSmall1');
+    this.platforms.create(400, 150, 'platformThreeSmallOne');
+    this.platforms.create(200, 320, 'platformThreeSmallTwo');
+    this.platforms.create(600, 320, 'platformThreeSmallOne');
 
-    player = this.physics.add.sprite(100, 450, 'player');
+    //Adding the player and adding some feature to him
+    this.player = this.physics.add.sprite(100, 450, 'player');
 
-    player.setBounce(0.5);
-    player.setCollideWorldBounds(true);
+    this.player.setBounce(0.2);
+    this.player.setCollideWorldBounds(true);
 
-    player.setBounce(0.2);
-    player.setCollideWorldBounds(true);
+    //Adding the consolls
+    this.consolls = this.physics.add.group({
+      key: 'consoll',
+      repeat: 9,
+      setXY: { x: 12, y: 0, stepX: 86 }
+    });
 
+    this.consolls.children.iterate(function(child) {
+      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    });
+
+    //adding obsiticals and the goal, but not showing them
+    this.birds = this.physics.add.group();
+    this.goal = this.physics.add.staticGroup();
+
+    //Adding the score text
+    this.scoreText = this.add.text(16, 16, 'score: 0', {
+      fontSize: '24px',
+      fill: '#000'
+    });
+
+    //Adding a button wich quits the game
+    this.quitButton = new Button(
+      this,
+      'quitButton',
+      'quitButtonHover',
+      'Quit',
+      'Title'
+    );
+    this.gameMapThreeSceneGrid.placeAtIndex(10, this.quitButton);
+
+    //Adding animations when moving the user
     this.anims.create({
       key: 'left',
       frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
@@ -202,63 +218,56 @@ export default class GameMapThreeScene extends Phaser.Scene {
       repeat: -1
     });
 
-    cursors = this.input.keyboard.createCursorKeys();
+    //adding the keyboard cursors
+    this.cursors = this.input.keyboard.createCursorKeys();
 
-    consolls = this.physics.add.group({
-      key: 'consoll',
-      repeat: 9,
-      setXY: { x: 12, y: 0, stepX: 86 }
-    });
-
-    consolls.children.iterate(function(child) {
-      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    });
-
-    birds = this.physics.add.group();
-    this.goal = this.physics.add.staticGroup();
-
-    scoreText = this.add.text(16, 16, 'score: 0', {
-      fontSize: '24px',
-      fill: '#000'
-    });
-
-    this.quitButton = new Button(
-      this,
-      'quitButton',
-      'quitButtonHover',
-      'Quit',
-      'Title'
+    //adding the logic for coliding between items and wich items are going to overlap each other
+    this.physics.add.collider(this.player, this.platforms);
+    this.physics.add.collider(this.consolls, this.platforms);
+    this.physics.add.collider(this.birds, this.platforms);
+    this.physics.add.collider(
+      this.player,
+      this.birds,
+      this.hitBird,
+      null,
+      this
     );
-
-    this.gameMapThreeSceneGrid.placeAtIndex(10, this.quitButton);
-
-    this.physics.add.collider(player, platforms);
-    this.physics.add.collider(consolls, platforms);
-    this.physics.add.collider(birds, platforms);
-    this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-    this.physics.add.collider(player, birds, this.hitBird, null, this);
-    this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
+    this.physics.add.overlap(
+      this.player,
+      this.consolls,
+      this.collectConsoll,
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.player,
+      this.goal,
+      this.goalReached,
+      null,
+      this
+    );
   }
 
   update() {
-    if (cursors.left.isDown) {
-      player.setVelocityX(-230);
+    //logic for the keyboard cursors
+    if (this.cursors.left.isDown) {
+      this.player.setVelocityX(-230);
 
-      player.anims.play('left', true);
-    } else if (cursors.right.isDown) {
-      player.setVelocityX(230);
+      this.player.anims.play('left', true);
+    } else if (this.cursors.right.isDown) {
+      this.player.setVelocityX(230);
 
-      player.anims.play('right', true);
+      this.player.anims.play('right', true);
     } else {
-      player.setVelocityX(0);
+      this.player.setVelocityX(0);
 
-      player.anims.play('turn');
+      this.player.anims.play('turn');
     }
 
-    if (cursors.up.isDown && player.body.touching.down) {
-      player.setVelocityY(-400);
-    } else if (cursors.down.isDown) {
-      player.setVelocityY(400);
+    if (this.cursors.up.isDown && this.player.body.touching.down) {
+      this.player.setVelocityY(-400);
+    } else if (this.cursors.down.isDown) {
+      this.player.setVelocityY(400);
     }
   }
 }

@@ -1,7 +1,7 @@
-//Importing phaser module to use the phaser functions
+//Importing phaser module to use the phaser functions --> this is also done on the all the other files.
 import 'phaser';
 
-//Simple configuration for setup of phaser
+//Simple configuration for setup of phaser 3 --> read more about the different configurations here: https://photonstorm.github.io/phaser3-docs/Phaser.Core.Config.html
 export default {
   type: Phaser.AUTO,
   scale: {

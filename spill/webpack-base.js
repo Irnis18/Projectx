@@ -20,16 +20,17 @@ module.exports = {
         use: 'raw-loader'
       },
       {
-        test: /\.(gif|png|jpe?g|svg|xml)$/i,
+        test: /\.(png|jpe?g|mp3)$/i,
         use: 'file-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
   plugins: [
     new CleanWebpackPlugin(),
-    // {['dist'], {
-    //   root: path.resolve(__dirname, '../')
-    // }
     new webpack.DefinePlugin({
       CANVAS_RENDERER: JSON.stringify(true),
       WEBGL_RENDERER: JSON.stringify(true)

@@ -1,5 +1,6 @@
 import 'phaser';
 
+// This is a grid object that can be used to align items.
 export default class AlignGrid {
   constructor(config) {
     if (!config.scene) {
@@ -17,7 +18,7 @@ export default class AlignGrid {
       config.width = game.config.width;
     }
     if (!config.height) {
-      config.height = game.config.height
+      config.height = game.config.height;
     }
     this.h = config.height;
     this.w = config.width;
@@ -76,6 +77,7 @@ export default class AlignGrid {
       }
     }
   }
+
   getIndexPos(index) {
     var yy = Math.floor(index / this.cols);
     var xx = index - yy * this.cols;

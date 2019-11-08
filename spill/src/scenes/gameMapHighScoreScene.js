@@ -2,63 +2,55 @@ import 'phaser';
 import Button from '../objects/button';
 import AlignGrid from '../objects/alignGrid';
 
-let player;
-let consolls;
-let gumballs;
-let platforms;
-let cursors;
-let scoreText;
-let highScoreText;
+//This is the assets used on this specific map and not reused any other place
+import BackgroundOneImg from '../../assets/img/maps/map1.png';
+import MainPlatformAutumnImg from '../../assets/img/platform/mapOne/mainPlatformAutumn.png';
+import PlatformAutumnOneImg from '../../assets/img/platform/mapOne/platformAutumnOne.png';
+import PlatformAutumnTwoImg from '../../assets/img/platform/mapOne/platformAutumnTwo.png';
+import FortImg from '../../assets/img/platform/mapOne/fort.png';
+import GumballObsticalImg from '../../assets/img/gameItems/gumball.png';
 
 export default class GameMapHighScoreScene extends Phaser.Scene {
   constructor() {
     super('GameMapHighScore');
+    //Creating an overview over all the elements we are going to create, we could use varaibles, but in this case we are just using this.{element}
+    // This is done just to know what elements are custom made. It might have been a better solution to just use variables as phaser uses "this" to add functions ect
+    this.player;
 
-    this.score = 0;
+    this.score;
     this.highScore;
-    this.gameOver = false;
-    this.gameOverText;
+
+    this.consolls;
+    this.gumballs;
+
+    this.platforms;
+    this.cursors;
+
+    this.scoreText;
+    this.highScoreText;
+
     this.retryButton = null;
     this.quitButton = null;
-    this.goal;
-    this.goalSpawn;
   }
 
   preload() {
-    this.load.image('backgroundOne', 'assets/img/maps/map1.png');
-    this.load.image(
-      'mainPlatformAutumn',
-      'assets/img/platform/mapOne/mainPlatformAutumn.png'
-    );
-    this.load.image(
-      'platformAutumnOne',
-      'assets/img/platform/mapOne/platformAutumnOne.png'
-    );
+    //We load different assets that are used on this specific map
+    this.load.image('backgroundOne', BackgroundOneImg);
+    this.load.image('mainPlatformAutumn', MainPlatformAutumnImg);
+    this.load.image('platformAutumnOne', PlatformAutumnOneImg);
+    this.load.image('platformAutumnTwo', PlatformAutumnTwoImg);
+    this.load.image('fort', FortImg);
+    this.load.image('gumball', GumballObsticalImg);
 
-    this.load.image(
-      'platformAutumnTwo',
-      'assets/img/platform/mapOne/platformAutumnTwo.png'
-    );
-    this.load.image('fort', 'assets/img/platform/mapOne/fort.png');
-    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('gumball', 'assets/img/gameItems/gumball.png');
-    this.load.image('goal', 'assets/img/gameItems/goal.png');
-    this.load.image('consoll', 'assets/img/gameItems/consollSmall.png');
-    this.load.image('quitButton', 'assets/img/buttons/quitButton.png');
-    this.load.image(
-      'quitButtonHover',
-      'assets/img/buttons/quitButtonHover.png'
-    );
-    this.load.spritesheet('player', 'assets/img/gameItems/player.png', {
-      frameWidth: 32,
-      frameHeight: 48
-    });
-
+    //In case the score has not been resetted we do it here
     this.score = 0;
+    // we set the highscore either to the localstorage highscore or 0 if there are no previous
     this.highScore = localStorage.getItem('highScore') || 0;
   }
 
+  //This is a function for what is going to happen if player collide with the obsitacl
   hitGumball(player) {
+    //checking if the score is higher than the previos highscore if it is then we store a new highscore in the local storage
     if (this.score > parseInt(this.highScore)) {
       localStorage.setItem('highScore', this.score);
     }
@@ -67,57 +59,55 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
 
     player.setTint(0xff0000);
 
-    player.anims.play('turn');
-
-    this.gameOver = true;
+    this.gameOverText = this.add.text(-1, -1, 'Game Over', {
+      fontSize: '32px',
+      fill: '#000'
+    });
 
     this.retryButton = new Button(
       this,
       'backButton',
       'backButtonHover',
       'Retry',
-      'GameMapOne'
+      'GameMapHighScore'
     );
 
-    this.gameOverText = this.add.text(-1, -1, 'Game Over', {
-      fontSize: '32px',
-      fill: '#000'
-    });
-
-    this.gameMapHighScoreSceneGrid.placeAtIndex(36.8, this.gameOverText);
     this.gameMapHighScoreSceneGrid.placeAtIndex(60, this.retryButton);
+    this.gameMapHighScoreSceneGrid.placeAtIndex(36.8, this.gameOverText);
+
     this.score = 0;
   }
 
+  //Logic for collecting the consoles
   collectConsoll(player, consoll) {
     consoll.disableBody(true, true);
 
+    //checking if the score is higher than the previos highscore if it is then we store a new highscore in the local storage
     if (this.score > parseInt(this.highScore)) {
       localStorage.setItem('highScore', this.score);
     }
 
     //  Add and update the score
     this.score += 10;
-    scoreText.setText('Score: ' + this.score);
+    this.scoreText.setText('Score: ' + this.score);
 
     if (this.score == 500) {
       this.goal.create(100, 70, 'goal');
     }
 
-    if (consolls.countActive(true) === 0) {
+    if (this.consolls.countActive(true) === 0) {
       //  A new batch of consolls to collect
-      if (this.score < 500) {
-        consolls.children.iterate(function(child) {
-          child.enableBody(true, child.x, 0, true, true);
-        });
-      }
+      this.consolls.children.iterate(function(child) {
+        child.enableBody(true, child.x, 0, true, true);
+      });
 
-      var x =
+      //Having the position of the player so the obstical don't spawn right at him
+      let positionX =
         player.x < 400
           ? Phaser.Math.Between(400, 800)
           : Phaser.Math.Between(0, 400);
 
-      var gumball = gumballs.create(x, 16, 'gumball');
+      let gumball = this.gumballs.create(positionX, 16, 'gumball');
       gumball.setBounce(1);
       gumball.setCollideWorldBounds(true);
       gumball.setVelocity(Phaser.Math.Between(-200, 200), 20);
@@ -134,31 +124,67 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
 
     this.add.image(400, 300, 'backgroundOne');
 
-    platforms = this.physics.add.staticGroup();
+    //creating a group of platform that are static
+    this.platforms = this.physics.add.staticGroup();
 
-    platforms
+    this.platforms
       .create(400, 568, 'mainPlatformAutumn')
       .setScale(1)
       .refreshBody();
 
-    platforms.create(200, 205, 'platformAutumnOne');
-    platforms.create(50, 250, 'platformAutumnOne');
-    platforms.create(670, 220, 'platformAutumnTwo');
-    platforms.create(610, 525, 'platformAutumnTwo');
-    platforms.create(630, 500, 'platformAutumnOne');
-    platforms.create(600, 500, 'platformAutumnOne');
-    platforms.create(630, 490, 'platformAutumnOne');
-    platforms.create(330, 310, 'platformAutumnOne');
-    platforms.create(800, 430, 'fort');
+    this.platforms.create(200, 225, 'platformAutumnOne');
+    this.platforms.create(50, 250, 'platformAutumnOne');
+    this.platforms.create(670, 220, 'platformAutumnTwo');
+    this.platforms.create(610, 525, 'platformAutumnTwo');
+    this.platforms.create(630, 500, 'platformAutumnOne');
+    this.platforms.create(600, 500, 'platformAutumnOne');
+    this.platforms.create(630, 490, 'platformAutumnOne');
+    this.platforms.create(400, 380, 'platformAutumnTwo');
+    this.platforms.create(800, 430, 'fort');
 
-    player = this.physics.add.sprite(100, 450, 'player');
+    //Adding the player and adding some feature to him
+    this.player = this.physics.add.sprite(100, 450, 'player');
 
-    player.setBounce(0.5);
-    player.setCollideWorldBounds(true);
+    this.player.setBounce(0.2);
+    this.player.setCollideWorldBounds(true);
 
-    player.setBounce(0.2);
-    player.setCollideWorldBounds(true);
+    //Adding the consolls
+    this.consolls = this.physics.add.group({
+      key: 'consoll',
+      repeat: 9,
+      setXY: { x: 12, y: 0, stepX: 86 }
+    });
 
+    this.consolls.children.iterate(function(child) {
+      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    });
+
+    //adding obsiticals and the goal, but not showing them
+    this.gumballs = this.physics.add.group();
+    this.goal = this.physics.add.staticGroup();
+
+    //Adding the score text
+    this.scoreText = this.add.text(10, 0, 'score: 0', {
+      fontSize: '24px',
+      fill: '#000'
+    });
+
+    this.highScoreText = this.add.text(10, 25, `High Score ${this.highScore}`, {
+      fontSize: '14px',
+      fill: '#000'
+    });
+
+    //Adding a button wich quits the game
+    this.quitButton = new Button(
+      this,
+      'quitButton',
+      'quitButtonHover',
+      'Quit',
+      'Title'
+    );
+    this.gameMapHighScoreSceneGrid.placeAtIndex(10, this.quitButton);
+
+    //Adding animations when moving the user
     this.anims.create({
       key: 'left',
       frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
@@ -179,68 +205,49 @@ export default class GameMapHighScoreScene extends Phaser.Scene {
       repeat: -1
     });
 
-    cursors = this.input.keyboard.createCursorKeys();
+    //adding the keyboard cursors
+    this.cursors = this.input.keyboard.createCursorKeys();
 
-    consolls = this.physics.add.group({
-      key: 'consoll',
-      repeat: 9,
-      setXY: { x: 12, y: 0, stepX: 86 }
-    });
-
-    consolls.children.iterate(function(child) {
-      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    });
-
-    gumballs = this.physics.add.group();
-    this.goal = this.physics.add.staticGroup();
-
-    scoreText = this.add.text(10, 0, 'score: 0', {
-      fontSize: '24px',
-      fill: '#000'
-    });
-
-    highScoreText = this.add.text(10, 25, `High Score ${this.highScore}`, {
-      fontSize: '14px',
-      fill: '#000'
-    });
-
-    this.quitButton = new Button(
-      this,
-      'quitButton',
-      'quitButtonHover',
-      'Quit',
-      'Title'
+    //adding the logic for coliding between items and wich items are going to overlap each other
+    this.physics.add.collider(this.player, this.platforms);
+    this.physics.add.collider(this.consolls, this.platforms);
+    this.physics.add.collider(this.gumballs, this.platforms);
+    this.physics.add.collider(
+      this.player,
+      this.gumballs,
+      this.hitGumball,
+      null,
+      this
     );
-
-    this.gameMapHighScoreSceneGrid.placeAtIndex(10, this.quitButton);
-
-    this.physics.add.collider(player, platforms);
-    this.physics.add.collider(consolls, platforms);
-    this.physics.add.collider(gumballs, platforms);
-    this.physics.add.overlap(player, consolls, this.collectConsoll, null, this);
-    this.physics.add.collider(player, gumballs, this.hitGumball, null, this);
-    this.physics.add.overlap(player, this.goal, this.goalReached, null, this);
+    this.physics.add.overlap(
+      this.player,
+      this.consolls,
+      this.collectConsoll,
+      null,
+      this
+    );
   }
 
   update() {
-    if (cursors.left.isDown) {
-      player.setVelocityX(-160);
+    //logic for the keyboard cursors
+    if (this.cursors.left.isDown) {
+      this.player.setVelocityX(-160);
 
-      player.anims.play('left', true);
-    } else if (cursors.right.isDown) {
-      player.setVelocityX(160);
+      this.player.anims.play('left', true);
+    } else if (this.cursors.right.isDown) {
+      this.player.setVelocityX(160);
 
-      player.anims.play('right', true);
+      this.player.anims.play('right', true);
     } else {
-      player.setVelocityX(0);
+      this.player.setVelocityX(0);
 
-      player.anims.play('turn');
+      this.player.anims.play('turn');
     }
 
-    if (cursors.up.isDown && player.body.touching.down) {
-      player.setVelocityY(-330);
-    } else if (cursors.down.isDown) {
-      player.setVelocityY(200);
+    if (this.cursors.up.isDown && this.player.body.touching.down) {
+      this.player.setVelocityY(-330);
+    } else if (this.cursors.down.isDown) {
+      this.player.setVelocityY(200);
     }
   }
 }

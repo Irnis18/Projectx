@@ -1,12 +1,18 @@
 import 'phaser';
 
+//We load allt the assets that are going to be used in the menu.
+import MenuButtonImg from '../../assets/img/buttons/menuButton.png';
+import MenuButtonHoverImg from '../../assets/img/buttons/menuButtonHover.png';
+import BackButtonImg from '../../assets/img/buttons/backButton.png';
+import BackButtonHoverImg from '../../assets/img/buttons/backButtonHover.png';
+import BoxNotCheckedImg from '../../assets/img/buttons/boxNotChecked.png';
+import BoxCheckedImg from '../../assets/img/buttons/boxChecked.png';
+import MenuBackgroundImg from '../../assets/img/loading/menuBackground.png';
+import BgMusic from '../../assets/music/backgroundMusic.mp3';
+
 export default class PreloaderScene extends Phaser.Scene {
   constructor() {
     super('Preloader');
-  }
-
-  init() {
-    this.readyCount = 0;
   }
 
   preload() {
@@ -21,6 +27,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
+
     var loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
@@ -83,27 +90,17 @@ export default class PreloaderScene extends Phaser.Scene {
     this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
 
     // load assets needed in our game
-    this.load.image('menuButton', 'assets/img/buttons/menuButton.png');
-    this.load.image(
-      'menuButtonHover',
-      'assets/img/buttons/menuButtonHover.png'
-    );
-    this.load.image('backButton', 'assets/img/buttons/backButton.png');
-    this.load.image(
-      'backButtonHover',
-      'assets/img/buttons/backButtonHover.png'
-    );
-    this.load.image('box', 'assets/img/buttons/boxNotChecked.png');
-    this.load.image('checkedBox', 'assets/img/buttons/boxChecked.png');
-    this.load.audio('bgMusic', 'assets/music/backgroundMusic.mp3');
-    this.load.image('menuBackground', 'assets/img/loading/menuBackground.png');
+    this.load.image('menuButton', MenuButtonImg);
+    this.load.image('menuButtonHover', MenuButtonHoverImg);
+    this.load.image('backButton', BackButtonImg);
+    this.load.image('backButtonHover', BackButtonHoverImg);
+    this.load.image('box', BoxNotCheckedImg);
+    this.load.image('checkedBox', BoxCheckedImg);
+    this.load.image('menuBackground', MenuBackgroundImg);
+    this.load.audio('bgMusic', BgMusic);
   }
 
   ready() {
     this.scene.start('Title');
-    this.readyCount++;
-    if (this.readyCount === 2) {
-      this.scene.start('Title');
-    }
   }
 }
