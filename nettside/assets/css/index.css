@@ -35,6 +35,7 @@ a:active {
 
 .custom-dropdown-css {
   left: -46px !important;
+  margin-left: -10px;
 }
 
 .custom-dropdown-css a {
