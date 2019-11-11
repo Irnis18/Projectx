@@ -26,7 +26,7 @@ $(document).ready(function() {
     } else if (navigator.userAgent.indexOf("Firefox") != -1) {
       if (/Macintosh/.test(navigator.userAgent)) {
         $("#txtUt").text(
-          "Du har Firefox, versjon " + navigator.userAgent.slice(79, 81)
+          "Du har Firefox, versjon " + navigator.userAgent.slice(78, 80)
         );
         console.log(navigator.userAgent);
       } else if (/Windows/.test(navigator.userAgent)) {
