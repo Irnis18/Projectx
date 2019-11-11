@@ -10,8 +10,8 @@ export default {
     width: 800,
     height: 600,
     min: {
-      widt: 300,
-      height: 400
+      widt: 270,
+      height: 370
     },
     max: {
       width: 800,

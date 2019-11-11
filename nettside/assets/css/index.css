@@ -9,7 +9,7 @@ body {
 }
 
 p {
-  font-size: 18px;
+  font-size: 15px;
   line-height: 2;
 }
 
@@ -34,8 +34,8 @@ a:active {
 }
 
 .custom-dropdown-css {
-  left: -46px !important;
-  margin-left: -10px;
+  left: -57px !important;
+
 }
 
 .custom-dropdown-css a {
@@ -107,9 +107,7 @@ a:active {
 }
 
 .main-game-page {
-  position: absolute;
-  height: 85%;
-  width: 100%;
+  margin-top: 13vh;
 }
 
 .button-rules-style {
@@ -117,11 +115,11 @@ a:active {
 }
 
 .tittel-div {
-  margin-bottom: 3%;
+  margin-bottom: 20px;
 }
 
 .text-div {
-  margin-bottom: 5%;
+  margin-bottom: 30px;
 }
 
 .button-rules-style a {
