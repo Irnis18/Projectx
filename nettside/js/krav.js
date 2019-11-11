@@ -24,14 +24,25 @@ $(document).ready(function() {
         "Du har Opera, versjon " + navigator.userAgent.slice(119, 120)
       );
     } else if (navigator.userAgent.indexOf("Firefox") != -1) {
-      console.log("User has Firefox installed.");
-      $("#txtUt").text(
-        "Du har Firefox, versjon " + navigator.userAgent.slice(74, 76)
-      );
+      if (/Macintosh/.test(navigator.userAgent)) {
+        $("#txtUt").text(
+          "Du har Firefox, versjon " + navigator.userAgent.slice(79, 81)
+        );
+        console.log(navigator.userAgent);
+      } else if (/Windows/.test(navigator.userAgent)) {
+        console.log("User has Firefox installed.");
+        $("#txtUt").text(
+          "Du har Firefox, versjon " + navigator.userAgent.slice(74, 76)
+        );
+      }
     } else if (navigator.userAgent.indexOf("Chrome") != -1) {
       if (/Macintosh/.test(navigator.userAgent)) {
-      } else {
-        console.log("User has Chrome installed.");
+        $("#txtUt").text(
+          "Du har Google Chrome, versjon " + navigator.userAgent.slice(94, 96)
+        );
+        console.log(navigator.userAgent);
+      } else if (/Windows/.test(navigator.userAgent)) {
+        console.log("User has Chrome Mac installed.");
         console.log(navigator.userAgent);
         $("#txtUt").text(
           "Du har Google Chrome, versjon " + navigator.userAgent.slice(88, 90)
