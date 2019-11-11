@@ -31,6 +31,7 @@ $(document).ready(function() {
         console.log(navigator.userAgent);
       } else if (/Windows/.test(navigator.userAgent)) {
         console.log("User has Firefox installed.");
+        console.log(navigator.userAgent);
         $("#txtUt").text(
           "Du har Firefox, versjon " + navigator.userAgent.slice(74, 76)
         );
