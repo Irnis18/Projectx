@@ -1,58 +1,53 @@
 # Velkommen til Retro
 
-Prosjektet er delt i to "del" prosjekt.
+## Informasjon om prosjektet
 
-DU må ha nodejs installert på pc'n din. Dette har blitt gjort i leksjon 9 i grunnleggende programmering. Dersom en ikke har fått installert Node.js og pakkebehndleren npm. Så er det anbefalt å lese gjennom leksjon 9 i grunnleggende programmering der en får viktig informasjon om pakkebehandlere og Node.js. [LES LEKSJON 9 HER FØR DU FORTSETTER](https://ntnu.blackboard.com/webapps/blackboard/execute/content/blankPage?cmd=view&content_id=_808534_1&course_id=_19845_1)
-_eventuelt:
-For å starte spillet og nettsiden er en nødt til å ha installert Nodejs og NPM, [Nodejs](https://nodejs.org/en/download/),
-WINDOWS: [Her](https://blog.teamtreehouse.com/install-node-js-npm-windows) er en toturial for hvordan du kan laste ned node og npm.
-MAC: [Her](https://treehouse.github.io/installation-guides/mac/node-mac.html) er en toturial for hvordan du kan laste ned node og npm._
+Prosjektet ble delt i to delprosjekt der utgangspunktet var at utviklingen av spillet og nettsiden ikke skulle være avhengig av hverandre. Denne beslutningen ble basert på at nettsiden og spillet ville kunne brukes, selv om de ble separert. Dermed bestemte vi oss for å dele prosjektet i to der de har forskjellige konfigurasjoner. Etter at vi hadde ferdigutviklet spillet og nettsiden integrerte vi en produksjonsklar versjon av spillet inn i nettsiden, noe som vil bli forklart i detalj under. Dette valget førte til at vi hadde en ryddigere kildekode og et mer oversiktlig prosjekt. Både spillet og nettsiden er i dette prosjektet. For å videreutvikle på nettsiden så er det inn på mappen _nettside_ og for å videreutvikle på spillet så er det inn på mappen _spill_ .
+
+## Før du starter - Node.js og NPM
+
+Du må ha Node.js og NPM installert på PC-en din. Node.js blir blant annet brukt når vi vil kjøre JavaScript kode i en server. NPM er en pakkebehandler, denne gjør det enklere å installere programvarebiblioteker som vi kan benytte oss av når vi programmer. NPM (Node Package Manager) bruker vi både på nettsiden og spillet.
+
+Utviklingen av nettsiden og spillet er satt opp til å kjøre lokalt på en server. Nettsiden bruker live-server og spillet bruker webpack-dev-server. Disse er blitt lastet ned ved å nytte NPM. 
+
+### Installasjon av Node.js fra leksjon 9 i Grunnleggende programmering NTNU DIFTCST1003
+
+    _Windows_
+    Last ned og installer anbefalt versjon av Node.js fra https://nodejs.org/en/.
+    I denne leksjonen benytter vi også versjonskontrollsystemet git for å laste ned eksempler. Windows brukere kan laste ned git her: https://git-scm.com/download/win.
+    Dere har nå tilgang til en terminal git Bash. Åpne denne.
+    (Eidheim, 2019)
+    _MacOS_
+    Oppdater først operativsystemet ditt.
+    Installer deretter MacOS pakkebehandleren Homebrew. Kopier og lim inn i en terminal (applikasjonen Terminal):
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    Installer til slutt Node.js fra terminalen:
+    brew install node. (Eidheim, 2019)
+
+
+## Kjøring a Nettside og spill lokalt.
 
 **1. Nettside**
+For å kjøre nettsiden lokalt må en gjøre følgende etter at en har enten clonet ned prosjektet eller lastet det ned:
 
-- under mappen nettsider finner du alle sidene som bygger på informasjons sidene. utenfor mappene er det en index.html fil, dette er startsiden for nettsiden med alle informasjons sidene og link til spill siden. For å starte opp prosjektet lokalt(_lokalt vil si på din pc_) må en komme seg til mappen `projectx` i terminalen dette gjør en ved å opne terminalen eller bash og gjøre følgende kommando:
-  `cd projectx` --> OBS! når du opner terminal vinduet så må du komme deg til mappen der du har lagt prosjektet ditt. La oss ta for oss et scenario: du har projectx mappen i webteknikker mappen din som ligger i dokument mappen din for å komme til denne mappen må du gjøre følgende: `cd dokument/webteknikker/projectx`, Det er viktig at du gjør dette basert på kor på pcn du har lagra projectx mappen.
+1.`cd Projectx`
+2 `cd nettside`
+3. `npm install`
+4. `npm start`
 
-når du er inn på mappen `Irniss-MacBook-Pro:projectx irnis$` så må du gjøre følgende i terminalen/bash:
-1 'cd nettside'
-
-2. `npm install`
-3. `npm start`
-
-Dette vil da opne opp nettsiden i en nettleser og du kan gjøre endringer i koden i mappen nettside og oppdatering av nettsida vil skje automatisk. --> Dersom det er spørsmål så er det bare å stille.
 
 **2. Spill**
+For å kjøre spillet lokalt må en gjøre følgende etter at en har enten clonet net prosjektet ellter lastet det ned:
 
-- Under mappen spill finner du alt som har med selve spillet å gjøre. Siden prosjektet er to delt så vil nettsiden og spillet være separert, dette vil dermed medføre at vi må "sy" sammen spillet helt til slutt slik at det henger sammen med nettsiden. For å få tilgang til spillet må en gjøre følgende når er er i `projectx` mappen i terminalen, dette står mer detaljert ovenfor om hvordan du skal gjøre dette. Så når en er i mappen projectx(_Irniss-MacBook-Pro:projectx irnis\$_) må en gjøre følgende:
-  1. `cd spill`
-  2. `npm install`
-  3. `npm start`
+1.`cd Projectx`
+2 `cd spill`
+3. `npm install`
+4. `npm start`
 
-dette vil dermed opne en nettleser der spillet vil kjøre. Gjør dere litt mer kjent med koden også er det bare å stille spørsmål til ting og eventuelt google dersom det er noe som dere prøver å gjøre men ikke får til. Helst spørr dersom det er noe angående koden som allerede er der: Det som kan ignorerest er følgende filer:
+## Produksjons versjon a spillet integrert i nettsiden
+for at nettsiden skal ha en integrert versjon av spillet er en nødt til å produsere en produksjonsklar versjon av spillet som en overfører inn på nettsiden. Dette gjør en ved noen kommandoer som lager en mappe som heter _dist_ som en da kan bare overføre inn i mappen nettside. og dermed laste opp nettside mappen som vil da ha en integrert versjon av spillet. for å skape denne mappen gjør følgende
 
-![bilde av filer](/nettside/assets/img/ignorer.png) (_dette er bare litt konfigurasjon for spillet_)
-
-Etter at en har sett litt mer på koden kan det være mulig å teste ut litt på gameScene.js: dette er under mappen `/spill/src/scenes/gameScene.js` --> dersom det er spørsmål angående dette er det bare å ta kontakt --> her er all logikken for sjølve spillet.
-
-# Start serveren - ekstra info om node og npm, kort versjon (_ikke nødvendig å lese dersom en forstår det ovenfor_)
-
-For å starte serveren/prosjektet må en bruke terminalen/bash for å komme seg til riktig mappe. så den mappen en vil være i er altså `projectx`
-**Projectx**
-
-Eksempel:
-
-![Bilde av terminalen/consollen på mac der vi ser at vi er i riktig mappe](/nettside/assets/img/terminal.png)
-
-**Inn på terminalen/bash gjør følgende for å få opp 1.nettsiden eller 2. spillet **
-
-1. Nettsiden _inn på mappen projectx_
-
-- npm install
-- npm start
-
-2. Spillet _inn på mappen spill inn på projectx_
-
-- npm install
-- npm start
-
-Nå skal det poppe opp eit vindu der du ser nettsiden
+1.`cd Projectx`
+2 `cd spill`
+3. `npm install`
+4. `npm run-script build`
