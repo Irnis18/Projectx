@@ -17,6 +17,8 @@ Utviklingen av nettsiden og spillet er satt opp til å kjøre lokalt på en serv
     I denne leksjonen benytter vi også versjonskontrollsystemet git for å laste ned eksempler. Windows brukere kan laste ned git her: https://git-scm.com/download/win.
     Dere har nå tilgang til en terminal git Bash. Åpne denne.
     (Eidheim, 2019)
+    
+    
     _MacOS_
     Oppdater først operativsystemet ditt.
     Installer deretter MacOS pakkebehandleren Homebrew. Kopier og lim inn i en terminal (applikasjonen Terminal):
