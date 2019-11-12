@@ -30,24 +30,24 @@ Utviklingen av nettsiden og spillet er satt opp til å kjøre lokalt på en serv
 **1. Nettside**
 For å kjøre nettsiden lokalt må en gjøre følgende etter at en har enten clonet ned prosjektet eller lastet det ned:
 
-1.`cd Projectx`
-2 `cd nettside`
-3. `npm install`
-4. `npm start`
+    1.`cd Projectx`
+    2 `cd nettside`
+    3. `npm install`
+    4. `npm start`
 
 
 **2. Spill**
 For å kjøre spillet lokalt må en gjøre følgende etter at en har enten clonet net prosjektet ellter lastet det ned:
 
-1.`cd Projectx`
-2 `cd spill`
-3. `npm install`
-4. `npm start`
+    1.`cd Projectx`
+    2 `cd spill`
+    3. `npm install`
+    4. `npm start`
 
 ## Produksjons versjon a spillet integrert i nettsiden
 for at nettsiden skal ha en integrert versjon av spillet er en nødt til å produsere en produksjonsklar versjon av spillet som en overfører inn på nettsiden. Dette gjør en ved noen kommandoer som lager en mappe som heter _dist_ som en da kan bare overføre inn i mappen nettside. og dermed laste opp nettside mappen som vil da ha en integrert versjon av spillet. for å skape denne mappen gjør følgende
 
-1.`cd Projectx`
-2 `cd spill`
-3. `npm install`
-4. `npm run-script build`
+    1.`cd Projectx`
+    2 `cd spill`
+    3. `npm install`
+    4. `npm run-script build`
